@@ -249,8 +249,9 @@ def annotate(example: dict, model: str, cache: Path, client) -> dict:
     if choice.finish_reason != "stop" or choice.message.refusal or not choice.message.content:
         raise ValueError("Annotation refused, empty or truncated; no valid artifact cached")
     annotation = validate_annotation(json.loads(choice.message.content), example)
+    purpose = "training_supervision_only" if example["input"]["split"] == "train" else "explanation_eval_only_never_train_input"
     result = {"sample_id": example["input"]["sample_id"], "dataset_version": example["input"]["dataset_version"],
-        "purpose": "training_supervision_only", "request_sha256": key, "model": response.model,
+        "purpose": purpose, "request_sha256": key, "model": response.model,
         "request_id": response.id, "usage": response.usage.model_dump() if response.usage else {},
         "annotation": annotation.model_dump()}
     temporary = path.with_suffix(".tmp")
@@ -266,6 +267,8 @@ def main():
     parser.add_argument("dataset", type=Path)
     parser.add_argument("--limit", type=int, default=3)
     parser.add_argument("--all", action="store_true", help="Annotate every training example, subject to budget")
+    parser.add_argument("--split", choices=("train", "validation", "test"), default="train",
+        help="Validation/test annotations are explanation-eval-only supervision, never training input")
     parser.add_argument("--output", type=Path, default=Path("artifacts/annotations-pilot.jsonl"))
     parser.add_argument("--cache", type=Path, default=Path("artifacts/annotation-cache"))
     parser.add_argument("--workers", type=int, default=1)
@@ -290,7 +293,9 @@ def main():
     model = os.getenv("OPENAI_ANNOTATION_MODEL", "gpt-5.6-terra")
     if not os.getenv("OPENAI_API_KEY"):
         parser.error("OPENAI_API_KEY is missing; configure .env")
-    examples = load_examples(args.dataset, "train")
+    if args.all and args.split != "train":
+        parser.error("--all is only supported for --split train (full training supervision)")
+    examples = load_examples(args.dataset, args.split)
     # Deterministic diverse ordering instead of taking adjacent overlapping windows.
     examples.sort(key=lambda e: e["input"]["sample_id"])
     if not 1 <= args.workers <= 16:

@@ -12,6 +12,9 @@ results and remaining work. No OpenTSLM improvement has been measured yet.
 
 ## Current dataset
 
+Prepared data mirrored on Hugging Face:
+[Alaeddinnn/OpenRelief](https://huggingface.co/datasets/Alaeddinnn/OpenRelief).
+
 | Partition | Rule | Examples |
 |---|---|---:|
 | Training | Target plus assumed release lag available by December 2022 | 9,065 |
