@@ -1,0 +1,10 @@
+yaml_schema_version: 1
+dataset_id: openrelief/portwatch
+dataset_version: 0.1.0
+name: IMF PortWatch monthly country activity
+description: Country-level monthly source adapter with raw provenance and explicit assumed availability lags.
+license: other
+license_url: https://www.imf.org/external/terms.htm
+source_url: https://portwatch.imf.org
+domains: [economics, environment]
+tags: [food-security, monthly, country]

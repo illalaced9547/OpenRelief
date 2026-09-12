@@ -1,0 +1,10 @@
+yaml_schema_version: 1
+dataset_id: openrelief/acled
+dataset_version: 0.1.0
+name: ACLED HDX monthly political violence
+description: Country-level monthly source adapter with raw provenance and explicit assumed availability lags.
+license: other
+license_url: https://acleddata.com/terms-of-use
+source_url: https://data.humdata.org
+domains: [economics, environment]
+tags: [food-security, monthly, country]

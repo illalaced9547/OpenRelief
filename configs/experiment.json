@@ -1,0 +1,19 @@
+{
+  "target": "ipc_phase_fews",
+  "window_months": 6,
+  "horizon_months": 3,
+  "hfid_release_lag_months": 1,
+  "availability_policy": "retrospective_assumed_lag",
+  "train_end": "2022-12",
+  "validation_start": "2023-01",
+  "validation_end": "2023-07",
+  "test_start": "2023-08",
+  "test_end": "2023-12",
+  "baseline_phase_max_age_months": 6,
+  "features": [
+    "fcs_rt mean",
+    "rcsi_rt mean"
+  ],
+  "seed": 42,
+  "calendar_encoding": "month_of_year"
+}

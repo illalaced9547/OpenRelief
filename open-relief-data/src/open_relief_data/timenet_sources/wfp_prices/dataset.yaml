@@ -1,0 +1,10 @@
+yaml_schema_version: 1
+dataset_id: openrelief/wfp-prices
+dataset_version: 0.1.0
+name: WFP monthly country food prices
+description: Country-level monthly source adapter with raw provenance and explicit assumed availability lags.
+license: other
+license_url: https://data.humdata.org/dataset/wfp-food-prices-for-yemen
+source_url: https://data.humdata.org
+domains: [economics, environment]
+tags: [food-security, monthly, country]

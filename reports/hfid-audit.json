@@ -1,0 +1,134 @@
+{
+  "administrative_units": 6214,
+  "columns": [
+    "year_month",
+    "ADMIN0",
+    "ADMIN1",
+    "ADMIN2",
+    "ipc_phase_fews",
+    "ha_fews",
+    "ipc_phase_ipcch",
+    "ha_ipcch",
+    "set_ipcch",
+    "rfg_ipcch",
+    "fcs_lit",
+    "rcsi_lit",
+    "fcs_rt mean",
+    "fcs_rt max",
+    "fcs_rt min",
+    "rcsi_rt mean",
+    "rcsi_rt max",
+    "rcsi_rt min",
+    "iso2",
+    "region",
+    "iso3"
+  ],
+  "countries": 80,
+  "date_range": [
+    "2007-06",
+    "2024-05"
+  ],
+  "duplicate_district_months": 0,
+  "fews_publication_gap_months": {
+    "2": 1856,
+    "3": 54352,
+    "4": 72629,
+    "6": 2258,
+    "8": 1629,
+    "9": 430,
+    "12": 778,
+    "15": 1,
+    "20": 328,
+    "34": 2,
+    "44": 86,
+    "48": 4,
+    "72": 22
+  },
+  "limitations": [
+    "Release timestamps and historical data vintages are absent.",
+    "Before April 2011 FEWS classifications are not the same IPC scale.",
+    "IPCCH phase 6 is unresolved and must not be mapped to IPC phase 5.",
+    "FCS/rCSI normalization and dataset redistribution license need provenance."
+  ],
+  "nonnull_counts": {
+    "ADMIN0": 311838,
+    "ADMIN1": 311838,
+    "ADMIN2": 307697,
+    "fcs_lit": 19078,
+    "fcs_rt max": 122112,
+    "fcs_rt mean": 122112,
+    "fcs_rt min": 122112,
+    "ha_fews": 137487,
+    "ha_ipcch": 97478,
+    "ipc_phase_fews": 138334,
+    "ipc_phase_ipcch": 97478,
+    "iso2": 311838,
+    "iso3": 311838,
+    "rcsi_lit": 15961,
+    "rcsi_rt max": 122112,
+    "rcsi_rt mean": 122112,
+    "rcsi_rt min": 122112,
+    "region": 311838,
+    "rfg_ipcch": 97478,
+    "set_ipcch": 97478,
+    "year_month": 311838
+  },
+  "phase_counts": {
+    "ipc_phase_fews": {
+      "1.0": 84790,
+      "2.0": 32834,
+      "3.0": 18932,
+      "4.0": 1751,
+      "5.0": 27,
+      "missing": 173504
+    },
+    "ipc_phase_ipcch": {
+      "1.0": 15955,
+      "2.0": 43154,
+      "3.0": 35230,
+      "4.0": 3137,
+      "6.0": 2,
+      "missing": 214360
+    }
+  },
+  "rows": 311838,
+  "sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+  "source_file": "hfid_hv1.csv",
+  "window_audit": {
+    "by_country": {
+      "Burkina Faso": 315,
+      "Cameroon": 232,
+      "Democratic Republic of the Congo": 860,
+      "Ethiopia": 207,
+      "Guatemala": 1760,
+      "Haiti": 164,
+      "Kenya": 1800,
+      "Madagascar": 132,
+      "Malawi": 1486,
+      "Mali": 300,
+      "Mozambique": 516,
+      "Niger": 252,
+      "Nigeria": 2527,
+      "Somalia": 518,
+      "Yemen": 3984,
+      "Zimbabwe": 540
+    },
+    "by_cutoff_year": {
+      "2019": 332,
+      "2020": 996,
+      "2021": 1356,
+      "2022": 5814,
+      "2023": 7095
+    },
+    "horizon_months": 3,
+    "labels": {
+      "1": 4526,
+      "2": 4965,
+      "3": 5770,
+      "4": 332
+    },
+    "purpose": "Handoff replication only; no release-lag assumptions or training split applied.",
+    "samples": 15593,
+    "window_months": 12
+  }
+}

@@ -1,0 +1,10 @@
+yaml_schema_version: 1
+dataset_id: openrelief/chirps
+dataset_version: 0.1.0
+name: CHIRPS monthly country rainfall
+description: Country-level monthly source adapter with raw provenance and explicit assumed availability lags.
+license: other
+license_url: https://www.chc.ucsb.edu/data/chirps
+source_url: https://www.chc.ucsb.edu/data/chirps
+domains: [economics, environment]
+tags: [food-security, monthly, country]

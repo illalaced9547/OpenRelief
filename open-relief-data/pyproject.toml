@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-relief-data"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["certifi>=2024.0"]
+
+[project.optional-dependencies]
+timenet = ["timenet[build] @ git+https://github.com/OpenTSLM/TimeNet.git@c39ca32b64ad0c89ea54093dbcb285c1a93eb006#subdirectory=packages/timenet"]
+multimodal = ["openpyxl>=3.1", "numpy>=2", "rasterio>=1.4", "shapely>=2"]
+
+[project.scripts]
+open-relief-data = "open_relief_data.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+open_relief_data = ["timenet_sources/*/dataset.yaml", "timenet_sources/*/requirements.txt"]
