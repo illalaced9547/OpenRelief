@@ -10,6 +10,18 @@ tested with a small live pilot; **full annotation runs later on this machine**, 
 by fine-tuning on a separate CUDA machine. See [current status](docs/STATUS.md) for measured
 results and remaining work. No OpenTSLM improvement has been measured yet.
 
+## Web frontend
+
+The React/Vite application lives in [`frontend/`](frontend/README.md), independently of the Python research pipeline. It is live at https://openrelief.vercel.app and currently displays **demo predictions**, not trained-model outputs.
+
+```sh
+cd frontend
+npm ci
+npm run dev
+```
+
+See the [frontend README](frontend/README.md) for build commands, Vercel configuration and the model integration handoff. For Git-connected Vercel deployments, set Root Directory to `frontend`. Python training remains a separate workflow.
+
 ## Current dataset
 
 Prepared data mirrored on Hugging Face:
