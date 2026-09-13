@@ -1,0 +1,10 @@
+import snapshot from './live-predictions.json';
+export const PHASE_LABEL = {1:'Minimal',2:'Stressed',3:'Crisis',4:'Emergency',5:'Famine'};
+export const PHASE_COLOR = {1:'#b8c1c5',2:'#e8d985',3:'#efb775',4:'#ee8277',5:'#d95565'};
+const codes={BFA:'854',CMR:'120',COD:'180',GTM:'320',HTI:'332',KEN:'404',MDG:'450',MLI:'466',MOZ:'508',MWI:'454',NER:'562',NGA:'566',SOM:'706',ZWE:'716'};
+export const validPhase = phase => Number.isInteger(phase) && phase >= 1 && phase <= 5;
+export const phaseColor = phase => PHASE_COLOR[phase] || '#777777';
+export const modelCountries = Object.fromEntries(Object.entries(snapshot.predictions).filter(([iso3])=>codes[iso3]).map(([iso3,p])=>[codes[iso3],{...p,iso3,id:codes[iso3],name:p.country,phase:p.valid_output&&validPhase(p.predicted_phase)?p.predicted_phase:null}]));
+export const modelEntries = Object.values(modelCountries);
+export const snapshotMeta = {generatedAt:snapshot.generated_at,checkpoint:snapshot.checkpoint,sha256:snapshot.checkpoint_sha256,datasetVersion:snapshot.dataset_version};
+export const formatDate = value => value ? value.slice(0,10) : 'Not available';
