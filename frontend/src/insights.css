@@ -3,27 +3,3 @@
 @media(max-width:850px){.horizon-control button span{display:none}.horizon-control button{padding:9px 11px}.risk-trigger{gap:6px}.insight-grid{grid-template-columns:1fr}.model-insights{padding-top:25px}.insight-intro h1{font-size:30px}}
 @media(max-width:700px){.forecast-controls{gap:6px}.horizon-control{border-radius:9px}.horizon-control button{padding:8px 10px}.horizon-control button span{display:inline}.risk-trigger{height:42px;border-radius:9px}.risk-menu{top:49px}.map-toolbar{left:12px;right:12px;justify-content:flex-end}.map-top{top:70px}.map-area{bottom:280px}.explanation-panel{left:12px;right:12px;width:auto;top:auto;bottom:85px;max-height:260px;height:260px;display:flex;padding:12px 15px}.explanation-panel .panel-eyebrow{display:none}.explanation-panel .country-heading{margin:0;flex-shrink:0}.explanation-panel .country-heading h3{font-size:22px}.explanation-panel .region{font-size:11px;margin:3px 0 9px}.detail-tabs{position:absolute;top:12px;right:12px;width:185px;margin:0;padding:3px}.detail-tabs button{font-size:10px;padding:7px 3px}.detail-content{padding-right:2px}.detail-content .probability{justify-content:flex-start;gap:20px}.detail-content .probability>span:first-child{font-size:43px}.detail-content .probability-label{font-size:11px;margin:4px 0 10px}.confidence-card{padding:9px 12px}.confidence-card>div:first-child{font-size:11px}.confidence-card strong{font-size:17px}.confidence-card p{font-size:9px}.confidence-bar{margin:7px 0}.price-card{padding:13px 0}.price-card strong{font-size:23px}.detail-content>p{font-size:12px;line-height:1.7;margin-bottom:16px}.detail-content h4{font-size:17px}.chat-launcher{left:12px;right:12px;width:auto;bottom:33px;height:42px}.map-bottom{left:12px;right:12px;bottom:76px}.map-footer{font-size:8px}.model-chat{left:12px;right:12px;width:auto;bottom:85px;height:calc(100dvh - 197px)}.chat-context{font-size:11px}.chat-heading{padding:13px 16px}.chat-heading strong{font-size:13px}.chat-messages{padding:15px}.chat-disclaimer{font-size:8px}.model-insights{padding:23px 18px 105px}.insight-grid{margin-top:23px}.insight-intro h1{font-size:27px}.insight-intro p{font-size:13px}.provenance-banner{padding:18px}.provenance-banner h3{font-size:16px}.provenance-banner p{font-size:12px}}
 @media(max-height:650px) and (max-width:700px){.explanation-panel{height:185px}.map-area{bottom:210px}.map-bottom{bottom:76px}.model-chat{height:calc(100dvh - 180px)}.detail-tabs{width:175px}.explanation-panel .country-heading h3{font-size:19px}}
-
-/* Keep the mobile map and its explanation in separate, usable regions. */
-@media(max-width:700px){
- .dark-dashboard:has(.map-stage){height:100dvh;overflow:hidden}
- .dark-dashboard:has(.map-stage) header{flex-shrink:0}
- .dark-dashboard .map-main{height:calc(100dvh - 72px);padding:0;max-width:none}
- .dark-dashboard .map-main .workspace{height:100%;margin:0}
- .map-stage{height:100%;display:flex;flex-direction:column}
- .map-body{flex:1;min-height:0;display:block;position:relative}
- .map-area{position:absolute;inset:0;bottom:auto;min-height:0}
- .map-top{top:12px;left:12px;right:12px;align-items:flex-start;gap:8px;flex-wrap:wrap}
- .map-top .forecast-controls{margin-left:auto}
- .world-map{min-height:0;height:100%;padding-top:30px}
- .map-bottom{position:absolute;left:12px;right:12px;bottom:12px;margin:0;z-index:3}
- .legend{max-width:calc(100% - 47px);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
- .legend::-webkit-scrollbar{display:none}
- .country-panel{position:absolute;left:12px;right:12px;bottom:12px;width:auto;height:min(70dvh,520px);max-height:calc(100dvh - 125px);z-index:20;border:1px solid #ffffff24;border-radius:18px;background:#171b15f5;box-shadow:0 20px 70px #0009;backdrop-filter:blur(25px);padding:16px 18px;transform:translateY(calc(100% + 24px));opacity:0;visibility:hidden;pointer-events:none;transition:transform .3s cubic-bezier(.22,.7,.25,1),opacity .24s ease,visibility 0s linear .3s}
- .country-panel.mobile-detail-open{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto;transition:transform .3s cubic-bezier(.22,.7,.25,1),opacity .24s ease,visibility 0s linear 0s}
- .country-panel .panel-eyebrow{display:flex}
- .mobile-detail-close{display:flex;align-items:center;justify-content:center;color:#9aa792;padding:5px;margin:-5px -5px -5px auto}
- .country-heading{margin-top:8px}
- .country-panel .detail-content{overflow:auto}
- .map-footer{flex-shrink:0;padding:9px 12px;min-height:39px}
-}
