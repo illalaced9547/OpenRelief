@@ -86,7 +86,7 @@ const ATLAS_HTML = `
       <p>Dataset version <code>8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3</code>.</p>
       <p><a href="${EXAMPLES_JSON}" target="_blank" rel="noopener">Download the exact inputs, targets, annotations and serialized training answers</a>.</p></details>
     </section>
-<footer>Open Relief &middot; Temporal AI Challenge &middot; <a href="${REPO}/DATASET_CARD.md" target="_blank" rel="noopener">Dataset documentation</a> &middot; <a href="${REPO}/docs/examples/annotation-atlas/manifest.json" target="_blank" rel="noopener">Reproducibility manifest</a><p>Country-level context is not district exposure. FCS/rCSI normalization direction is undocumented. Historical release lags are assumed. Recommendations and hypotheses require review.</p></footer>
+<footer>OpenRelief &middot; Temporal AI Challenge &middot; <a href="${REPO}/DATASET_CARD.md" target="_blank" rel="noopener">Dataset documentation</a> &middot; <a href="${REPO}/docs/examples/annotation-atlas/manifest.json" target="_blank" rel="noopener">Reproducibility manifest</a><p>Country-level context is not district exposure. FCS/rCSI normalization direction is undocumented. Historical release lags are assumed. Recommendations and hypotheses require review.</p></footer>
 `;
 
 export default function AnnotationAtlas(){

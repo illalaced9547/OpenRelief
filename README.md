@@ -1,8 +1,8 @@
-# Open Relief
+# OpenRelief
 
 **Connect food-security signals to explanations people can inspect.**
 
-Open Relief explores district-level FEWS NET IPC phase forecasting **three months ahead**
+OpenRelief explores district-level FEWS NET IPC phase forecasting **three months ahead**
 from **six months of history**. It combines food-security indices, shipping, conflict,
 rainfall and staple prices with OpenTSLM, then pairs the temporal task with language
 supervision: evidence, cross-domain hypotheses, explanations and proposed actions.

@@ -1,4 +1,4 @@
-# Open Relief dataset card
+# OpenRelief dataset card
 
 This retrospective research dataset pairs district food-security histories with national
 context to study IPC phase forecasting and time-series-to-language supervision.

@@ -6,7 +6,7 @@ from .http import fetch
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Open Relief acquisition")
+    parser = argparse.ArgumentParser(description="OpenRelief acquisition")
     parser.add_argument("--cache", type=Path, default=Path("data/raw/cache"))
     parser.add_argument("--refresh", action="store_true")
     commands = parser.add_subparsers(dest="command", required=True)

@@ -56,7 +56,7 @@ def create_app():
     from fastapi import FastAPI, HTTPException
     from fastapi.middleware.cors import CORSMiddleware
 
-    app = FastAPI(title="Open Relief inference")
+    app = FastAPI(title="OpenRelief inference")
     app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
     @app.on_event("startup")

@@ -6,7 +6,7 @@ from .dataset import build_dataset
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Open Relief reproducible discovery")
+    parser = argparse.ArgumentParser(description="OpenRelief reproducible discovery")
     commands = parser.add_subparsers(dest="command", required=True)
     audit = commands.add_parser("audit")
     audit.add_argument("csv", type=Path)

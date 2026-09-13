@@ -1,1 +1,1 @@
-"""Open Relief modeling and data audits."""
+"""OpenRelief modeling and data audits."""

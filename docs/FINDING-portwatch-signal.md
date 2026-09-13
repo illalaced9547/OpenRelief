@@ -2,7 +2,7 @@
 
 ## Summary
 
-Fine-tuning OpenTSLM-SP (Llama 3.2 1B backbone, LoRA rank 16) on Open Relief's
+Fine-tuning OpenTSLM-SP (Llama 3.2 1B backbone, LoRA rank 16) on OpenRelief's
 food-security time-series channels, ablating one data source at a time, shows
 that **shipping/port activity (IMF PortWatch) is the single most important input
 source** for predicting district-level IPC food-insecurity phase three months out.

@@ -175,7 +175,7 @@ def main():
     print(f"Fine-tuned: macro_f1={after['macro_f1_present_classes']:.4f} "
           f"accuracy={after['accuracy']:.4f} invalid_rate={after['invalid_rate']:.4f}",flush=True)
     lines=["| Model | Macro-F1 (present classes) | Accuracy | Invalid output |", "|---|---:|---:|---:|"]
-    rows=[("Open Relief fine-tuned",after)]
+    rows=[("OpenRelief fine-tuned",after)]
     if before is not None:
         rows.insert(0,("Pretrained OpenTSLM",before))
     for name,m in rows:

@@ -1,6 +1,6 @@
-# Open Relief data connectors
+# OpenRelief data connectors
 
-An independently installable acquisition project with no dependency on Open Relief modeling
+An independently installable acquisition project with no dependency on OpenRelief modeling
 code. Extract this directory into its own repository if desired. Four connectors implement
 **the actual TimeNet `BaseConnector.download()` / `convert()` contract**, using the pinned
 [official TimeNet source](https://github.com/OpenTSLM/TimeNet/tree/c39ca32b64ad0c89ea54093dbcb285c1a93eb006).

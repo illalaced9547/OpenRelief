@@ -1,4 +1,4 @@
-# Open Relief status — 13 September 2026
+# OpenRelief status — 13 September 2026
 
 The frontend is now in `frontend/`; data preparation and native TimeNet connectors are
 implemented; 2,781 training annotations are available. **The fine-tuned checkpoint and its
