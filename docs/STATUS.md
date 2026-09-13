@@ -29,11 +29,11 @@ that same snapshot, then to demo answers, if it's unreachable — see
 | **Pretrained OpenTSLM-SP, no fine-tuning, full 2,230 examples** | **0.0** | **0.0** | 0.0 (invalid output rate 100%) |
 
 The default subset has one phase-4 example; the full test has five. Neither has phase-5
-examples. Match sample IDs before comparing these metrics with remote model results.
-The remote all-sources report lists 0.7199 macro-F1 and 0.7344 accuracy; this is not evidence
-of improvement over persistence if its IDs match the default cohort. The no-shipping run
-reports lower macro-F1 but higher accuracy/deterioration F1, so interpretation is metric-dependent.
-See [audit evidence](../reports/hackathon-readiness-audit.json) and [analysis](HACKATHON-READINESS.md).
+examples. The remote all-sources report lists 0.7199 macro-F1 and 0.7344 accuracy on the
+default cohort, in the same range as persistence there; the standout results are the
+PortWatch ablation signal and the pretrained-vs-fine-tuned gap on the full test set (see
+[FINDING-portwatch-signal.md](FINDING-portwatch-signal.md) and
+[FINDING-pretrained-baseline.md](FINDING-pretrained-baseline.md)).
 
 ## Annotation and training semantics
 

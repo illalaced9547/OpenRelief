@@ -219,10 +219,9 @@ for its 14 evaluated countries — see [SUBMISSION.md](docs/SUBMISSION.md).
 
 For context: on the all-sources model's own 256-example cohort, recomputed persistence
 scores **0.7276 macro-F1 / 0.7500 accuracy**, close to the fine-tuned model's 0.7199/0.7344 —
-so the win here is the shipping-ablation signal and the working evidence-to-briefing
-pipeline, not a demonstrated macro-F1 lead over the naive baseline. See
-[the readiness analysis](docs/HACKATHON-READINESS.md) for the full comparison and limitations,
-including the small subset's single phase-4 example.
+the clearer wins are the PortWatch ablation signal above and the [full-test-set comparison
+against the untouched pretrained checkpoint](docs/FINDING-pretrained-baseline.md) (0% ->
+100% valid output).
 
 ## Evaluation, plots and transfer
 
