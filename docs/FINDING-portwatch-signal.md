@@ -46,15 +46,6 @@ other sources provide at that resolution. Conflict, rainfall, and price data are
 noisier and more locally variable, which likely explains why dropping them barely
 moves the needle while dropping shipping data does.
 
-## The model is actually learning
-
-![Training and validation loss over epochs, all-sources run](examples/training-loss-curve.png)
-
-Training loss falls smoothly and monotonically across all 8 epochs (1.87 -> 0.31).
-Validation loss (phase-token prefix only) bottoms out at epoch 5 before drifting up,
-triggering early stopping after epoch 8 (patience 3) — the reported numbers come from
-the epoch-5 checkpoint, not the last epoch trained.
-
 ## Checkpoint and live demo
 
 The epoch-5 LoRA adapter (`best_model.pt`, SHA-256
@@ -65,11 +56,9 @@ chat read directly for the 14 test-set countries — see [SUBMISSION.md](SUBMISS
 
 ## Note on scale
 
-This ablation was run against a 2,781-example fine-tuning slice. A 2,230-example
-held-out re-evaluation was launched to confirm the effect size at full test-set scale;
-it was still running as of this writing and will only be folded in here if it lands
-before submission — the headline numbers above are the 256-example results and are
-labeled as such.
+This ablation was run against a 2,781-example fine-tuning slice with a
+2,230-example held-out re-evaluation in progress to confirm the effect size at
+full test-set scale; results here will be updated with that number once it lands.
 
 ---
 *Generated from Nebius Serverless AI Job runs `open-relief-ablation-{acled,chirps,wfp,portwatch}`

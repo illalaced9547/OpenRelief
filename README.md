@@ -58,7 +58,19 @@ See the [frontend README](frontend/README.md) for build commands, Vercel configu
 ## Current dataset
 
 Prepared data mirrored on Hugging Face:
-[Alaeddinnn/OpenRelief](https://huggingface.co/datasets/Alaeddinnn/OpenRelief).
+[Alaeddinnn/OpenRelief](https://huggingface.co/datasets/Alaeddinnn/OpenRelief). Download the
+prepared `artifacts/` tree directly instead of rebuilding locally:
+
+```sh
+pip install huggingface_hub
+python -c "from huggingface_hub import snapshot_download; \
+snapshot_download(repo_id='Alaeddinnn/OpenRelief', repo_type='dataset', local_dir='.')"
+```
+
+This mirror also carries GPU run outputs under `gpu-results/` (per-run `run.json`,
+predictions, metrics, and the `all-sources` LoRA checkpoint) — fetch a single file with
+`huggingface_hub.hf_hub_download('Alaeddinnn/OpenRelief', '<path>', repo_type='dataset')`
+instead of the full snapshot if that's all you need.
 
 | Partition | Rule | Examples |
 |---|---|---:|
