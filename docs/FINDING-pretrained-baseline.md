@@ -38,6 +38,25 @@ numeric tokens). It was never exposed to this task's instruction/output format, 
 no basis to imitate it. Fine-tuning is what makes the model attempt the task at all, let
 alone competitively with the persistence baseline.
 
+## Verification: ruling out a pipeline bug
+
+The near-identical output across different countries under greedy decoding was flagged
+as suspicious and checked directly (`src/open_relief/pretrained_probe.py`, run locally on
+an idle RTX 3090 for a quick turnaround). Four variants tried on the same 6 examples:
+
+| Variant | Result |
+|---|---|
+| Greedy (as reported above) | Identical degenerate loop regardless of country/input |
+| Sampled (temperature 0.8) | **Output now varies per example** — confirms the model is conditioning on the real input — but is pure gibberish, no JSON structure |
+| Few-shot (a worked JSON example prepended to the prompt) | No change; still degenerates identically |
+| Forced JSON prefix (generation seeded with `{"phase":`) | Still collapses into the same nonsense immediately after |
+
+The sampled variant proves the input genuinely reaches the model (different countries
+produce different sampled continuations); the fact that none of the other three
+interventions — including literally showing it the target format — produces anything
+resembling `{"phase": N, "rationale": ...}` rules out a prompt-construction or generation
+bug. This is the same conclusion as the greedy-only result, now on firmer ground.
+
 ## Caveat
 
 This baseline and the fine-tuned row above are **not on the same cohort size** (2,230 vs
