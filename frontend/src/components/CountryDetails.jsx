@@ -4,7 +4,7 @@ import {modelInfluences} from '../lib/modelInfluences';
 
 export default function CountryDetails({country,name,tab,setTab,hidden,mobileOpen,onClose}){
  const influences=modelInfluences(country);
- return <aside className={`country-panel explanation-panel ${mobileOpen?'mobile-detail-open':''} ${hidden?'panel-away':''}`} inert={hidden} aria-hidden={hidden}>
+ return <aside className={`country-panel explanation-panel ${country?'':'country-panel-empty'} ${mobileOpen?'mobile-detail-open':''} ${hidden?'panel-away':''}`} inert={hidden} aria-hidden={hidden}>
   <div className="panel-eyebrow">MODEL OUTLOOK <span className="demo-pill">{country?'SAVED PREDICTION':'NO MODEL DATA'}</span></div>
   <div className="country-heading"><h3>{name}</h3><button className="mobile-detail-close" aria-label="Close country details" onClick={onClose}><X size={18}/></button></div>
   <p className="region">{country?'One historical district sample · Country location only':'No prediction supplied for this country'}</p>
