@@ -59,9 +59,9 @@ the epoch-5 checkpoint, not the last epoch trained.
 
 The epoch-5 LoRA adapter (`best_model.pt`, SHA-256
 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`) is retrieved to
-[artifacts/nebius/all-sources/](../artifacts/nebius/all-sources/) and also deployed as a
-live inference endpoint on Nebius, wired into the frontend chat panel for the 14 test-set
-countries — see [SUBMISSION.md](SUBMISSION.md).
+[artifacts/nebius/all-sources/](../artifacts/nebius/all-sources/) and deployed as a Nebius
+AI endpoint, used to batch-generate a static prediction snapshot that the frontend map and
+chat read directly for the 14 test-set countries — see [SUBMISSION.md](SUBMISSION.md).
 
 ## Note on scale
 

@@ -1,0 +1,52 @@
+/* Scoped port of docs/examples/annotation-atlas/index.html's inline <style>.
+   Every rule is prefixed with .atlas-page so it can't leak onto the shared
+   app shell (header/nav/footer come from main.jsx, not from this page). */
+.atlas-page{--bg:#0b0b0b;--panel:#202020;--text:#e5e5e5;--muted:#aaaaaa;--mint:#cccccc;--gold:#cccccc;--line:#ffffff18;background:var(--bg);color:var(--text);font:16px/1.65 "DM Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:60px}
+.atlas-page a{color:var(--mint)}
+.atlas-page a:focus-visible,.atlas-page summary:focus-visible{outline:3px solid var(--gold);outline-offset:5px}
+.atlas-page .wrap{max-width:1180px;margin:auto;padding:0 28px}
+.atlas-page .hero{padding:74px 0 44px}
+.atlas-page .eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--mint)}
+.atlas-page h1{font-family:Manrope,sans-serif;font-weight:500;font-size:clamp(40px,6vw,72px);letter-spacing:-.055em;line-height:1.05;max-width:800px;margin:22px 0}
+.atlas-page h1 em{font-style:normal;color:var(--mint)}
+.atlas-page .lede{font-size:19px;color:var(--muted);max-width:820px}
+.atlas-page .notice{border-left:3px solid var(--gold);padding:14px 20px;background:#ffffff05;color:#aaaaaa;font-size:14px}
+.atlas-page .pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0}
+.atlas-page .pipeline div{background:var(--panel);padding:22px;border:1px solid var(--line);border-radius:12px}
+.atlas-page .pipeline b{display:block;font-size:16px;margin:10px 0}
+.atlas-page .pipeline small{color:var(--muted)}
+.atlas-page .pipeline strong{font:12px ui-monospace,monospace;color:var(--mint)}
+.atlas-page nav{display:flex;gap:12px;flex-wrap:wrap;padding:20px 0}
+.atlas-page nav a{padding:10px 18px;border-radius:30px;border:1px solid var(--line);text-decoration:none;font-size:14px}
+.atlas-page nav a:hover{background:var(--panel)}
+.atlas-page .case{padding:64px 0;border-top:1px solid var(--line)}
+.atlas-page h2{font-family:Manrope,sans-serif;font-weight:500;font-size:44px;line-height:1.2;letter-spacing:-.04em;margin:18px 0}
+.atlas-page h2 span{font-size:19px;color:var(--muted);font-weight:400;display:block;letter-spacing:0;margin-top:12px}
+.atlas-page .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0}
+.atlas-page .facts div{padding:18px;background:linear-gradient(135deg,#2b2b2ba6,#181818bf);border:1px solid var(--line);border-radius:12px}
+.atlas-page .facts b{font-size:22px;display:block}
+.atlas-page .facts span{font-size:12px;color:var(--muted)}
+.atlas-page img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:16px}
+.atlas-page .step{display:flex;gap:18px;align-items:start;margin:40px 0 20px}
+.atlas-page .step>span{border:1px solid var(--line);border-radius:50%;width:40px;height:40px;flex-shrink:0;text-align:center;line-height:38px;color:var(--mint);font-size:12px}
+.atlas-page .step h3{margin:0;font-family:Manrope,sans-serif;font-weight:500;font-size:22px}
+.atlas-page .step p{margin:6px 0;color:var(--muted);font-size:14px}
+.atlas-page .claims{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:16px}
+.atlas-page .claim{padding:22px;border:1px solid var(--line);background:linear-gradient(135deg,#2b2b2ba6,#181818bf);border-radius:12px}
+.atlas-page .kind{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--mint)}
+.atlas-page .hypothesis .kind{color:var(--gold)}
+.atlas-page .action .kind{color:#bbbbbb}
+.atlas-page .claim p{font-size:15px}
+.atlas-page .claim h4{font-size:12px;text-transform:uppercase;color:var(--muted);margin-bottom:0}
+.atlas-page .tags{display:flex;gap:6px;flex-wrap:wrap}
+.atlas-page code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;overflow-wrap:anywhere}
+.atlas-page .tags code{padding:4px 8px;border:1px solid var(--line);border-radius:5px;color:var(--muted)}
+.atlas-page .small{color:var(--muted);font-size:13px!important}
+.atlas-page blockquote{margin:0;background:linear-gradient(110deg,#2b2b2ba6,#181818bf);padding:30px;border-left:3px solid var(--mint);border-radius:0 12px 12px 0;font-size:18px;line-height:1.8}
+.atlas-page aside{padding:20px 24px;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:14px;margin-top:22px}
+.atlas-page aside p:last-child{margin-bottom:0}
+.atlas-page details{border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin-top:20px}
+.atlas-page summary{cursor:pointer;font-weight:600;font-size:14px}
+.atlas-page details[open]>summary{margin-bottom:20px}
+.atlas-page footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted);font-size:13px}
+@media(max-width:700px){.atlas-page .wrap{padding:0 18px}.atlas-page .hero{padding-top:42px}.atlas-page .pipeline{grid-template-columns:1fr 1fr}.atlas-page .facts{grid-template-columns:1fr}.atlas-page .case{padding-top:40px}.atlas-page h2{font-size:34px}.atlas-page blockquote{font-size:16px;padding:20px}}

@@ -7,10 +7,10 @@ Training, checkpoint delivery and final evaluation are owned by the training mod
 
 | Deliverable | Owner / remaining action | Acceptance check |
 |---|---|---|
-| World-map demo | **Done for the chat panel**: `ModelChat.jsx` calls the live checkpoint for the 14 test-set countries via `VITE_INFERENCE_URL`, falls back to synthetic fixtures otherwise. The map's risk-%/price/confidence cards remain illustrative (no natural mapping from categorical IPC phase to those numeric fixtures in the time available) | Works after a fresh start; live vs demo answers are labeled per-message in the chat |
+| World-map demo | **Done**: the map and chat show the fine-tuned checkpoint's real batch-generated forecast for the 14 test-set countries (`frontend/src/data/live-predictions.json`), synthetic fixtures for the rest | Works after a fresh start, no network dependency; model vs demo answers are labeled per-message and per-country |
 | Annotation demonstration | Documentation workstream: charted training examples and cached generated arguments | [Atlas](examples/annotation-atlas/README.md) and offline HTML load; exact examples and request hashes included |
 | Code and configuration | All owners: record submitted commit and checkpoint's actual code version | README command matches the delivered configuration; no conflict markers or credentials |
-| Checkpoint / adapter | **Done**: `best_model.pt` retrieved to `artifacts/nebius/all-sources/`, SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`; also loaded and serving live on Nebius (`open-relief-serve` job) | Loads in a fresh process (proven by the running live endpoint) and produces valid examples |
+| Checkpoint / adapter | **Done**: `best_model.pt` retrieved to `artifacts/nebius/all-sources/`, SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`; loaded and proven to run via a Nebius AI endpoint | Loads in a fresh process (proven by generating the committed prediction snapshot) and produces valid examples |
 | Evaluation | **Done for the 256-example cohort** (see [FINDING-portwatch-signal.md](FINDING-portwatch-signal.md)); full-2,230 reruns were in flight at submission time, folded in only if they landed | Identical sample IDs for compared models, explicit split/class support and no unsupported causal claims |
 | Dataset documentation | Documentation/data owners: dataset card, provenance, coverage; resolve HFID upstream terms | [Dataset card](DATASET_CARD.md) matches manifests; source access and reuse claims are accurate |
 | Presentation / fallback | Team: rehearse the combined map, evidence and model-output flow | One success and one limitation; a clearly labeled replay/recording if live inference fails |
@@ -28,21 +28,26 @@ manifest so recorded fresh here). These files are gitignored; re-fetch with
 **The submitted checkpoint is the 2,781-example all-sources run** (`gpu-run-2781` /
 `open-relief-train-2781`), not the two separate 9,065-example runs that were still
 training at submission time — resolves the prior training-cohort ambiguity. The
-checkpoint supports `recommended_actions`: see live `/predict` responses.
-`pretrained.jsonl`/`pretrained-metrics.json` do not exist for any run (all launched with
-`--skip-pretrain-eval`); no before/after-fine-tuning table is claimed.
+checkpoint supports `recommended_actions`: see the predictions in
+`frontend/src/data/live-predictions.json`. `pretrained.jsonl`/`pretrained-metrics.json`
+do not exist for any run (all launched with `--skip-pretrain-eval`); no
+before/after-fine-tuning table is claimed.
 
-## Live inference endpoint
+## Inference endpoint and the static prediction snapshot
 
-`src/open_relief/serve.py` loads the same checkpoint and reuses `adapter.format_input` +
+`src/open_relief/serve.py` loads the checkpoint and reuses `adapter.format_input` +
 `evaluate.parse_prediction` (the exact code path used for the reported benchmark numbers),
 deployed as a Nebius **AI endpoint** (`open-relief-endpoint`, `gpu-rtx6000-a`,
-`project-e05dv2fbln000444nt4bbz` — `nebius ai endpoint create`, not `job create`: jobs only
-expose a private VPC-internal address, endpoints get a public managed `https://` URL)
-exposing `GET /countries` and `GET /predict?iso3=XXX`. It runs real-time generation against
-stored test-partition examples (not arbitrary free-form dates — the model needs the
-prepared multivariate window). `frontend/.env.local`'s `VITE_INFERENCE_URL` is set to the
-endpoint's managed URL; unset, the chat automatically falls back to the synthetic fixtures.
+`project-e05dv2fbln000444nt4bbz`) exposing `GET /countries` and `GET /predict?iso3=XXX`.
+
+The frontend does **not** call this endpoint at runtime. Instead
+`scripts/generate_live_predictions.py <endpoint-url>` batch-generates one real
+forward pass per test-set country and writes
+`frontend/src/data/live-predictions.json`, which the map and chat read directly and
+synchronously (`frontend/src/lib/liveModel.js`) — no network call, no loading state,
+no dependency on the endpoint staying up during judging. Intended production cadence
+is a daily/weekly re-run against a live cutoff, not per-request generation. The
+committed snapshot records its own `generated_at` timestamp and checkpoint hash.
 
 The default 256 test IDs have only one phase-4 example. Recomputed persistence scores
 0.7276 macro-F1 and 0.7500 accuracy on those IDs. Match IDs before comparing with the

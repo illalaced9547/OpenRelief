@@ -18,19 +18,24 @@ All probabilities and signal values are synthetic. The horizon control applies a
 
 ## Model integration
 
-The `forecasts` object in `src/main.jsx` is still the placeholder boundary for the map's
-risk-%/price/confidence cards — those stay synthetic (no natural mapping from the
-checkpoint's categorical IPC-phase output to a risk percentage or a price series in the
-time available). Country keys are zero-padded ISO 3166-1 numeric codes matching the world
-map; the 14 countries the fine-tuned checkpoint was evaluated on also carry an `iso3` field.
+The `forecasts` object in `src/main.jsx` is the placeholder boundary for countries the
+checkpoint hasn't evaluated. Country keys are zero-padded ISO 3166-1 numeric codes matching
+the world map; the 14 countries the fine-tuned checkpoint was evaluated on also carry an
+`iso3` field.
 
-**The chat panel (`ModelChat.jsx`) is connected for real.** When `VITE_INFERENCE_URL` is set
-and the selected country has an `iso3`, chat questions call `GET {url}/predict?iso3=XXX` on
-`src/open_relief/serve.py` — a live forward pass through the fine-tuned checkpoint on a
-held-out test example, not a canned response. Any failure (unset URL, unsupported country,
-timeout, endpoint down) falls back to the original synthetic `demoAnswer`, and each message
-is labeled LIVE MODEL or DEMO RESPONSE accordingly. Copy `.env.example` to `.env.local` and
-set `VITE_INFERENCE_URL` to enable it; leaving it unset keeps the original all-demo behavior.
+**The map and chat show real model output for those 14 countries — from a static snapshot,
+not a live call.** `frontend/src/data/live-predictions.json` is a batch-generated file (one
+real forward pass per country through `src/open_relief/serve.py`'s checkpoint), read
+synchronously by `frontend/src/lib/liveModel.js`. The map's risk number for those countries
+is a direct linear mapping of the real predicted IPC phase (1 Minimal - 5 Famine -> 0-100),
+not a calibrated probability; the price/confidence cards are replaced with the real
+cutoff/rationale/recommended actions. Every other country keeps the original synthetic
+fixtures. Everything is labeled MODEL FORECAST vs DEMO throughout — no network call happens
+at runtime, so nothing depends on the Nebius endpoint staying up.
+
+To refresh the snapshot (intended cadence: daily/weekly against a live cutoff, not
+per-request): `python scripts/generate_live_predictions.py <endpoint-url>` from the repo
+root, then rebuild the frontend. The endpoint itself never needs to run continuously.
 
 No OpenAI key is needed for this frontend. Future credentials belong on the backend, never in browser code. `.env` files are ignored by Git.
 
@@ -46,7 +51,7 @@ The Ask OpenRelief chat icon smoothly swaps the country intelligence panel for a
 
 ## Vercel deployment
 
-This directory is a standalone Vite app. For a Git-connected Vercel project, set Root Directory to `frontend`; install with `npm ci`, build with `npm run build`, and use output directory `dist`. Set `VITE_INFERENCE_URL` in the Vercel project's environment variables to enable live chat answers (see Model integration above); without it the demo behaves exactly as before. The Python model pipeline itself is not deployed with this frontend — only the small `serve.py` inference endpoint on Nebius is called over HTTP.
+This directory is a standalone Vite app. For a Git-connected Vercel project, set Root Directory to `frontend`; install with `npm ci`, build with `npm run build`, and use output directory `dist`. No environment variables are required — the real model output is a static file committed to the repo (see Model integration above). The Python model pipeline is not deployed with this frontend at all.
 
 The overview map wraps horizontally using repeated world copies, with bounded vertical movement and a small overscroll allowance. Horizontal trackpad gestures pan; vertical wheel gestures zoom. Landing, Global insights, Roadmap and the Methodology page use a decorative blurred flat world map with colored country regions and no percentage markers. The interactive risk overview remains a flat map.
 

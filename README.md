@@ -20,7 +20,7 @@ TimeNet connectors and a focus on transparent, reproducible temporal reasoning.
 | 13,798 prepared examples; 21 monthly channels | 9,065 train / 2,503 validation / 2,230 test; integrity and temporal checks pass |
 | 2,781 cached training annotations | 30.68% coverage; validated against the current schema |
 | Four reusable TimeNet connectors | PortWatch, ACLED, WFP prices and CHIRPS; tested TimeF round trips |
-| World-map frontend | Implemented in `frontend/`; chat panel calls the live fine-tuned checkpoint for 14 test-set countries, falls back to fixtures otherwise |
+| World-map frontend | Implemented in `frontend/`; map/chat show the fine-tuned checkpoint's real batch-generated forecast for 14 test-set countries, synthetic fixtures otherwise |
 | Fine-tuned checkpoint | Retrieved, hashed, and serving live inference on Nebius; [PortWatch shipping signal](docs/FINDING-portwatch-signal.md) is the standout ablation result |
 | Local tests | 25 passing at the documented readiness check |
 
@@ -206,9 +206,9 @@ with shipping carrying a distinct, high-value signal none of the other sources p
 ![Training and validation loss, all-sources run](docs/examples/training-loss-curve.png)
 
 The checkpoint (`best_model.pt`, SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`)
-is retrieved to [artifacts/nebius/all-sources/](artifacts/nebius/all-sources/) and also
-deployed as a live inference endpoint wired into the frontend chat panel — see
-[SUBMISSION.md](docs/SUBMISSION.md).
+is retrieved to [artifacts/nebius/all-sources/](artifacts/nebius/all-sources/) and deployed
+as a Nebius AI endpoint, used to batch-generate the real forecast shown on the map and chat
+for its 14 evaluated countries — see [SUBMISSION.md](docs/SUBMISSION.md).
 
 For context: on the all-sources model's own 256-example cohort, recomputed persistence
 scores **0.7276 macro-F1 / 0.7500 accuracy**, close to the fine-tuned model's 0.7199/0.7344 —

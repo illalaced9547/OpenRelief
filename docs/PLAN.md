@@ -9,7 +9,7 @@ annotation examples and a consistent presentation of the work.
 | Workstream | State | Next action / completion criterion |
 |---|---|---|
 | Frontend | React world-map interface, methodology and local demo chat now in the repo | Frontend/training owners connect real outputs; synthetic country probabilities and horizon adjustments remain clearly labeled until then |
-| Training and evaluation | **Done**: checkpoint retrieved+hashed, deployed as a live inference endpoint wired into the frontend chat | See [SUBMISSION.md](SUBMISSION.md) training-owner handoff section for artifact paths, hash and endpoint details |
+| Training and evaluation | **Done**: checkpoint retrieved+hashed, deployed as a Nebius endpoint, batch-generated forecast committed as static data for map/chat | See [SUBMISSION.md](SUBMISSION.md) training-owner handoff section for artifact paths, hash and regeneration command |
 | Repository documentation | README, status, dataset card and submission checklist updated | Final training owner fills in verified results and links without overwriting input/annotation provenance |
 | Annotation showcase | Three real training examples, charts, verbatim generated arguments, exact JSON and offline HTML | Review rendered examples and keep their distinction from fine-tuned forecasts visible |
 | Visual consistency | Atlas and pipeline diagram use frontend charcoal/gray cards, thin connectors, Manrope and DM Sans | Check desktop/mobile gallery rendering; fonts bundled with licenses for offline viewing |
