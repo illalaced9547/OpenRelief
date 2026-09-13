@@ -1,9 +1,11 @@
 # Open Relief status — 13 September 2026
 
 The frontend is now in `frontend/`; data preparation and native TimeNet connectors are
-implemented; 2,781 training annotations are available. Nebius training/ablation results
-are reported in the repository, and the training owner is handling the final checkpoint
-and evaluation. The frontend still uses synthetic fixtures until model integration.
+implemented; 2,781 training annotations are available. **The fine-tuned checkpoint and its
+evaluation artifacts have been retrieved and verified** (see [training loss curve](examples/training-loss-curve.png)
+and [artifacts/nebius/](../artifacts/nebius/)). The checkpoint is also deployed as a live
+inference endpoint on Nebius and wired into the frontend chat (`ModelChat.jsx`), which
+falls back to synthetic fixtures automatically if the endpoint is unreachable.
 
 | Area | Current evidence |
 |---|---|
@@ -11,8 +13,8 @@ and evaluation. The frontend still uses synthetic fixtures until model integrati
 | Validation | Dataset integrity and temporal checks pass; all 2,781 supplied training annotations pass the current schema validator |
 | Annotation | 30.68% coverage, not complete; six-example current pilot also includes actions; prior pre-action artifacts are obsolete |
 | Connectors | Four native TimeNet connectors with tested TimeF round trips; not registered upstream |
-| Frontend | World map, methodology, country detail panels and demo chat; synthetic values and explanations; [setup](../frontend/README.md) |
-| Training | [Exploratory remote report](FINDING-portwatch-signal.md); exact artifacts and cohort still need reconciliation by training owner |
+| Frontend | World map, methodology, country detail panels and chat; chat calls the live checkpoint for the 14 test-set countries when `VITE_INFERENCE_URL` is set, else synthetic fixtures; [setup](../frontend/README.md) |
+| Training | [PortWatch shipping finding](FINDING-portwatch-signal.md); checkpoint = 2,781-example all-sources run, retrieved to [artifacts/nebius/all-sources/](../artifacts/nebius/all-sources/), SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`, also serving live inference |
 | Presentation | [Annotation atlas](examples/annotation-atlas/README.md): three training cases, source graphs, unedited generated arguments and offline HTML |
 | Tests | 25 passing at the readiness check; rerun after changes using the README command |
 
@@ -55,12 +57,16 @@ The historical pilot review report predates the current action schema and full-r
 
 ## Remaining responsibilities
 
-Training owner: final checkpoint, inference contract, exact run provenance, matching-cohort
-metrics and generated explanation/action review. Frontend owner: replace synthetic fixtures
-with supported outputs; country risk percentages and alternate horizons are not research
-model outputs. Documentation workstream: consistent README, dataset card, charts, annotation
-gallery and submission checklist. Team: verify links, load the checkpoint, rehearse a live
-demo and retain a clearly labeled fallback.
+Training owner: done for this submission window — checkpoint retrieved and hashed, live
+endpoint deployed, wired into the frontend chat with an automatic fallback. Still open: the
+5 full-2,230-example ablation reruns in flight may or may not land before the deadline (see
+[HACKATHON-READINESS.md](HACKATHON-READINESS.md)); fold in if they do. Frontend owner: the
+risk-percentage map, price card and confidence score remain illustrative fixtures — they
+have no natural mapping to the model's categorical IPC-phase output, so they were
+deliberately left as clearly-labeled synthetic rather than forced into a misleading shape;
+only the chat panel calls the live model. Documentation workstream: consistent README,
+dataset card, charts, annotation gallery and submission checklist. Team: verify links,
+rehearse a live demo and retain a clearly labeled fallback.
 
 The dataset remains retrospective with assumed release lags; national covariates do not
 prove district exposure. FCS/rCSI normalization direction is undocumented. Source ablations

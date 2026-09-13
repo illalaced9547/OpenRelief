@@ -23,28 +23,39 @@ import './compact-layout.css';
 
 const countries = feature(atlas, atlas.objects.countries).features.filter(c => c.id !== '010');
 // Illustrative scenarios only. Replace this boundary with your colleague's prediction API.
+// iso3 marks the 14 countries the fine-tuned checkpoint was evaluated on: chat
+// answers for these can come from a live model call (see ModelChat), not just fixtures.
 const forecasts = {
  '729': {name:'Sudan',region:'East Africa',risk:87,change:12,point:[30,15],wheat:28},
  '728': {name:'South Sudan',region:'East Africa',risk:82,change:9,point:[30,7],wheat:24},
- '706': {name:'Somalia',region:'East Africa',risk:79,change:8,point:[46,5],wheat:23},
+ '706': {name:'Somalia',region:'East Africa',risk:79,change:8,point:[46,5],wheat:23,iso3:'SOM'},
  '887': {name:'Yemen',region:'Western Asia',risk:84,change:11,point:[48,16],wheat:31},
  '231': {name:'Ethiopia',region:'East Africa',risk:68,change:6,point:[40,9],wheat:18},
  '148': {name:'Chad',region:'Central Africa',risk:72,change:7,point:[19,15],wheat:21},
- '562': {name:'Niger',region:'West Africa',risk:65,change:5,point:[9,17],wheat:17},
- '180': {name:'DR Congo',region:'Central Africa',risk:63,change:6,point:[24,-3],wheat:16},
+ '562': {name:'Niger',region:'West Africa',risk:65,change:5,point:[9,17],wheat:17,iso3:'NER'},
+ '180': {name:'DR Congo',region:'Central Africa',risk:63,change:6,point:[24,-3],wheat:16,iso3:'COD'},
  '004': {name:'Afghanistan',region:'Southern Asia',risk:71,change:8,point:[66,34],wheat:22},
  '586': {name:'Pakistan',region:'Southern Asia',risk:46,change:4,point:[69,29],wheat:12},
  '818': {name:'Egypt',region:'North Africa',risk:51,change:5,point:[30,27],wheat:19},
- '404': {name:'Kenya',region:'East Africa',risk:43,change:3,point:[38,0],wheat:11},
+ '404': {name:'Kenya',region:'East Africa',risk:43,change:3,point:[38,0],wheat:11,iso3:'KEN'},
  '050': {name:'Bangladesh',region:'Southern Asia',risk:48,change:4,point:[90,24],wheat:13},
- '566': {name:'Nigeria',region:'West Africa',risk:54,change:5,point:[8,9],wheat:14},
+ '566': {name:'Nigeria',region:'West Africa',risk:54,change:5,point:[8,9],wheat:14,iso3:'NGA'},
  '076': {name:'Brazil',region:'South America',risk:18,change:1,point:[-52,-10],wheat:4},
  '356': {name:'India',region:'Southern Asia',risk:32,change:2,point:[79,22],wheat:7},
  '710': {name:'South Africa',region:'Southern Africa',risk:26,change:2,point:[25,-29],wheat:6},
  '036': {name:'Australia',region:'Oceania',risk:9,change:1,point:[134,-25],wheat:3},
  '124': {name:'Canada',region:'North America',risk:8,change:1,point:[-106,57],wheat:2},
  '840': {name:'United States',region:'North America',risk:12,change:1,point:[-100,38],wheat:3},
- '250': {name:'France',region:'Europe',risk:10,change:1,point:[2,47],wheat:3}
+ '250': {name:'France',region:'Europe',risk:10,change:1,point:[2,47],wheat:3},
+ '854': {name:'Burkina Faso',region:'West Africa',risk:74,change:7,point:[-1,12],wheat:20,iso3:'BFA'},
+ '120': {name:'Cameroon',region:'Central Africa',risk:55,change:4,point:[12,6],wheat:14,iso3:'CMR'},
+ '320': {name:'Guatemala',region:'Central America',risk:40,change:3,point:[-90,15],wheat:10,iso3:'GTM'},
+ '332': {name:'Haiti',region:'Caribbean',risk:88,change:10,point:[-72,19],wheat:30,iso3:'HTI'},
+ '450': {name:'Madagascar',region:'Southern Africa',risk:66,change:6,point:[47,-19],wheat:17,iso3:'MDG'},
+ '454': {name:'Malawi',region:'Southern Africa',risk:61,change:5,point:[34,-13],wheat:15,iso3:'MWI'},
+ '466': {name:'Mali',region:'West Africa',risk:76,change:8,point:[-4,17],wheat:22,iso3:'MLI'},
+ '508': {name:'Mozambique',region:'Southern Africa',risk:58,change:5,point:[35,-18],wheat:14,iso3:'MOZ'},
+ '716': {name:'Zimbabwe',region:'Southern Africa',risk:53,change:4,point:[30,-19],wheat:13,iso3:'ZWE'}
 };
 const category = n => n >= 75 ? 'Critical' : n >= 60 ? 'High' : n >= 35 ? 'Moderate' : 'Low';
 const color = n => ({Critical:'#ee8277',High:'#efb775',Moderate:'#e8d985',Low:'#b5d6b7'})[category(n)];
@@ -135,7 +146,7 @@ function App(){
  ].map(([n,status,title,description])=><article key={n}><div className="roadmap-step"><span>{n}</span><span className="demo-pill">{status}</span></div><h2>{title}</h2><p>{description}</p></article>)}</div><p className="roadmap-note">Proposed milestones · No release dates committed</p></section>:view==='methodology'?<Methodology onExplore={id=>{setSelected(id);setHorizon(90);setDetailTab('outlook');setView('map')}}/>:<section className="model-insights"><div className="insight-intro"><span className="eyebrow">GLOBAL INSIGHTS</span><h1>The story behind the signals.</h1><p>Price movements are the starting point. The model will connect them to possible explanations and show the evidence behind each one.</p><span className="demo-pill">MODEL FEED NOT CONNECTED</span></div><div className="insight-grid">{[['729','Price pressure'],['706','Possible disruption'],['566','Alternative explanations']].map(([id,label])=>{const country=forecasts[id],detail=explanationFor(id,country);return <article key={id}><div className="insight-card-top"><span>{label}</span><span>DEMO</span></div><h2>{detail.title}</h2><p>{detail.hypothesis}</p><div className="insight-price"><span>{country.name} · Wheat</span><strong>+{country.wheat}%</strong></div><button onClick={()=>{setSelected(id);setDetailTab('explanation');setView('map')}}>Explore explanation <ArrowUpRight size={16}/></button></article>})}</div><div className="provenance-banner"><div><Layers size={22}/><h3>Every insight should have a source.</h3></div><p>The future trained-model feed should include source records and links, observation dates, model version, confidence and alternative explanations. Inputs can vary by event and country; they are not limited to three signal types.</p><span>Sources, timestamps and model outputs are pending integration.</span></div></section>}
 
   </section></main>
-  <ModelChat open={chatOpen&&view==='map'} onOpen={()=>{setView('map');setChatOpen(true)}} onClose={()=>setChatOpen(false)} context={{country:selectedName,horizon,risk:activeRisk,explanation}}/>
+  <ModelChat open={chatOpen&&view==='map'} onOpen={()=>{setView('map');setChatOpen(true)}} onClose={()=>setChatOpen(false)} context={{country:selectedName,horizon,risk:activeRisk,explanation,iso3:active?.iso3}}/>
 
  </div>
 }

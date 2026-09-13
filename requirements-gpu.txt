@@ -5,6 +5,8 @@ transformers==4.57.3
 tokenizers==0.22.1
 peft==0.18.0
 huggingface-hub==0.36.0
+fastapi==0.121.3
+uvicorn==0.38.0
 open-flamingo==0.0.2
 opentslm @ git+https://github.com/OpenTSLM/OpenTSLM.git@2968f4b891baab4307f7e9d0043e87677b593a30
 -e .[annotation,evaluation]

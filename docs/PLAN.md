@@ -9,7 +9,7 @@ annotation examples and a consistent presentation of the work.
 | Workstream | State | Next action / completion criterion |
 |---|---|---|
 | Frontend | React world-map interface, methodology and local demo chat now in the repo | Frontend/training owners connect real outputs; synthetic country probabilities and horizon adjustments remain clearly labeled until then |
-| Training and evaluation | Nebius runs reported; final artifacts managed by the training owner | Deliver checkpoint/hash, actual run configuration, raw predictions, same-ID baseline comparison and explanation samples |
+| Training and evaluation | **Done**: checkpoint retrieved+hashed, deployed as a live inference endpoint wired into the frontend chat | See [SUBMISSION.md](SUBMISSION.md) training-owner handoff section for artifact paths, hash and endpoint details |
 | Repository documentation | README, status, dataset card and submission checklist updated | Final training owner fills in verified results and links without overwriting input/annotation provenance |
 | Annotation showcase | Three real training examples, charts, verbatim generated arguments, exact JSON and offline HTML | Review rendered examples and keep their distinction from fine-tuned forecasts visible |
 | Visual consistency | Atlas and pipeline diagram use frontend charcoal/gray cards, thin connectors, Manrope and DM Sans | Check desktop/mobile gallery rendering; fonts bundled with licenses for offline viewing |
@@ -28,18 +28,15 @@ annotation examples and a consistent presentation of the work.
 5. Validate the local suite, frontend build, example integrity and visual output; commit
    and push the documentation/showcase and preserved local changes.
 
-## Training-owner handoff
+## Training-owner handoff — done
 
-The current full-dataset runner loads 9,065 training examples and accepts 2,781 annotated
-records, using empty language targets for the remainder. The remote report instead refers
-to a 2,781-example training slice; record the actual code/dataset used. Check whether the
-submitted checkpoint includes the new recommended-action schema.
-
-Deliver `run.json`, raw predictions, metrics, losses, exact command/code version and a
-loadable checkpoint or adapter. Compare persistence on identical sample IDs. The default
-256 test examples have only one phase-4 example; show class support and secondary
-alert precision/recall/F1. Avoid broad causal claims from source ablations, particularly
-while their retained language targets may mention removed input channels.
+The submitted checkpoint is the 2,781-example all-sources run (`gpu-run-2781`), not the
+separate full-9,065-example runs, which resolves the earlier cohort ambiguity. It supports
+`recommended_actions`. `run.json`, raw predictions, metrics, losses and the checkpoint
+(SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`) are in
+`artifacts/nebius/`; see [SUBMISSION.md](SUBMISSION.md). Persistence-vs-model comparison on
+identical 256-example IDs, class support and the single-phase-4-example caveat are recorded
+in [HACKATHON-READINESS.md](HACKATHON-READINESS.md) and [FINDING-portwatch-signal.md](FINDING-portwatch-signal.md).
 
 The frontend currently displays synthetic country-level risk percentages over 30/90/180
 calendar-day demo horizons; the research model predicts district IPC phase at three

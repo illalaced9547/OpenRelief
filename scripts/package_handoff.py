@@ -13,6 +13,7 @@ paths = [ROOT / name for name in (
     'artifacts/evaluation', 'artifacts/ablations', 'artifacts/timef',
     'artifacts/annotation-example.json', 'artifacts/annotations-final-pilot.jsonl', 'artifacts/annotations-final-pilot.manifest.json',
     'artifacts/annotations-training.jsonl', 'artifacts/annotations-training.manifest.json',
+    'artifacts/nebius',
 )]
 paths.extend((ROOT / 'artifacts').glob('monthly-*.jsonl'))
 paths.extend((ROOT / 'artifacts').glob('monthly-*.manifest.json'))
@@ -27,6 +28,10 @@ for path in paths:
                or part.endswith('.egg-info') for part in relative.parts):
             continue
         if candidate.suffix == '.pyc' or (candidate.name.startswith('.env') and candidate.name != '.env.example'):
+            continue
+        if candidate.suffix == '.pt':
+            # Checkpoints are delivered separately (HF mirror + SHA-256 in docs/SUBMISSION.md);
+            # a 54.7MB binary doesn't belong in a code/docs handoff archive.
             continue
         files.add(candidate)
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)

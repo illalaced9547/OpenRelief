@@ -13,5 +13,7 @@
 @media(max-height:650px) and (max-width:700px){.model-chat.panel-chat{height:185px;max-height:185px}.panel-chat .chat-context{display:none}.panel-chat .chat-disclaimer{font-size:7px;padding:3px 7px}}
 @media(prefers-reduced-motion:reduce){.explanation-panel,.explanation-panel.panel-away,.model-chat.panel-chat,.model-chat.panel-chat.chat-visible,.chat-launcher.chat-icon{transition:none;transform:none;will-change:auto}}
 
+.live-pill{color:#b5d6b7}
+
 .relief-logo{width:34px;height:34px;flex-shrink:0;display:block;color:#dedede;margin-right:2px}
 @media(max-width:700px){.relief-logo{width:30px;height:30px}}
