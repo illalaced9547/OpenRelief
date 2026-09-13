@@ -1,7 +1,7 @@
 # Source inventory and verified interfaces
 
-Read `HANDOFF.md` for the original measurements. Unknown publication lags stay unknown.
-“Open” describes tested access, not unrestricted redistribution rights.
+Unknown publication lags stay unknown. “Open” describes tested access, not unrestricted
+redistribution rights.
 
 | Source | Event range / cadence | Geography | Access and implementation role |
 |---|---|---|---|

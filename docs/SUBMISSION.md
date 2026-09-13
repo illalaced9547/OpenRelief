@@ -60,7 +60,7 @@ points at the endpoint's managed URL.
 The default 256 test IDs have only one phase-4 example. Recomputed persistence scores
 0.7276 macro-F1 and 0.7500 accuracy on those IDs. Match IDs before comparing with the
 reported GPU numbers; show per-class support and deterioration precision/recall/F1.
-Keep test-driven ablation exploration disclosed. See [readiness analysis](HACKATHON-READINESS.md).
+Keep test-driven ablation exploration disclosed.
 
 ## Documentation and artifact checks
 

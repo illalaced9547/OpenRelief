@@ -61,7 +61,7 @@ bug. This is the same conclusion as the greedy-only result, now on firmer ground
 
 This baseline and the fine-tuned row above are **not on the same cohort size** (2,230 vs
 256) — the fine-tuned model's own full-2,230 numbers were still computing via a separate
-in-flight rerun as of this writing (see [HACKATHON-READINESS.md](HACKATHON-READINESS.md)).
+in-flight rerun as of this writing.
 The comparison that matters here is qualitative and overwhelming regardless of cohort
 size, though: a 0% valid-output rate cannot improve with a larger sample, so the
 core conclusion — pretrained fails outright, fine-tuning is necessary — does not depend

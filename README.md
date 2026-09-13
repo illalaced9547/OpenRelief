@@ -13,7 +13,7 @@ TimeNet connectors and a focus on transparent, reproducible temporal reasoning.
 
 [Annotation atlas](docs/examples/annotation-atlas/README.md) ·
 [Dataset card](docs/DATASET_CARD.md) · [Current status](docs/STATUS.md) ·
-[Submission plan](docs/PLAN.md) · [Data connectors](open-relief-data/README.md)
+[Submission checklist](docs/SUBMISSION.md) · [Data connectors](open-relief-data/README.md)
 
 | Current snapshot | Evidence |
 |---|---|

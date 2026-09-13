@@ -63,8 +63,7 @@ The historical pilot review report predates the current action schema and full-r
 Training owner: done for this submission window — checkpoint retrieved and hashed, deployed
 as a Nebius endpoint, and used to batch-generate the committed static prediction snapshot
 consumed by the map and chat. Still open: the 5 full-2,230-example ablation reruns in
-flight may or may not land before the deadline (see
-[HACKATHON-READINESS.md](HACKATHON-READINESS.md)); fold in if they do. Frontend owner: for
+flight may or may not land before the deadline; fold in if they do. Frontend owner: for
 the 14 checkpoint-evaluated countries the map's risk number is a direct linear mapping of
 the real predicted IPC phase (not a calibrated probability), and the price/confidence cards
 are replaced with the real cutoff/rationale/actions; every other country keeps the original
@@ -77,4 +76,4 @@ prove district exposure. FCS/rCSI normalization direction is undocumented. Sourc
 are associative and may retain language references to removed inputs. Full details and
 source terms are in [the dataset card](DATASET_CARD.md) and [source inventory](SOURCES.md).
 
-[Current plan](PLAN.md) · [Submission checklist](SUBMISSION.md)
+[Submission checklist](SUBMISSION.md)

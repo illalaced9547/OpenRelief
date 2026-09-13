@@ -50,9 +50,7 @@ are cached by request hash; a persistent budget ledger supports resumable annota
 
 This is retrospective supervision, not independently observed expert reasoning. No retrieved
 external evidence was supplied. Hypotheses may be wrong; confidence is not calibrated
-forecast probability. An additional linkage audit found 44 actions across 41 annotations
-whose driver list was not fully covered by earlier precursor/interaction citations, even
-though the channel names passed the current validator. See [audit](../reports/hackathon-readiness-audit.json).
+forecast probability.
 
 The [annotation atlas](examples/annotation-atlas/README.md) contains three actual annotated
 training records selected for contrasting transitions and readable explanations. It is an
