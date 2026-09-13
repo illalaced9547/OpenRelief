@@ -1,0 +1,338 @@
+[
+  {
+    "slug": "beni",
+    "title": "Elevated staple prices and conflict alongside a stable IPC phase",
+    "transition": "Persistent crisis",
+    "annotation": {
+      "observed_future_phase": 3,
+      "precursor_patterns": [
+        {
+          "provenance": "observed",
+          "statement": "Cassava flour price rose from USD 0.35/kg in March to USD 0.50/kg in May, then was USD 0.49/kg in June; the reported three-month change was +40.0% in June.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "event_months": [
+            "2022-03",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a country-level price series for one staple and does not establish prices, availability, or household purchasing power in Beni."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Country-level ACLED events declined from 561 in January to 393 in March, then increased to 513 in June; the trailing three-month event total rose from 1,287 in May to 1,407 in June. Reported fatalities declined from 814 in May to 682 in June.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-03",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "These are national conflict indicators and cannot locate incidents or impacts within Beni."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The admin2 normalized FCS series increased by 0.0403 in May and 0.0143 in June, while the normalized rCSI series decreased by 0.0460 in May and 0.0116 in June.",
+          "channels": [
+            "fcs_rt mean",
+            "fcs_rt mean_change_1m",
+            "rcsi_rt mean",
+            "rcsi_rt mean_change_1m"
+          ],
+          "event_months": [
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "HFID normalization and index direction are undocumented; these numeric movements cannot be interpreted as changes in food consumption or coping behavior."
+        },
+        {
+          "provenance": "observed",
+          "statement": "IPC phase was recorded as Phase 3 throughout January-June. The rolling series reflected a February assessment through June, while the latest available assessment at the July cutoff was Phase 3 with event month June and age one month at cutoff.",
+          "channels": [
+            "ipc_last_known_phase",
+            "ipc_assessment_age",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2022-02",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "Rolling IPC ages apply to their respective as-of months; the June latest assessment has a separately specified one-month age at the July cutoff."
+        }
+      ],
+      "interaction_hypotheses": [
+        {
+          "provenance": "inference",
+          "statement": "The June increase in national conflict events (513; three-month total 1,407) coincided with cassava flour remaining near its May high (USD 0.49/kg in June after USD 0.50/kg in May).",
+          "mechanism": "Plausibly, conflict-related disruption to movement, market access, or livelihoods could compound elevated staple prices and constrain purchasing power, helping sustain acute food-security needs. This is a hypothesis rather than a demonstrated causal chain, particularly because conflict and price data are national while the IPC outcome is for Beni.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "Coincidence across aggregated national series does not prove that conflict caused the price level or the Phase 3 classification in Beni."
+        }
+      ],
+      "rationale": "The observed October outcome remained IPC Phase 3, matching the latest June Phase 3 assessment rather than showing a phase change. Measured precursors included an elevated cassava-flour price relative to March and a late increase in national conflict-event counts; the normalized FCS and rCSI series moved numerically in opposite directions in May-June, without interpretable welfare direction. These patterns may be relevant through market-access and purchasing-power channels, but their geographic aggregation and correlation do not establish causation.",
+      "recommended_actions": [
+        {
+          "action": "Prepare market monitoring and targeted purchasing-power support, such as time-bound staple vouchers or cash where market functionality and safety permit, with attention to cassava-flour affordability.",
+          "urgency": "prepare_now",
+          "driver_channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "justification": "The identified country-level cassava-flour series was USD 0.49/kg in June and 40.0% above its March level on the reported three-month comparison; Phase 3 warrants preparation for response while verifying Beni-specific market conditions."
+        },
+        {
+          "action": "Prepare conflict-sensitive access and displacement coordination, including contingency planning for safe delivery routes and local market/access checks in Beni.",
+          "urgency": "prepare_now",
+          "driver_channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "last_available_phase"
+          ],
+          "justification": "National conflict events rose in June after earlier declines, alongside a latest available Phase 3 assessment. National data do not identify Beni impacts, so local validation is necessary before operational prioritization."
+        }
+      ],
+      "uncertainty": "The forecast window contains only six months of mixed geographic coverage. Price, trade, rainfall, and conflict indicators are country-level, whereas HFID and IPC signals are admin2-level. June rainfall is missing. The HFID index normalization and severity direction are unknown, and the supplied data support plausible associations rather than causal attribution.",
+      "confidence": 0.68
+    },
+    "teacher": {
+      "model": "gpt-5.6-terra",
+      "request_sha256": "a74a6dda7afe47b1b2e8755e1bad1f156b62cb1bdd3466980cadcf9c6161fba9"
+    },
+    "target": {
+      "deteriorated": false,
+      "label_availability_time": "2022-11-30T23:59:59Z",
+      "phase": 3,
+      "phase_change": 0,
+      "sample_id": "0029fa7cda0aa0fd84bee13c",
+      "split": "train",
+      "target_month": "2022-10"
+    },
+    "input": {
+      "cutoff": "2022-07-31T23:59:59Z",
+      "dataset_version": "8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3",
+      "geography": {
+        "admin1": "Nord-Kivu",
+        "admin2": "Beni",
+        "country": "Democratic Republic of the Congo",
+        "iso3": "COD"
+      },
+      "horizon_months": 3,
+      "last_available_phase": {
+        "availability_time": "2022-07-31T23:59:59Z",
+        "event_month": "2022-06",
+        "phase": 3
+      },
+      "sample_id": "0029fa7cda0aa0fd84bee13c",
+      "split": "train"
+    }
+  },
+  {
+    "slug": "oubritenga",
+    "title": "An improving outcome despite mixed contextual pressures",
+    "transition": "Improvement",
+    "annotation": {
+      "observed_future_phase": 1,
+      "precursor_patterns": [
+        {
+          "provenance": "observed",
+          "statement": "The country-level white-maize price increased from USD 0.395/kg in January to 0.470/kg in April, then remained at USD 0.450-0.460/kg in May-June. The recorded three-month price changes were +19.0% in April, +15.4% in May, and +12.2% in June.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a country-level monitored maize price and may not represent prices, market access, or purchasing power in Oubritenga."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Country-level conflict-event counts peaked at 191 in February and then generally declined to 135 in June; the trailing three-month event total fell from 511 in March to 402 in June. Fatalities remained variable, including 439 in May and 363 in June.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "event_months": [
+            "2022-02",
+            "2022-03",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "These are national counts, not district-level exposure measures, and event/fatality totals do not establish impacts on local food access."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Recorded country-level rainfall rose sequentially from 0.36 mm in January to 56.27 mm in May; the June rainfall observation is missing.",
+          "channels": [
+            "chirps_rainfall"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05"
+          ],
+          "source_url": null,
+          "uncertainty": "Monthly national rainfall does not measure Oubritenga crop outcomes, water access, or rainfall anomaly relative to seasonal norms."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The admin2 HFID-normalized FCS series increased from 0.6265 in May to 0.6627 in June, while the normalized rCSI series increased slightly from 0.1953 to 0.1968. Across January-June, both series fluctuated rather than moving monotonically.",
+          "channels": [
+            "fcs_rt mean",
+            "fcs_rt mean_change_1m",
+            "rcsi_rt mean",
+            "rcsi_rt mean_change_1m"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "Normalization methods and severity direction are unknown; these numeric movements cannot be interpreted as changes in food consumption or coping behavior."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The rolling last-known IPC phase was 1 through June, based first on an October 2021 assessment and then a February 2022 assessment. Separately, the latest assessment available at the July cutoff was phase 2 with event month June 2022 and age one month at cutoff. The supplied outcome is phase 1 in October 2022, a phase change of -1 from that latest assessment.",
+          "channels": [
+            "ipc_last_known_phase",
+            "ipc_assessment_age",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2021-10",
+            "2022-02",
+            "2022-06",
+            "2022-10"
+          ],
+          "source_url": null,
+          "uncertainty": "Rolling IPC values are as-of-month availability records, whereas June 2022 is the actual event month of the latest assessment. The supplied future phase defines the observed food-security change."
+        }
+      ],
+      "interaction_hypotheses": [
+        {
+          "provenance": "inference",
+          "statement": "Country maize prices remained 12.2% above their level three months earlier in June while national conflict-event totals over the preceding three months were still 402 events, despite declining from 511 in March.",
+          "mechanism": "Persistently higher staple prices could constrain purchasing power, while continuing conflict could disrupt movement, livelihoods, or market access. Together these pressures could have compounded household food-access risks, though the national signals cannot demonstrate a causal effect in Oubritenga.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct",
+            "acled_events_sum_3m"
+          ],
+          "event_months": [
+            "2022-03",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a plausible multi-domain mechanism, not proven causation; price and conflict data are national rather than district-specific."
+        },
+        {
+          "provenance": "inference",
+          "statement": "Rainfall increased through May while maize prices rose over January-April and remained elevated in May-June before the June 2022 phase-2 assessment; the supplied October outcome was phase 1.",
+          "mechanism": "Seasonal rainfall may support agricultural production or water availability over time, potentially offsetting some food-access pressure associated with elevated staple prices. This is only a possible explanation for the subsequent assessed phase change, not evidence that rainfall caused it.",
+          "channels": [
+            "chirps_rainfall",
+            "wfp_staple_price",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-04",
+            "2022-05",
+            "2022-06",
+            "2022-10"
+          ],
+          "source_url": null,
+          "uncertainty": "No local production, livelihood, or rainfall-anomaly data are supplied, and the October phase result cannot be attributed to these channels."
+        }
+      ],
+      "rationale": "The supplied assessment record shows a latest phase-2 assessment in June 2022 followed by the observed phase-1 outcome in October 2022. Before that outcome, national maize prices had risen materially over three months, conflict-event totals had declined but remained substantial, and rainfall increased through May. The admin2 normalized FCS and rCSI values fluctuated numerically, but their undocumented normalization precludes interpreting their direction as food-consumption or coping change. National market, conflict, and rainfall signals are contextual rather than district measurements and support hypotheses only, not causal conclusions.",
+      "recommended_actions": [
+        {
+          "action": "Maintain monthly Oubritenga market monitoring for white-maize availability and retail prices, with contingency planning for targeted price-sensitive assistance if local prices rise further or market access deteriorates.",
+          "urgency": "monitor",
+          "driver_channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "justification": "National white-maize prices rose sharply through April and remained above January levels through June; local verification is needed because the observed October phase is 1 and the available price series is national."
+        },
+        {
+          "action": "Maintain conflict-sensitive food-security surveillance and coordinate referral/access contingency arrangements for communities whose market access or livelihoods are disrupted by insecurity.",
+          "urgency": "monitor",
+          "driver_channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "justification": "National conflict-event totals declined from their March rolling peak but remained 402 events over the three months ending June, with fatalities variable. District-level exposure should be verified before targeting."
+        }
+      ],
+      "uncertainty": "Confidence is constrained by national-level price, conflict, and rainfall channels; missing June rainfall; absent port/trade data; and unknown normalization and direction of the FCS/rCSI series. The IPC timeline distinguishes older rolling assessments from the latest June 2022 assessment, and the supplied October phase-1 outcome is treated as ground truth.",
+      "confidence": 0.68
+    },
+    "teacher": {
+      "model": "gpt-5.6-terra",
+      "request_sha256": "4cc4371e2a5fb32ae89386d96652379a3cd024714a12dd6d836972c9828694bf"
+    },
+    "target": {
+      "deteriorated": false,
+      "label_availability_time": "2022-11-30T23:59:59Z",
+      "phase": 1,
+      "phase_change": -1,
+      "sample_id": "002484ea2c5aaa22f62d46e8",
+      "split": "train",
+      "target_month": "2022-10"
+    },
+    "input": {
+      "cutoff": "2022-07-31T23:59:59Z",
+      "dataset_version": "8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3",
+      "geography": {
+        "admin1": "Plateau-Central",
+        "admin2": "Oubritenga",
+        "country": "Burkina Faso",
+        "iso3": "BFA"
+      },
+      "horizon_months": 3,
+      "last_available_phase": {
+        "availability_time": "2022-07-31T23:59:59Z",
+        "event_month": "2022-06",
+        "phase": 2
+      },
+      "sample_id": "002484ea2c5aaa22f62d46e8",
+      "split": "train"
+    }
+  }
+]

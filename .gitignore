@@ -14,3 +14,4 @@ checkpoints/
 .venv-gpu/
 .hf-cache/
 refrences/
+.vercel

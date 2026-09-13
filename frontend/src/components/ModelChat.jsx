@@ -1,48 +1,53 @@
 import {useEffect,useRef,useState} from 'react';
 import {ArrowUp,MessageCircle,X,Plus} from 'lucide-react';
-import {demoAnswer} from '../data/explanations';
-import {PHASE_LABEL,ENDPOINT,fetchLive,liveFor,SNAPSHOT_META} from '../lib/liveModel';
+import {ENDPOINT,fetchLive,liveFor} from '../lib/liveModel';
+import {PHASE_LABEL,snapshotMeta,formatDate} from '../data/modelData';
 
-const snapshotDate = SNAPSHOT_META.generatedAt?.slice(0,16).replace('T',' ')+' UTC';
-
-function modelAnswer(question,live,fromSnapshot){
- const q=question.toLowerCase();
- const phase=live.predicted_phase;
- const label=phase?`${phase} (${PHASE_LABEL[phase]})`:'unavailable (model output did not parse as valid JSON)';
- const provenance=fromSnapshot?`cached batch snapshot from ${snapshotDate} (the live endpoint didn't answer in time)`:'a live call to the checkpoint, just now';
- if(/confiden|certain|sure|accur|reliab/.test(q))return `This checkpoint emits a categorical IPC phase plus rationale, not a calibrated confidence score. Predicted phase: ${label}.`;
- if(/source|where.*data|evidence|provenance/.test(q))return `Forecast for ${live.country}: cutoff ${live.cutoff}, target month ${live.target_month}, held-out test sample ${live.sample_id}. This is one of ${live.num_examples_for_country} prepared test examples for this country, from ${provenance}.`;
- if(/price|cost|wheat/.test(q))return `This model predicts FEWS NET IPC phase from time-series evidence; it does not output a price series. Predicted phase for ${live.country}: ${label}.`;
- if(!live.valid_output)return `The model's output for ${live.country} did not parse as valid JSON. Raw output: "${live.raw_output.slice(0,200)}${live.raw_output.length>200?'…':''}"`;
- const actions=live.recommended_actions?.length?` Recommended follow-up: ${live.recommended_actions.join('; ')}.`:'';
- return `Model forecast for ${live.country} (cutoff ${live.cutoff} → target ${live.target_month}): predicted IPC phase ${label}. ${live.rationale}${actions}`;
+function modelAnswer(question,prediction){
+ const q=question.toLowerCase(),phase=prediction.predicted_phase;
+ const label=prediction.valid_output&&phase?`${phase} (${PHASE_LABEL[phase]})`:'unavailable';
+ if(/confiden|certain|sure|accur|reliab|probabil/.test(q))return `Predicted IPC phase: ${label}. The checkpoint does not provide calibrated confidence or a probability of hunger. Phase 1–5 is a severity classification, not a percentage.`;
+ if(/source|where.*data|evidence|provenance/.test(q))return `Historical sample ${prediction.sample_id} for ${prediction.country}. Input cutoff: ${formatDate(prediction.cutoff)}; target month: ${prediction.target_month}. The pipeline uses food-security history, shipping, conflict, rainfall and staple-price series. This response does not include the individual source observations. The country represents one district example, not a national forecast.`;
+ if(/price|cost|wheat/.test(q))return `The model response does not include a price series or current market prices. It predicts IPC phase ${label}. Any price statements in its rationale are generated claims about the historical input window and need source verification.`;
+ if(!prediction.valid_output)return 'The model did not return a valid phase and explanation for this sample. No score or explanation has been estimated in its place.';
+ if(/why|reason|explain|predict|outlook|rationale/.test(q))return `Target ${prediction.target_month}: predicted IPC phase ${label}. ${prediction.rationale}`;
+ return 'The connected endpoint accepts a country code, not a free-form question. I can show its saved or freshly generated historical prediction, rationale, provenance, and uncertainty limits. Try “Why this prediction?” or “What are the sources?”';
 }
-
+async function askOpenAI(question,prediction,country,history){
+ const response=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question,prediction,country,history})});
+ if(!response.ok)throw new Error(`chat service returned ${response.status}`);
+ const data=await response.json();
+ if(!data.answer)throw new Error('chat service returned no answer');
+ return data.answer;
+}
 export default function ModelChat({context,open,onOpen,onClose,hidden=false}){
  const [draft,setDraft]=useState(''),[messages,setMessages]=useState([]),[pending,setPending]=useState(false);
  const end=useRef(null),input=useRef(null),launcher=useRef(null);
  useEffect(()=>{if(open&&!hidden){const timer=setTimeout(()=>input.current?.focus({preventScroll:true}),220);return()=>clearTimeout(timer)}},[open,hidden]);
  useEffect(()=>{if(open)end.current?.scrollIntoView({block:'nearest'})},[messages,open,pending]);
  const close=()=>{onClose();launcher.current?.focus({preventScroll:true})};
- const canGoLive=!!(context.iso3&&ENDPOINT);
- const hasSnapshot=!!liveFor(context.iso3);
+ const stored=liveFor(context.iso3),canGoLive=!!(stored&&ENDPOINT);
  const send=async(question=draft)=>{
   const text=question.trim();if(!text||pending)return;
-  const snapshot={...context};
-  const label=`${context.country} · ${context.horizon} days`;
-  setMessages(m=>[...m,{role:'user',text,context:label}]);setDraft('');input.current?.focus();
-  if(snapshot.iso3&&ENDPOINT){
-   setPending(true);
-   const live=await fetchLive(snapshot.iso3);
-   setPending(false);
-   if(live){setMessages(m=>[...m,{role:'assistant',text:modelAnswer(text,live,false),context:label,live:true}]);return}
-   const cached=liveFor(snapshot.iso3);
-   if(cached){setMessages(m=>[...m,{role:'assistant',text:modelAnswer(text,cached,true),context:label,live:true}]);return}
-   setMessages(m=>[...m,{role:'assistant',text:demoAnswer(text,snapshot),context:label,live:false}]);
-   return;
-  }
-  const cached=liveFor(snapshot.iso3);
-  setMessages(m=>[...m,{role:'assistant',text:cached?modelAnswer(text,cached,true):demoAnswer(text,snapshot),context:label,live:!!cached}]);
+  const selected={...context},saved=liveFor(selected.iso3);
+  const label=`${selected.country}${saved?` · Target ${saved.target_month}`:''}`;
+  setMessages(m=>[...m,{role:'user',text,context:label}]);setDraft('');
+  if(!saved){setMessages(m=>[...m,{role:'assistant',text:'No model output is available for this country. Choose a colored country on the map.',context:label,source:'NO MODEL DATA'}]);return}
+  setPending(true);
+  try{
+   const live=ENDPOINT?await fetchLive(selected.iso3):null;
+   const prediction=live||saved;
+   let answer,source;
+   try{answer=await askOpenAI(text,{...prediction,phase_label:PHASE_LABEL[prediction.predicted_phase]},selected.country,messages.map(m=>({role:m.role,content:m.text})));source='OPENAI · GROUNDED IN MODEL'}catch(error){console.warn('OpenAI chat unavailable',error);answer=modelAnswer(text,prediction);source=live?'LIVE MODEL · LOCAL FALLBACK':'SAVED MODEL · LOCAL FALLBACK'}
+   setMessages(m=>[...m,{role:'assistant',text:answer,context:label,source}]);
+  }finally{setPending(false)}
  };
- return <><button ref={launcher} className="chat-launcher chat-icon" hidden={hidden} aria-label={open?"Close Ask OpenRelief":"Ask OpenRelief"} title={open?"Back to country overview":"Ask OpenRelief"} aria-controls="openrelief-chat" aria-expanded={open} onClick={()=>open?close():onOpen()}>{open?<X size={22}/>:<MessageCircle size={22}/>}</button><section id="openrelief-chat" className={`model-chat panel-chat ${open&&!hidden?'chat-visible':''}`} inert={!open||hidden} aria-hidden={!open||hidden} role="dialog" aria-label="Ask about the data" onKeyDown={e=>{if(e.key==='Escape'){e.stopPropagation();close()}}}><div className="chat-heading"><div><MessageCircle size={18}/><strong>Ask OpenRelief</strong></div><div><button aria-label="New conversation" onClick={()=>{setMessages([]);setDraft('');input.current?.focus()}}><Plus size={18}/></button><button aria-label="Close chat" onClick={close}><X size={18}/></button></div></div><div className="chat-context"><i/>{context.country} <span>· Next {context.horizon} days</span>{(canGoLive||hasSnapshot)&&<span className="live-pill"> · MODEL FORECAST AVAILABLE</span>}</div><div className="chat-messages" role="log" aria-live="polite">{!messages.length&&<div className="chat-welcome"><h3>Look beyond the number.</h3><p>{(canGoLive||hasSnapshot)?'Ask the fine-tuned checkpoint about this country’s held-out forecast.':'Explore the price movement, possible explanations and the evidence behind this country’s outlook.'}</p><div className="chat-prompts">{['Why this prediction?','How confident is it?','What are the sources?'].map(q=><button key={q} onClick={()=>send(q)}>{q}<ArrowUp size={13}/></button>)}</div></div>}{messages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}><small>{m.role==='user'?'YOU':m.live?'MODEL FORECAST':'DEMO RESPONSE'} · {m.context}</small><p>{m.text}</p></div>)}{pending&&<div className="chat-message assistant"><small>MODEL FORECAST · running inference…</small><p>Calling the fine-tuned checkpoint on Nebius, this can take a few seconds…</p></div>}<div ref={end}/></div><div className="chat-disclaimer">{canGoLive?'Live checkpoint call · falls back to a cached snapshot, then demo answers, if unreachable':hasSnapshot?`Cached batch snapshot (${snapshotDate}) · live endpoint not configured`:'Demo answers · LLM not connected · No messages sent externally'}</div><form className="chat-input" onSubmit={e=>{e.preventDefault();send()}}><input ref={input} value={draft} onChange={e=>setDraft(e.target.value)} maxLength={2000} aria-label="Question about the data" placeholder="Ask about this prediction…"/><button type="submit" disabled={!draft.trim()||pending} aria-label="Send question"><ArrowUp size={18}/></button></form></section></>;
+ return <><button ref={launcher} className="chat-launcher chat-icon" hidden={hidden} aria-label={open?'Close Ask OpenRelief':'Ask OpenRelief'} aria-controls="openrelief-chat" aria-expanded={open} onClick={()=>open?close():onOpen()}>{open?<X size={22}/>:<MessageCircle size={22}/>}</button>
+ <section id="openrelief-chat" className={`model-chat panel-chat ${open&&!hidden?'chat-visible':''}`} inert={!open||hidden} aria-hidden={!open||hidden} role="dialog" aria-label="Ask about the data" onKeyDown={e=>{if(e.key==='Escape'){e.stopPropagation();close()}}}>
+  <div className="chat-heading"><div><MessageCircle size={18}/><strong>Ask OpenRelief</strong></div><div><button aria-label="New conversation" disabled={pending} onClick={()=>{setMessages([]);setDraft('');input.current?.focus()}}><Plus size={18}/></button><button aria-label="Close chat" onClick={close}><X size={18}/></button></div></div>
+  <div className="chat-context"><i/>{context.country}<span>{stored?` · Historical target ${stored.target_month}`:' · No model data'}</span></div>
+  <div className="chat-messages" role="log" aria-live="polite">{!messages.length&&<div className="chat-welcome"><h3>Understand the prediction</h3><p>{stored?'Explore the model’s phase, rationale and source limitations for this historical sample.':'Choose a country with model data to explore its prediction.'}</p>{stored&&<div className="chat-prompts">{['Why this prediction?','How confident is it?','What are the sources?'].map(q=><button disabled={pending} key={q} onClick={()=>send(q)}>{q}<ArrowUp size={13}/></button>)}</div>}</div>}{messages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}><small>{m.role==='user'?'YOU':m.source} · {m.context}</small><p>{m.text}</p></div>)}{pending&&<div className="chat-message assistant chat-loading" role="status"><div className="chat-loading-label"><span className="chat-loading-dots" aria-hidden="true"><i/><i/><i/></span><span>Loading model response…</span></div><div className="chat-loading-lines" aria-hidden="true"><span/><span/><span/></div></div>}<div ref={end}/></div>
+  <div className="chat-disclaimer">{stored?'OpenAI answer grounded in this model output · No data is added':'No model output for this country'}</div>
+  <form className="chat-input" onSubmit={e=>{e.preventDefault();send()}}><input ref={input} value={draft} onChange={e=>setDraft(e.target.value)} maxLength={2000} aria-label="Question about the data" placeholder="Ask about this prediction…"/><button type="submit" disabled={!draft.trim()||pending} aria-label="Send question"><ArrowUp size={18}/></button></form>
+ </section></>;
 }

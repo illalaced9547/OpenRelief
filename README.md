@@ -45,7 +45,7 @@ current GPU loader reads JSONL; it does not yet consume the TimeF exports direct
 
 ## Web frontend
 
-The React/Vite application lives in [`frontend/`](frontend/README.md), independently of the Python research pipeline. It is live at https://openrelief.vercel.app and currently displays **demo predictions**, not trained-model outputs.
+The React/Vite application lives in [`frontend/`](frontend/README.md), independently of the Python research pipeline. It is live at https://openrelief.vercel.app and displays **saved historical model predictions** for 14 countries. Each represents one district test sample, not a current national forecast.
 
 ```sh
 cd frontend
