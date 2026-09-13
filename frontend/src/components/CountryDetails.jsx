@@ -1,12 +1,12 @@
-import {ArrowRight,Globe2,Info,X} from 'lucide-react';
+import {ArrowRight,Globe2,Info} from 'lucide-react';
 import {PHASE_LABEL,phaseColor,snapshotMeta,formatDate} from '../data/modelData';
 import {modelInfluences} from '../lib/modelInfluences';
 
-export default function CountryDetails({country,name,tab,setTab,hidden,mobileOpen,onClose}){
+export default function CountryDetails({country,name,tab,setTab,hidden}){
  const influences=modelInfluences(country);
- return <aside className={`country-panel explanation-panel ${country?'':'country-panel-empty'} ${mobileOpen?'mobile-detail-open':''} ${hidden?'panel-away':''}`} inert={hidden} aria-hidden={hidden}>
+ return <aside className={`country-panel explanation-panel ${hidden?'panel-away':''}`} inert={hidden} aria-hidden={hidden}>
   <div className="panel-eyebrow">MODEL OUTLOOK <span className="demo-pill">{country?'SAVED PREDICTION':'NO MODEL DATA'}</span></div>
-  <div className="country-heading"><h3>{name}</h3><button className="mobile-detail-close" aria-label="Close country details" onClick={onClose}><X size={18}/></button></div>
+  <div className="country-heading"><h3>{name}</h3></div>
   <p className="region">{country?'One historical district sample · Country location only':'No prediction supplied for this country'}</p>
   {!country?<div className="empty-state"><Globe2 size={28}/><p>Choose a colored country to view its model result. Countries without an output have no estimated score.</p></div>:<>
    <div className="detail-tabs" role="group" aria-label="Country detail view">{[['outlook','Outlook'],['explanation','Explanation'],['sources','Sources']].map(([id,label])=><button key={id} aria-pressed={tab===id} onClick={()=>setTab(id)}>{label}</button>)}</div>
