@@ -1,0 +1,20 @@
+{
+  "dataset_version": "8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3",
+  "annotation_file_sha256": "e6ee28700d0fe241eef38104d8a49ca2b9c27e8ed5e2e54d73c18f2d38e55800",
+  "sample_ids": [
+    "3cbb32921fe1afe089e3977f",
+    "0029fa7cda0aa0fd84bee13c",
+    "002484ea2c5aaa22f62d46e8"
+  ],
+  "selection": "Editorial training examples: deterioration, stable crisis and improvement; not a quality or performance sample.",
+  "network_calls": 0,
+  "files": {
+    "README.md": "b7bda7940fcc7c656f820eb8e0fb37cb3436c35370a8a55f155d5f1cd7df7001",
+    "beni.png": "473f1fe95fcfcb144b39c30451a0ee33e8e4f459c673ab0e0fff9e1b89968554",
+    "examples.json": "bf6600c7ce9d29058bdaf6323c2696be13608c78efab417be0261c731cf51a39",
+    "harad.png": "071321f7c11c219ef7ccce8e4cde48c34db2b1ca4f48dd3fab9c9e4fedd556c4",
+    "index.html": "157e38fbac71d05c9b28cea17e489ccb4a05877db760a8d6dca20fd77389492d",
+    "oubritenga.png": "351f79aec62e463f7ccd6c1c070c54a10a201a4d61f1658c66bfdff7e433dc4d",
+    "pipeline.svg": "fdf02401993327c4acb56add60915da26b9c5793c85a32942243b8b69f5d68f0"
+  }
+}

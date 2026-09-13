@@ -1,0 +1,2738 @@
+[
+  {
+    "input": {
+      "channels": [
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "fcs_rt mean",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "HFID normalized index (method unknown)",
+          "values": [
+            0.3099355469980547,
+            0.3839760526021322,
+            0.3757190150599326,
+            0.4030188135946951,
+            0.4244088071187336,
+            0.4237880128429782
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "rcsi_rt mean",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "HFID normalized index (method unknown)",
+          "values": [
+            0.6333276711740802,
+            0.6326662686665853,
+            0.6813548943304246,
+            0.6271146318989416,
+            0.5603621228535971,
+            0.6478719871274887
+          ]
+        },
+        {
+          "availability_basis": "calendar_known_in_advance",
+          "availability_times": [
+            "2020-05-31T23:59:59Z",
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z"
+          ],
+          "geography_level": "global",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "month_of_year",
+          "source_sha256": "16b6a849b95025e9eae8a4817deeec87db4569e572c7e6d31e67724445cc9f7e",
+          "unit": "calendar month (1-12)",
+          "values": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-05-31T23:59:59Z",
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z"
+          ],
+          "description": "Latest assessment available as of each historical month; expires after six months.",
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "ipc_last_known_phase",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "IPC phase 1-5",
+          "values": [
+            4,
+            4,
+            4,
+            4,
+            4,
+            4
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-05-31T23:59:59Z",
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z"
+          ],
+          "description": "Latest assessment available as of each historical month; expires after six months.",
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "ipc_assessment_age",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "months",
+          "values": [
+            3,
+            4,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "portwatch_import_dry_bulk",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "portwatch_import_dry_bulk",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "metric_tons",
+          "values": [
+            441655.0,
+            634098.0,
+            697165.0,
+            750588.0,
+            507674.0,
+            562100.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "portwatch_import_cargo",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "portwatch_import_cargo",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "metric_tons",
+          "values": [
+            629638.0,
+            881028.0,
+            933188.0,
+            1025637.0,
+            787108.0,
+            841549.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "portwatch_export_cargo",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "portwatch_export_cargo",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "metric_tons",
+          "values": [
+            20121.0,
+            7080.0,
+            48297.0,
+            30710.0,
+            6381.0,
+            6926.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "portwatch_portcalls_cargo",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "portwatch_portcalls_cargo",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "calls",
+          "values": [
+            51.0,
+            59.0,
+            66.0,
+            66.0,
+            59.0,
+            63.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "acled_events",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "acled_events",
+          "source_sha256": [
+            "350353c90df5b309f441350c9370a6063052ec02ff1ee7af6042e99589cdcdce"
+          ],
+          "unit": "count",
+          "values": [
+            825.0,
+            829.0,
+            804.0,
+            830.0,
+            902.0,
+            830.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "acled_fatalities",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "acled_fatalities",
+          "source_sha256": [
+            "350353c90df5b309f441350c9370a6063052ec02ff1ee7af6042e99589cdcdce"
+          ],
+          "unit": "count",
+          "values": [
+            1746.0,
+            1657.0,
+            1409.0,
+            1783.0,
+            1784.0,
+            1481.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z",
+            "2020-12-31T23:59:59Z"
+          ],
+          "description": "chirps_rainfall",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "chirps_rainfall",
+          "source_sha256": [
+            "00615c702eacf226dff1dafb13d0f26f46b175aa75ef07c2a251109e2941ea10",
+            "2977d678da2b319f4c822016e7e998c18d11cdc7ba4cd9b70cc204bc3fb78e23",
+            "4495bd133caecdcb6c1c4bafb09de408df75a76d82431898437a7533107e14e8",
+            "57b0ed8a4a3874c224b879d5e5b573aed0ceb881f80aa69186491d77b3104761",
+            "7a97b6b327c6b43e1e798496b4a38a3ae7d0e7fd0a1dec0171e9b44221a19171",
+            "aa4d3362f28c185e3ef032771815298ebe4ec72e3d0413289b4d0063a52c6a6e",
+            "ff843c793c76687c99392196a85a0b066321fcf1a75f8b2565c3449942a86f4f"
+          ],
+          "unit": "mm/month",
+          "values": [
+            15.19376876158883,
+            4.354224525837861,
+            53.09430771596333,
+            28.28202326775724,
+            6.259570631120969,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2020-06-30T23:59:59Z",
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "description": "wfp_price:Rice (imported):KG",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "wfp_staple_price",
+          "source_sha256": [
+            "6a2abcbfa67be03babdf0cabaaeb8c21c643d649a5e3d48cb7b823a2c0d7240f"
+          ],
+          "unit": "USD/KG",
+          "values": [
+            3.72,
+            3.72,
+            3.98,
+            4.03,
+            4.01,
+            4.06
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "wfp_staple_price"
+          ],
+          "description": "percent_change, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "wfp_staple_price_change_1m_pct",
+          "source_sha256": [
+            "6a2abcbfa67be03babdf0cabaaeb8c21c643d649a5e3d48cb7b823a2c0d7240f"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            0.0,
+            6.989247311827951,
+            1.2562814070351758,
+            -0.49627791563277013,
+            1.2468827930174564
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "wfp_staple_price"
+          ],
+          "description": "percent_change, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "wfp_staple_price_change_3m_pct",
+          "source_sha256": [
+            "6a2abcbfa67be03babdf0cabaaeb8c21c643d649a5e3d48cb7b823a2c0d7240f"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            null,
+            null,
+            8.333333333333325,
+            7.795698924731176,
+            2.010050251256268
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "acled_events"
+          ],
+          "description": "sum, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "acled_events_sum_3m",
+          "source_sha256": [
+            "350353c90df5b309f441350c9370a6063052ec02ff1ee7af6042e99589cdcdce"
+          ],
+          "unit": "events",
+          "values": [
+            null,
+            null,
+            2458.0,
+            2463.0,
+            2536.0,
+            2562.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "portwatch_import_cargo"
+          ],
+          "description": "relative_mean, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "portwatch_import_cargo_vs_previous_3m_pct",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            null,
+            null,
+            25.904043367566153,
+            -16.850484866646266,
+            -8.058681693981606
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "fcs_rt mean"
+          ],
+          "description": "difference, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "fcs_rt mean_change_1m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            0.07404050560407749,
+            -0.008257037542199586,
+            0.0272997985347625,
+            0.021389993524038475,
+            -0.0006207942757553986
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "fcs_rt mean"
+          ],
+          "description": "difference, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "fcs_rt mean_change_3m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            null,
+            null,
+            0.0930832665966404,
+            0.04043275451660139,
+            0.048068997783045575
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2020-07-31T23:59:59Z",
+            "2020-08-31T23:59:59Z",
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "rcsi_rt mean"
+          ],
+          "description": "difference, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "rcsi_rt mean_change_1m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            -0.0006614025074949126,
+            0.04868862566383936,
+            -0.054240262431483055,
+            -0.06675250904534447,
+            0.08750986427389162
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2020-09-30T23:59:59Z",
+            "2020-10-31T23:59:59Z",
+            "2020-11-30T23:59:59Z"
+          ],
+          "derived_from": [
+            "rcsi_rt mean"
+          ],
+          "description": "difference, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "name": "rcsi_rt mean_change_3m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            null,
+            null,
+            -0.00621303927513861,
+            -0.07230414581298816,
+            -0.033482907202935897
+          ]
+        }
+      ],
+      "cutoff": "2020-11-30T23:59:59Z",
+      "dataset_version": "8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3",
+      "geography": {
+        "admin1": "Hajjah",
+        "admin2": "Harad",
+        "country": "Yemen",
+        "iso3": "YEM"
+      },
+      "horizon_months": 3,
+      "last_available_phase": {
+        "availability_time": "2020-11-30T23:59:59Z",
+        "event_month": "2020-10",
+        "phase": 3
+      },
+      "sample_id": "3cbb32921fe1afe089e3977f",
+      "split": "train"
+    },
+    "target": {
+      "deteriorated": true,
+      "label_availability_time": "2021-03-31T23:59:59Z",
+      "phase": 4,
+      "phase_change": 1,
+      "sample_id": "3cbb32921fe1afe089e3977f",
+      "split": "train",
+      "target_month": "2021-02"
+    },
+    "slug": "harad",
+    "transition": "Deterioration",
+    "title": "Trade, prices and conflict before an observed phase increase",
+    "annotation": {
+      "observed_future_phase": 4,
+      "precursor_patterns": [
+        {
+          "provenance": "observed",
+          "statement": "The country-level imported rice price rose from USD 3.72/kg in May–June to USD 3.98/kg in July and USD 4.03/kg in August, ending at USD 4.06/kg in October. The reported three-month price changes were +8.33% in August, +7.80% in September, and +2.01% in October.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "event_months": [
+            "2020-05",
+            "2020-06",
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a national price series for imported rice and may not represent retail prices, availability, or purchasing power in Harad."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Country-level cargo imports peaked at 1,025,637 metric tons in August, then fell to 787,108 in September and recovered only to 841,549 in October. The rolling import-cargo measure was -16.85% in September and -8.06% in October relative to the previous three-month reference.",
+          "channels": [
+            "portwatch_import_cargo",
+            "portwatch_import_cargo_vs_previous_3m_pct"
+          ],
+          "event_months": [
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "source_url": null,
+          "uncertainty": "Cargo imports are not food-specific, and country-level port flows cannot establish supply conditions in this district."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Reported country-level conflict events rose to 902 in September from 830 in August; the trailing three-month event total increased from 2,458 in July to 2,562 in October. Fatalities remained high but varied month to month (1,409–1,784 during July–September, then 1,481 in October).",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "event_months": [
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "source_url": null,
+          "uncertainty": "These are national conflict counts and do not demonstrate the location, exposure, displacement effects, or market-access impacts experienced in Harad."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The admin2 HFID-normalized FCS series increased from 0.310 in May to 0.424 in September and was 0.424 in October; its three-month numeric changes were positive from August through October. The normalized rCSI series was variable, falling to 0.560 in September before increasing to 0.648 in October.",
+          "channels": [
+            "fcs_rt mean",
+            "fcs_rt mean_change_1m",
+            "fcs_rt mean_change_3m",
+            "rcsi_rt mean",
+            "rcsi_rt mean_change_1m",
+            "rcsi_rt mean_change_3m"
+          ],
+          "event_months": [
+            "2020-05",
+            "2020-08",
+            "2020-09",
+            "2020-10"
+          ],
+          "source_url": null,
+          "uncertainty": "HFID normalization and direction are undocumented; these numeric movements cannot be interpreted as changes in food consumption or coping behavior."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The rolling IPC record was phase 4 through October, but those entries referred to February and then June assessment events. Separately, the latest assessment available at the November cutoff was phase 3 with an October 2020 event month and was one month old at cutoff.",
+          "channels": [
+            "ipc_last_known_phase",
+            "ipc_assessment_age",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2020-02",
+            "2020-06",
+            "2020-10"
+          ],
+          "source_url": null,
+          "uncertainty": "Rolling IPC ages apply to their respective as-of months; the October assessment date and its one-month age at cutoff come from last_available_phase. Assessment timing does not by itself explain the subsequent phase change."
+        }
+      ],
+      "interaction_hypotheses": [
+        {
+          "provenance": "inference",
+          "statement": "The July–October rise in the national imported-rice price coincided with lower country-level cargo-import volumes after the August peak and with a subsequent observed move from the October phase-3 assessment to phase 4 in February 2021.",
+          "mechanism": "If the reduced aggregate cargo flow included commodities or inputs relevant to food markets, it could have compounded rising staple costs by tightening market availability or raising transaction costs, reducing household purchasing power and contributing to more severe food-security outcomes.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct",
+            "portwatch_import_cargo",
+            "portwatch_import_cargo_vs_previous_3m_pct",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10",
+            "2021-02"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a plausible trade-and-price mechanism, not a proven causal chain: imports are non-food-specific, both signals are national, and the phase-4 outcome is district-specific."
+        },
+        {
+          "provenance": "inference",
+          "statement": "High and increasing trailing national conflict-event counts during July–October overlapped with elevated imported-rice prices, before the observed February 2021 phase-4 outcome.",
+          "mechanism": "Conflict can plausibly disrupt movement, market functioning, livelihoods, and access to assistance; when staple prices are also elevated, these constraints may compound affordability and access pressures for households.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2020-07",
+            "2020-08",
+            "2020-09",
+            "2020-10",
+            "2021-02"
+          ],
+          "source_url": null,
+          "uncertainty": "No district-level conflict exposure, displacement, road-access, livelihood, or assistance-delivery observations are supplied, so this hypothesis cannot establish causation."
+        }
+      ],
+      "rationale": "Retrospectively, the supplied ground truth records deterioration by one IPC phase, from the latest available October 2020 phase-3 assessment to phase 4 in February 2021. Before that outcome, observed national rice prices rose, cargo-import volumes declined from an August peak, and conflict-event totals increased. The admin2 normalized FCS and rCSI values show numeric changes only; because their normalization direction is unknown, they are not interpreted as food-consumption or coping changes. National trade, price, and conflict correlations provide plausible contributing channels but are not district-level causal evidence.",
+      "recommended_actions": [
+        {
+          "action": "Provide or scale up phase-4-appropriate emergency food assistance and/or cash or voucher support where markets can safely function, with transfer values reviewed against the imported-rice price series.",
+          "urgency": "respond_now",
+          "driver_channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct",
+            "last_available_phase"
+          ],
+          "justification": "Rising observed staple prices may erode purchasing power, and the retrospective outcome is IPC phase 4."
+        },
+        {
+          "action": "Strengthen monitoring of port-linked commodity flows, local market availability, and district retail prices; pre-position essential assistance where supply monitoring identifies constraints.",
+          "urgency": "respond_now",
+          "driver_channels": [
+            "portwatch_import_cargo",
+            "portwatch_import_cargo_vs_previous_3m_pct",
+            "wfp_staple_price",
+            "last_available_phase"
+          ],
+          "justification": "Aggregate cargo imports fell after August while rice prices remained elevated; monitoring is needed because port data are national and non-food-specific."
+        },
+        {
+          "action": "Coordinate conflict-sensitive delivery arrangements, including access monitoring and safe, impartial distribution planning, while tracking whether conflict affects Harad market access or assistance delivery.",
+          "urgency": "respond_now",
+          "driver_channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities",
+            "last_available_phase"
+          ],
+          "justification": "National conflict activity was persistently high, creating a plausible access risk alongside the phase-4 outcome, though local effects are unverified."
+        }
+      ],
+      "uncertainty": "The target phase is supplied ground truth, but the available precursor evidence is short, largely national, and partly non-food-specific. Rainfall lacks an October observation and no climatological baseline is provided, so no rainfall anomaly is inferred. IPC rolling values are historical assessment carry-forwards; the latest assessment was the separate October phase-3 event. The identified mechanisms are hypotheses rather than demonstrated causes.",
+      "confidence": 0.68
+    },
+    "training_answer": {
+      "phase": 4,
+      "rationale": "Retrospectively, the supplied ground truth records deterioration by one IPC phase, from the latest available October 2020 phase-3 assessment to phase 4 in February 2021. Before that outcome, observed national rice prices rose, cargo-import volumes declined from an August peak, and conflict-event totals increased. The admin2 normalized FCS and rCSI values show numeric changes only; because their normalization direction is unknown, they are not interpreted as food-consumption or coping changes. National trade, price, and conflict correlations provide plausible contributing channels but are not district-level causal evidence.",
+      "recommended_actions": [
+        "Provide or scale up phase-4-appropriate emergency food assistance and/or cash or voucher support where markets can safely function, with transfer values reviewed against the imported-rice price series.",
+        "Strengthen monitoring of port-linked commodity flows, local market availability, and district retail prices; pre-position essential assistance where supply monitoring identifies constraints.",
+        "Coordinate conflict-sensitive delivery arrangements, including access monitoring and safe, impartial distribution planning, while tracking whether conflict affects Harad market access or assistance delivery."
+      ]
+    },
+    "teacher": {
+      "model": "gpt-5.6-terra",
+      "request_sha256": "d432bc06ff1869c8751c214706411f4e9e2cb09d33e683b59fafd67444bbf748"
+    }
+  },
+  {
+    "input": {
+      "channels": [
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "fcs_rt mean",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "HFID normalized index (method unknown)",
+          "values": [
+            0.3808520163259197,
+            0.3620592280796595,
+            0.3913552093505857,
+            0.3814945945739746,
+            0.4217987146685201,
+            0.4361481132507323
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "rcsi_rt mean",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "HFID normalized index (method unknown)",
+          "values": [
+            0.4785242228354177,
+            0.4840085165841237,
+            0.4770339510517734,
+            0.4691609967549641,
+            0.4232094967749809,
+            0.4115715344746907
+          ]
+        },
+        {
+          "availability_basis": "calendar_known_in_advance",
+          "availability_times": [
+            "2022-01-31T23:59:59Z",
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z"
+          ],
+          "geography_level": "global",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "month_of_year",
+          "source_sha256": "16b6a849b95025e9eae8a4817deeec87db4569e572c7e6d31e67724445cc9f7e",
+          "unit": "calendar month (1-12)",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-01-31T23:59:59Z",
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z"
+          ],
+          "description": "Latest assessment available as of each historical month; expires after six months.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "ipc_last_known_phase",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "IPC phase 1-5",
+          "values": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-01-31T23:59:59Z",
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z"
+          ],
+          "description": "Latest assessment available as of each historical month; expires after six months.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "ipc_assessment_age",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "months",
+          "values": [
+            3,
+            4,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "portwatch_import_dry_bulk",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_import_dry_bulk",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "metric_tons",
+          "values": [
+            33281.0,
+            8337.0,
+            59964.0,
+            17292.0,
+            47193.0,
+            50595.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "portwatch_import_cargo",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_import_cargo",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "metric_tons",
+          "values": [
+            74479.0,
+            56380.0,
+            119316.0,
+            63312.0,
+            115041.0,
+            128635.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "portwatch_export_cargo",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_export_cargo",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "metric_tons",
+          "values": [
+            14270.0,
+            14268.0,
+            3422.0,
+            434.0,
+            2028.0,
+            47481.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "portwatch_portcalls_cargo",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_portcalls_cargo",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "calls",
+          "values": [
+            33.0,
+            33.0,
+            32.0,
+            23.0,
+            42.0,
+            46.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "acled_events",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "acled_events",
+          "source_sha256": [
+            "374434bfeb0d622d4b3f4ebd16e6cb48b13af7707987eda6b9178f4bbf89facf"
+          ],
+          "unit": "count",
+          "values": [
+            561.0,
+            486.0,
+            393.0,
+            441.0,
+            453.0,
+            513.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "acled_fatalities",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "acled_fatalities",
+          "source_sha256": [
+            "374434bfeb0d622d4b3f4ebd16e6cb48b13af7707987eda6b9178f4bbf89facf"
+          ],
+          "unit": "count",
+          "values": [
+            994.0,
+            853.0,
+            806.0,
+            712.0,
+            814.0,
+            682.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z",
+            "2022-08-31T23:59:59Z"
+          ],
+          "description": "chirps_rainfall",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "chirps_rainfall",
+          "source_sha256": [
+            "0fc6c437df9f4b8408a5e20bd0643ba486a75e50db4084493139d4964953d79d",
+            "1c3752f3a0e1a9a69be1002809ef15c7382b8429c6a16dd0192bec9f43671c63",
+            "4c4edbcb92433bba4e300b19507e87c219e58092a5a21caea1e89eea1e68bfec",
+            "700408ba0a8f73053c7ec195688e185c36928f2343eacb97ce8dbfce79d85a5a",
+            "997c92e5d0a8a17c9a460deee6ce3127510ca83cae4f2e9bc5812aba8a13731e",
+            "ba5b689ca4d72679cd2514dec71963260b3b6f5b888e69cd6023073369ed7f28",
+            "d4dad8a67693294812e13ac1d93dcb00a2140716ed229f3c71daf2b1412ce751"
+          ],
+          "unit": "mm/month",
+          "values": [
+            143.00409736249682,
+            113.60661930178527,
+            169.06245059411228,
+            173.54059453731412,
+            116.17250833899662,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "wfp_price:Cassava flour:KG",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "wfp_staple_price",
+          "source_sha256": [
+            "439f09aa53eb4f1b1f406c3a629e7b5e1fcdf55d93abfdb060d85e18dd27c9b4"
+          ],
+          "unit": "USD/KG",
+          "values": [
+            0.4,
+            0.43,
+            0.35,
+            0.48,
+            0.5,
+            0.49
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "wfp_staple_price"
+          ],
+          "description": "percent_change, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "wfp_staple_price_change_1m_pct",
+          "source_sha256": [
+            "439f09aa53eb4f1b1f406c3a629e7b5e1fcdf55d93abfdb060d85e18dd27c9b4"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            7.499999999999996,
+            -18.6046511627907,
+            37.142857142857146,
+            4.166666666666674,
+            -2.0000000000000018
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "wfp_staple_price"
+          ],
+          "description": "percent_change, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "wfp_staple_price_change_3m_pct",
+          "source_sha256": [
+            "439f09aa53eb4f1b1f406c3a629e7b5e1fcdf55d93abfdb060d85e18dd27c9b4"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            null,
+            null,
+            19.999999999999996,
+            16.279069767441868,
+            40.000000000000014
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "acled_events"
+          ],
+          "description": "sum, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "acled_events_sum_3m",
+          "source_sha256": [
+            "374434bfeb0d622d4b3f4ebd16e6cb48b13af7707987eda6b9178f4bbf89facf"
+          ],
+          "unit": "events",
+          "values": [
+            null,
+            null,
+            1440.0,
+            1320.0,
+            1287.0,
+            1407.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "portwatch_import_cargo"
+          ],
+          "description": "relative_mean, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_import_cargo_vs_previous_3m_pct",
+          "source_sha256": [
+            "7ee7fde83703d13eae6177d34d65444b171ba8b5bb5859dbb340177f81652014"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            null,
+            null,
+            -24.078744878584992,
+            44.398095461239805,
+            29.642320832871416
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "fcs_rt mean"
+          ],
+          "description": "difference, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "fcs_rt mean_change_1m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            -0.018792788246260184,
+            0.029295981270926197,
+            -0.009860614776611099,
+            0.04030412009454548,
+            0.014349398582212236
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "fcs_rt mean"
+          ],
+          "description": "difference, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "fcs_rt mean_change_3m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            null,
+            null,
+            0.0006425782480549147,
+            0.05973948658886058,
+            0.04479290390014662
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "rcsi_rt mean"
+          ],
+          "description": "difference, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "rcsi_rt mean_change_1m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            0.005484293748706015,
+            -0.006974565532350319,
+            -0.007872954296809287,
+            -0.04595149997998321,
+            -0.011637962300290183
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "rcsi_rt mean"
+          ],
+          "description": "difference, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "rcsi_rt mean_change_3m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            null,
+            null,
+            -0.00936322608045359,
+            -0.06079901980914282,
+            -0.06546241657708268
+          ]
+        }
+      ],
+      "cutoff": "2022-07-31T23:59:59Z",
+      "dataset_version": "8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3",
+      "geography": {
+        "admin1": "Nord-Kivu",
+        "admin2": "Beni",
+        "country": "Democratic Republic of the Congo",
+        "iso3": "COD"
+      },
+      "horizon_months": 3,
+      "last_available_phase": {
+        "availability_time": "2022-07-31T23:59:59Z",
+        "event_month": "2022-06",
+        "phase": 3
+      },
+      "sample_id": "0029fa7cda0aa0fd84bee13c",
+      "split": "train"
+    },
+    "target": {
+      "deteriorated": false,
+      "label_availability_time": "2022-11-30T23:59:59Z",
+      "phase": 3,
+      "phase_change": 0,
+      "sample_id": "0029fa7cda0aa0fd84bee13c",
+      "split": "train",
+      "target_month": "2022-10"
+    },
+    "slug": "beni",
+    "transition": "Persistent crisis",
+    "title": "Elevated staple prices and conflict alongside a stable IPC phase",
+    "annotation": {
+      "observed_future_phase": 3,
+      "precursor_patterns": [
+        {
+          "provenance": "observed",
+          "statement": "Cassava flour price rose from USD 0.35/kg in March to USD 0.50/kg in May, then was USD 0.49/kg in June; the reported three-month change was +40.0% in June.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "event_months": [
+            "2022-03",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a country-level price series for one staple and does not establish prices, availability, or household purchasing power in Beni."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Country-level ACLED events declined from 561 in January to 393 in March, then increased to 513 in June; the trailing three-month event total rose from 1,287 in May to 1,407 in June. Reported fatalities declined from 814 in May to 682 in June.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-03",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "These are national conflict indicators and cannot locate incidents or impacts within Beni."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The admin2 normalized FCS series increased by 0.0403 in May and 0.0143 in June, while the normalized rCSI series decreased by 0.0460 in May and 0.0116 in June.",
+          "channels": [
+            "fcs_rt mean",
+            "fcs_rt mean_change_1m",
+            "rcsi_rt mean",
+            "rcsi_rt mean_change_1m"
+          ],
+          "event_months": [
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "HFID normalization and index direction are undocumented; these numeric movements cannot be interpreted as changes in food consumption or coping behavior."
+        },
+        {
+          "provenance": "observed",
+          "statement": "IPC phase was recorded as Phase 3 throughout January-June. The rolling series reflected a February assessment through June, while the latest available assessment at the July cutoff was Phase 3 with event month June and age one month at cutoff.",
+          "channels": [
+            "ipc_last_known_phase",
+            "ipc_assessment_age",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2022-02",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "Rolling IPC ages apply to their respective as-of months; the June latest assessment has a separately specified one-month age at the July cutoff."
+        }
+      ],
+      "interaction_hypotheses": [
+        {
+          "provenance": "inference",
+          "statement": "The June increase in national conflict events (513; three-month total 1,407) coincided with cassava flour remaining near its May high (USD 0.49/kg in June after USD 0.50/kg in May).",
+          "mechanism": "Plausibly, conflict-related disruption to movement, market access, or livelihoods could compound elevated staple prices and constrain purchasing power, helping sustain acute food-security needs. This is a hypothesis rather than a demonstrated causal chain, particularly because conflict and price data are national while the IPC outcome is for Beni.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "Coincidence across aggregated national series does not prove that conflict caused the price level or the Phase 3 classification in Beni."
+        }
+      ],
+      "rationale": "The observed October outcome remained IPC Phase 3, matching the latest June Phase 3 assessment rather than showing a phase change. Measured precursors included an elevated cassava-flour price relative to March and a late increase in national conflict-event counts; the normalized FCS and rCSI series moved numerically in opposite directions in May-June, without interpretable welfare direction. These patterns may be relevant through market-access and purchasing-power channels, but their geographic aggregation and correlation do not establish causation.",
+      "recommended_actions": [
+        {
+          "action": "Prepare market monitoring and targeted purchasing-power support, such as time-bound staple vouchers or cash where market functionality and safety permit, with attention to cassava-flour affordability.",
+          "urgency": "prepare_now",
+          "driver_channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "justification": "The identified country-level cassava-flour series was USD 0.49/kg in June and 40.0% above its March level on the reported three-month comparison; Phase 3 warrants preparation for response while verifying Beni-specific market conditions."
+        },
+        {
+          "action": "Prepare conflict-sensitive access and displacement coordination, including contingency planning for safe delivery routes and local market/access checks in Beni.",
+          "urgency": "prepare_now",
+          "driver_channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "last_available_phase"
+          ],
+          "justification": "National conflict events rose in June after earlier declines, alongside a latest available Phase 3 assessment. National data do not identify Beni impacts, so local validation is necessary before operational prioritization."
+        }
+      ],
+      "uncertainty": "The forecast window contains only six months of mixed geographic coverage. Price, trade, rainfall, and conflict indicators are country-level, whereas HFID and IPC signals are admin2-level. June rainfall is missing. The HFID index normalization and severity direction are unknown, and the supplied data support plausible associations rather than causal attribution.",
+      "confidence": 0.68
+    },
+    "training_answer": {
+      "phase": 3,
+      "rationale": "The observed October outcome remained IPC Phase 3, matching the latest June Phase 3 assessment rather than showing a phase change. Measured precursors included an elevated cassava-flour price relative to March and a late increase in national conflict-event counts; the normalized FCS and rCSI series moved numerically in opposite directions in May-June, without interpretable welfare direction. These patterns may be relevant through market-access and purchasing-power channels, but their geographic aggregation and correlation do not establish causation.",
+      "recommended_actions": [
+        "Prepare market monitoring and targeted purchasing-power support, such as time-bound staple vouchers or cash where market functionality and safety permit, with attention to cassava-flour affordability.",
+        "Prepare conflict-sensitive access and displacement coordination, including contingency planning for safe delivery routes and local market/access checks in Beni."
+      ]
+    },
+    "teacher": {
+      "model": "gpt-5.6-terra",
+      "request_sha256": "a74a6dda7afe47b1b2e8755e1bad1f156b62cb1bdd3466980cadcf9c6161fba9"
+    }
+  },
+  {
+    "input": {
+      "channels": [
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "fcs_rt mean",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "HFID normalized index (method unknown)",
+          "values": [
+            0.6009899816205424,
+            0.6788685131073,
+            0.6635823526690081,
+            0.6391540679931641,
+            0.6264984524634578,
+            0.6626852595011392
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "rcsi_rt mean",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "HFID normalized index (method unknown)",
+          "values": [
+            0.141728419796113,
+            0.1829146644047328,
+            0.1851172314920732,
+            0.1295815496444702,
+            0.1953053443662581,
+            0.1968355394999185
+          ]
+        },
+        {
+          "availability_basis": "calendar_known_in_advance",
+          "availability_times": [
+            "2022-01-31T23:59:59Z",
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z"
+          ],
+          "geography_level": "global",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "month_of_year",
+          "source_sha256": "16b6a849b95025e9eae8a4817deeec87db4569e572c7e6d31e67724445cc9f7e",
+          "unit": "calendar month (1-12)",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-01-31T23:59:59Z",
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z"
+          ],
+          "description": "Latest assessment available as of each historical month; expires after six months.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "ipc_last_known_phase",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "IPC phase 1-5",
+          "values": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-01-31T23:59:59Z",
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z"
+          ],
+          "description": "Latest assessment available as of each historical month; expires after six months.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "ipc_assessment_age",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "months",
+          "values": [
+            3,
+            4,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "description": "portwatch_import_dry_bulk",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_import_dry_bulk",
+          "source_sha256": [],
+          "unit": "unknown",
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "description": "portwatch_import_cargo",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_import_cargo",
+          "source_sha256": [],
+          "unit": "unknown",
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "description": "portwatch_export_cargo",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_export_cargo",
+          "source_sha256": [],
+          "unit": "unknown",
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "description": "portwatch_portcalls_cargo",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_portcalls_cargo",
+          "source_sha256": [],
+          "unit": "unknown",
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "acled_events",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "acled_events",
+          "source_sha256": [
+            "a6940b23c6d4212555b7f118f4c596f6b7fed65d302a323ace186aeda6458c15"
+          ],
+          "unit": "count",
+          "values": [
+            162.0,
+            191.0,
+            158.0,
+            120.0,
+            147.0,
+            135.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "acled_fatalities",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "acled_fatalities",
+          "source_sha256": [
+            "a6940b23c6d4212555b7f118f4c596f6b7fed65d302a323ace186aeda6458c15"
+          ],
+          "unit": "count",
+          "values": [
+            412.0,
+            319.0,
+            347.0,
+            373.0,
+            439.0,
+            363.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z",
+            "2022-08-31T23:59:59Z"
+          ],
+          "description": "chirps_rainfall",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "chirps_rainfall",
+          "source_sha256": [
+            "1c3752f3a0e1a9a69be1002809ef15c7382b8429c6a16dd0192bec9f43671c63",
+            "4c4edbcb92433bba4e300b19507e87c219e58092a5a21caea1e89eea1e68bfec",
+            "700408ba0a8f73053c7ec195688e185c36928f2343eacb97ce8dbfce79d85a5a",
+            "997c92e5d0a8a17c9a460deee6ce3127510ca83cae4f2e9bc5812aba8a13731e",
+            "ba5b689ca4d72679cd2514dec71963260b3b6f5b888e69cd6023073369ed7f28",
+            "d4dad8a67693294812e13ac1d93dcb00a2140716ed229f3c71daf2b1412ce751",
+            "fd0af15e3aad0d0fc196e099cad3b7ffa8acb45c963c6a97e0681de3e3c1bdd6"
+          ],
+          "unit": "mm/month",
+          "values": [
+            0.36015271026295115,
+            1.041417342882563,
+            10.852809092170647,
+            31.32811625427351,
+            56.26717279312011,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            "2022-02-28T23:59:59Z",
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "description": "wfp_price:Maize (white):KG",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "wfp_staple_price",
+          "source_sha256": [
+            "0315ba09306728b69eea83010ac565314b9a52e84543a1cb4fea650f4a7ff96d"
+          ],
+          "unit": "USD/KG",
+          "values": [
+            0.395,
+            0.39,
+            0.41,
+            0.47,
+            0.45,
+            0.46
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "wfp_staple_price"
+          ],
+          "description": "percent_change, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "wfp_staple_price_change_1m_pct",
+          "source_sha256": [
+            "0315ba09306728b69eea83010ac565314b9a52e84543a1cb4fea650f4a7ff96d"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            -1.2658227848101222,
+            5.12820512820511,
+            14.634146341463406,
+            -4.255319148936165,
+            2.2222222222222143
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "wfp_staple_price"
+          ],
+          "description": "percent_change, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "wfp_staple_price_change_3m_pct",
+          "source_sha256": [
+            "0315ba09306728b69eea83010ac565314b9a52e84543a1cb4fea650f4a7ff96d"
+          ],
+          "unit": "%",
+          "values": [
+            null,
+            null,
+            null,
+            18.98734177215189,
+            15.384615384615374,
+            12.195121951219523
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "acled_events"
+          ],
+          "description": "sum, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "acled_events_sum_3m",
+          "source_sha256": [
+            "a6940b23c6d4212555b7f118f4c596f6b7fed65d302a323ace186aeda6458c15"
+          ],
+          "unit": "events",
+          "values": [
+            null,
+            null,
+            511.0,
+            469.0,
+            425.0,
+            402.0
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "derived_from": [
+            "portwatch_import_cargo"
+          ],
+          "description": "relative_mean, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "country",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "portwatch_import_cargo_vs_previous_3m_pct",
+          "source_sha256": [],
+          "unit": "%",
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "fcs_rt mean"
+          ],
+          "description": "difference, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "fcs_rt mean_change_1m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            0.07787853148675761,
+            -0.015286160438291896,
+            -0.024428284675844014,
+            -0.012655615529706288,
+            0.0361868070376814
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "fcs_rt mean"
+          ],
+          "description": "difference, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "fcs_rt mean_change_3m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            null,
+            null,
+            0.0381640863726217,
+            -0.0523700606438422,
+            -0.0008970931678689009
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            "2022-03-31T23:59:59Z",
+            "2022-04-30T23:59:59Z",
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "rcsi_rt mean"
+          ],
+          "description": "difference, lag/window 1 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "rcsi_rt mean_change_1m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            0.041186244608619804,
+            0.0022025670873404013,
+            -0.05553568184760302,
+            0.06572379472178791,
+            0.0015301951336604003
+          ]
+        },
+        {
+          "availability_basis": "assumed_lag",
+          "availability_times": [
+            null,
+            null,
+            null,
+            "2022-05-31T23:59:59Z",
+            "2022-06-30T23:59:59Z",
+            "2022-07-31T23:59:59Z"
+          ],
+          "derived_from": [
+            "rcsi_rt mean"
+          ],
+          "description": "difference, lag/window 3 months; trailing input observations only. Insufficient history, missing inputs or nonpositive ratio denominators remain null.",
+          "geography_level": "admin2",
+          "months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "name": "rcsi_rt mean_change_3m",
+          "source_sha256": "0145a721827a34a354322d828dff0f9525b3d2d22a72b19c4285820e417a0084",
+          "unit": "normalized index difference",
+          "values": [
+            null,
+            null,
+            null,
+            -0.012146870151642813,
+            0.012390679961525292,
+            0.01171830800784529
+          ]
+        }
+      ],
+      "cutoff": "2022-07-31T23:59:59Z",
+      "dataset_version": "8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3",
+      "geography": {
+        "admin1": "Plateau-Central",
+        "admin2": "Oubritenga",
+        "country": "Burkina Faso",
+        "iso3": "BFA"
+      },
+      "horizon_months": 3,
+      "last_available_phase": {
+        "availability_time": "2022-07-31T23:59:59Z",
+        "event_month": "2022-06",
+        "phase": 2
+      },
+      "sample_id": "002484ea2c5aaa22f62d46e8",
+      "split": "train"
+    },
+    "target": {
+      "deteriorated": false,
+      "label_availability_time": "2022-11-30T23:59:59Z",
+      "phase": 1,
+      "phase_change": -1,
+      "sample_id": "002484ea2c5aaa22f62d46e8",
+      "split": "train",
+      "target_month": "2022-10"
+    },
+    "slug": "oubritenga",
+    "transition": "Improvement",
+    "title": "An improving outcome despite mixed contextual pressures",
+    "annotation": {
+      "observed_future_phase": 1,
+      "precursor_patterns": [
+        {
+          "provenance": "observed",
+          "statement": "The country-level white-maize price increased from USD 0.395/kg in January to 0.470/kg in April, then remained at USD 0.450-0.460/kg in May-June. The recorded three-month price changes were +19.0% in April, +15.4% in May, and +12.2% in June.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-04",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a country-level monitored maize price and may not represent prices, market access, or purchasing power in Oubritenga."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Country-level conflict-event counts peaked at 191 in February and then generally declined to 135 in June; the trailing three-month event total fell from 511 in March to 402 in June. Fatalities remained variable, including 439 in May and 363 in June.",
+          "channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "event_months": [
+            "2022-02",
+            "2022-03",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "These are national counts, not district-level exposure measures, and event/fatality totals do not establish impacts on local food access."
+        },
+        {
+          "provenance": "observed",
+          "statement": "Recorded country-level rainfall rose sequentially from 0.36 mm in January to 56.27 mm in May; the June rainfall observation is missing.",
+          "channels": [
+            "chirps_rainfall"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-02",
+            "2022-03",
+            "2022-04",
+            "2022-05"
+          ],
+          "source_url": null,
+          "uncertainty": "Monthly national rainfall does not measure Oubritenga crop outcomes, water access, or rainfall anomaly relative to seasonal norms."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The admin2 HFID-normalized FCS series increased from 0.6265 in May to 0.6627 in June, while the normalized rCSI series increased slightly from 0.1953 to 0.1968. Across January-June, both series fluctuated rather than moving monotonically.",
+          "channels": [
+            "fcs_rt mean",
+            "fcs_rt mean_change_1m",
+            "rcsi_rt mean",
+            "rcsi_rt mean_change_1m"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-05",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "Normalization methods and severity direction are unknown; these numeric movements cannot be interpreted as changes in food consumption or coping behavior."
+        },
+        {
+          "provenance": "observed",
+          "statement": "The rolling last-known IPC phase was 1 through June, based first on an October 2021 assessment and then a February 2022 assessment. Separately, the latest assessment available at the July cutoff was phase 2 with event month June 2022 and age one month at cutoff. The supplied outcome is phase 1 in October 2022, a phase change of -1 from that latest assessment.",
+          "channels": [
+            "ipc_last_known_phase",
+            "ipc_assessment_age",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2021-10",
+            "2022-02",
+            "2022-06",
+            "2022-10"
+          ],
+          "source_url": null,
+          "uncertainty": "Rolling IPC values are as-of-month availability records, whereas June 2022 is the actual event month of the latest assessment. The supplied future phase defines the observed food-security change."
+        }
+      ],
+      "interaction_hypotheses": [
+        {
+          "provenance": "inference",
+          "statement": "Country maize prices remained 12.2% above their level three months earlier in June while national conflict-event totals over the preceding three months were still 402 events, despite declining from 511 in March.",
+          "mechanism": "Persistently higher staple prices could constrain purchasing power, while continuing conflict could disrupt movement, livelihoods, or market access. Together these pressures could have compounded household food-access risks, though the national signals cannot demonstrate a causal effect in Oubritenga.",
+          "channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_3m_pct",
+            "acled_events_sum_3m"
+          ],
+          "event_months": [
+            "2022-03",
+            "2022-06"
+          ],
+          "source_url": null,
+          "uncertainty": "This is a plausible multi-domain mechanism, not proven causation; price and conflict data are national rather than district-specific."
+        },
+        {
+          "provenance": "inference",
+          "statement": "Rainfall increased through May while maize prices rose over January-April and remained elevated in May-June before the June 2022 phase-2 assessment; the supplied October outcome was phase 1.",
+          "mechanism": "Seasonal rainfall may support agricultural production or water availability over time, potentially offsetting some food-access pressure associated with elevated staple prices. This is only a possible explanation for the subsequent assessed phase change, not evidence that rainfall caused it.",
+          "channels": [
+            "chirps_rainfall",
+            "wfp_staple_price",
+            "last_available_phase"
+          ],
+          "event_months": [
+            "2022-01",
+            "2022-04",
+            "2022-05",
+            "2022-06",
+            "2022-10"
+          ],
+          "source_url": null,
+          "uncertainty": "No local production, livelihood, or rainfall-anomaly data are supplied, and the October phase result cannot be attributed to these channels."
+        }
+      ],
+      "rationale": "The supplied assessment record shows a latest phase-2 assessment in June 2022 followed by the observed phase-1 outcome in October 2022. Before that outcome, national maize prices had risen materially over three months, conflict-event totals had declined but remained substantial, and rainfall increased through May. The admin2 normalized FCS and rCSI values fluctuated numerically, but their undocumented normalization precludes interpreting their direction as food-consumption or coping change. National market, conflict, and rainfall signals are contextual rather than district measurements and support hypotheses only, not causal conclusions.",
+      "recommended_actions": [
+        {
+          "action": "Maintain monthly Oubritenga market monitoring for white-maize availability and retail prices, with contingency planning for targeted price-sensitive assistance if local prices rise further or market access deteriorates.",
+          "urgency": "monitor",
+          "driver_channels": [
+            "wfp_staple_price",
+            "wfp_staple_price_change_1m_pct",
+            "wfp_staple_price_change_3m_pct"
+          ],
+          "justification": "National white-maize prices rose sharply through April and remained above January levels through June; local verification is needed because the observed October phase is 1 and the available price series is national."
+        },
+        {
+          "action": "Maintain conflict-sensitive food-security surveillance and coordinate referral/access contingency arrangements for communities whose market access or livelihoods are disrupted by insecurity.",
+          "urgency": "monitor",
+          "driver_channels": [
+            "acled_events",
+            "acled_events_sum_3m",
+            "acled_fatalities"
+          ],
+          "justification": "National conflict-event totals declined from their March rolling peak but remained 402 events over the three months ending June, with fatalities variable. District-level exposure should be verified before targeting."
+        }
+      ],
+      "uncertainty": "Confidence is constrained by national-level price, conflict, and rainfall channels; missing June rainfall; absent port/trade data; and unknown normalization and direction of the FCS/rCSI series. The IPC timeline distinguishes older rolling assessments from the latest June 2022 assessment, and the supplied October phase-1 outcome is treated as ground truth.",
+      "confidence": 0.68
+    },
+    "training_answer": {
+      "phase": 1,
+      "rationale": "The supplied assessment record shows a latest phase-2 assessment in June 2022 followed by the observed phase-1 outcome in October 2022. Before that outcome, national maize prices had risen materially over three months, conflict-event totals had declined but remained substantial, and rainfall increased through May. The admin2 normalized FCS and rCSI values fluctuated numerically, but their undocumented normalization precludes interpreting their direction as food-consumption or coping change. National market, conflict, and rainfall signals are contextual rather than district measurements and support hypotheses only, not causal conclusions.",
+      "recommended_actions": [
+        "Maintain monthly Oubritenga market monitoring for white-maize availability and retail prices, with contingency planning for targeted price-sensitive assistance if local prices rise further or market access deteriorates.",
+        "Maintain conflict-sensitive food-security surveillance and coordinate referral/access contingency arrangements for communities whose market access or livelihoods are disrupted by insecurity."
+      ]
+    },
+    "teacher": {
+      "model": "gpt-5.6-terra",
+      "request_sha256": "4cc4371e2a5fb32ae89386d96652379a3cd024714a12dd6d836972c9828694bf"
+    }
+  }
+]

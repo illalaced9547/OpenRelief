@@ -1,14 +1,47 @@
 # Open Relief
 
-Predict district-level **FEWS NET IPC phase three months ahead** from six months of
-monthly food-security, shipping, conflict, rainfall and food-price histories. Deterioration
-(an increase of at least one IPC phase) is a secondary analysis. Official OpenTSLM is the
-primary model; simple classical models are comparison baselines.
+**Connect food-security signals to explanations people can inspect.**
 
-Local data preparation and native TimeNet connectors are implemented. Annotation has been
-tested with a small live pilot; **full annotation runs later on this machine**, followed
-by fine-tuning on a separate CUDA machine. See [current status](docs/STATUS.md) for measured
-results and remaining work. No OpenTSLM improvement has been measured yet.
+Open Relief explores district-level FEWS NET IPC phase forecasting **three months ahead**
+from **six months of history**. It combines food-security indices, shipping, conflict,
+rainfall and staple prices with OpenTSLM, then pairs the temporal task with language
+supervision: evidence, cross-domain hypotheses, explanations and proposed actions.
+The intended user is a food-security analyst reviewing districts and preparing follow-up.
+
+Built for the **Aionic / ETH Agentic Systems Lab Temporal AI Challenge**, with reusable
+TimeNet connectors and a focus on transparent, reproducible temporal reasoning.
+
+[Annotation atlas](docs/examples/annotation-atlas/README.md) ·
+[Dataset card](docs/DATASET_CARD.md) · [Current status](docs/STATUS.md) ·
+[Submission plan](docs/PLAN.md) · [Data connectors](open-relief-data/README.md)
+
+| Current snapshot | Evidence |
+|---|---|
+| 13,798 prepared examples; 21 monthly channels | 9,065 train / 2,503 validation / 2,230 test; integrity and temporal checks pass |
+| 2,781 cached training annotations | 30.68% coverage; validated against the current schema |
+| Four reusable TimeNet connectors | PortWatch, ACLED, WFP prices and CHIRPS; tested TimeF round trips |
+| World-map frontend | Implemented in `frontend/`; synthetic fixtures remain until model integration |
+| OpenTSLM training and ablations | Nebius results reported; training owner is delivering the final checkpoint and comparable evaluation artifacts |
+| Local tests | 25 passing at the documented readiness check |
+
+## See the annotation pipeline
+
+![Real historical signals for a Yemen training annotation](docs/examples/annotation-atlas/harad.png)
+
+**Harad, Yemen:** the last available assessment was IPC 3; the observed training target
+was IPC 4 in February 2021. The cached teacher connects changes in national rice prices,
+cargo imports and conflict through explicitly uncertain hypotheses. This is a historical
+training example, **not a prediction from the fine-tuned model**.
+
+Explore [three complete examples with charts and verbatim generated arguments](docs/examples/annotation-atlas/README.md).
+For the interactive offline gallery, open `docs/examples/annotation-atlas/index.html` in a browser.
+The gallery uses existing endpoint responses and includes exact inputs, targets, channel
+references, actions and request hashes. No new API calls are needed to render it.
+
+![Structured annotation pipeline, using the frontend visual style](docs/examples/annotation-atlas/pipeline.svg)
+
+The native TimeF exports and the modeling JSONL pipeline share acquisition logic. The
+current GPU loader reads JSONL; it does not yet consume the TimeF exports directly.
 
 ## Web frontend
 
@@ -77,7 +110,7 @@ Inputs, objective targets, manifests and annotations are separate artifacts. Dat
 loading verifies checksums. `reports/dataset-validation.json` records sample counts,
 country coverage, channel missingness and temporal checks.
 
-## Annotation: test now, full run later here
+## Annotation: evidence, hypotheses and proposed actions
 
 Keep the official OpenAI API key in `.env`, following `.env.example`; never include it in
 a handoff. The selected model is `gpt-5.6-terra`. It receives training records and their
@@ -85,18 +118,37 @@ objective future phase, using strict JSON output. Recalled context and inference
 separated from observed evidence; retrieved evidence is disabled unless actually supplied.
 Annotations are retrospective supervision and never become inference inputs.
 
+Each annotation also includes `recommended_actions`: concrete response recommendations
+(e.g. market/price support, conflict-displacement coordination, water/irrigation support)
+grounded in the same identified precursor/interaction drivers, not invented separately.
+Every action must cite the channels behind it and an urgency (`monitor`, `prepare_now`,
+`respond_now`) consistent with the standard IPC response framework for the objective
+future phase. The fine-tuning target therefore trains the model to reason and recommend
+an action together on annotated examples. The current six-example pilot and 2,781-row
+training file contain actions; older artifacts without them are incompatible.
+Structured provenance remains in the annotation record, while the training answer retains
+the phase, rationale and action strings. The teacher sees the observed future label;
+forecasting inputs do not.
+
 ```sh
 # Small diverse live test; not the full training set.
 bash scripts/annotate_local.sh pilot
 
-# Run later, on this machine, when ready to prepare all fine-tuning supervision.
+# Optional continuation: uses the paid endpoint and resumes the existing cache.
 bash scripts/annotate_local.sh full
 
-# Verify full coverage before transferring it to the training machine.
+# Validate the existing partial annotation file.
 .venv/bin/python -m open_relief.validate artifacts/multimodal \
-  --annotations artifacts/annotations-training.jsonl --require-complete-annotations \
+  --annotations artifacts/annotations-training.jsonl \
   --output reports/pretraining-validation.json
+
+# Render the documented training examples offline.
+.venv/bin/python scripts/build_annotation_showcase.py
 ```
+
+Add `--require-complete-annotations` to validation only when checking full coverage.
+It intentionally fails for the current 2,781/9,065 file. Finishing annotation is not a
+prerequisite for the hackathon submission; the training owner controls the next run.
 
 The full command selects all 9,065 training examples, uses eight workers, and stops before
 a conservative $185 cache-wide accounting ceiling. It may finish fewer examples if that
@@ -112,7 +164,7 @@ correct. Review numeric claims, assessment dates, national/local scope and causa
 on a sample before treating rationales as high-quality supervision. `confidence` is an
 annotation-quality judgment, not calibrated forecast probability.
 
-## GPU fine-tuning later
+## GPU training and evaluation
 
 The runner imports official OpenTSLM at commit
 `2968f4b891baab4307f7e9d0043e87677b593a30`. It defaults to the official Llama 3.2 1B TSQA
@@ -127,19 +179,28 @@ bash scripts/setup_gpu.sh
 bash scripts/train_gpu.sh artifacts/gpu-run
 ```
 
-The training script requires complete annotations. It first evaluates pretrained OpenTSLM,
+The training script requires a nonempty, matching annotation file. It first evaluates pretrained OpenTSLM,
 then fine-tunes and evaluates the same 256 deterministically selected test IDs. Use a fresh
 output directory per run. The direct CLI accepts `--eval-limit 100000` for the full held-out
 partitions and `--checkpoint OpenTSLM/llama-3.2-1b-tsqa-flamingo` for the alternative.
-`--annotations` is required; the runner refuses to fine-tune without complete rationale
-supervision for the full training partition.
+`--annotations` is required; partial coverage is accepted and recorded. With the current
+dataset, all 9,065 training examples are used, with empty rationale/action targets for the
+6,284 unannotated examples. Record the actual remote code and dataset if using a smaller
+annotated-only slice. `--skip-pretrain-eval` exists for resuming experiment workflows;
+the final comparison still needs a separately documented pretrained baseline if claimed.
 
 Training uses official architecture, collator, loss, LoRA and checkpoint methods, with
 batch size one and gradient accumulation eight, maximum ten epochs, and patience three.
 Validation uses phase JSON prefix loss, excluding retrospective rationale text. Outputs
 include pretrained/fine-tuned raw predictions, country metrics, losses, checkpoint and a
-before/after table. Generation validity is scored separately. GPU dependencies are pinned
-from inspected upstream versions; CUDA execution remains to be tested on that machine.
+before/after table. Generation validity is scored separately. GPU dependencies are pinned;
+the training workstream owns remote runtime validation and delivery of its checkpoint.
+
+The [reported exploratory GPU ablations](docs/FINDING-portwatch-signal.md) are not yet a
+verified same-cohort improvement over persistence. Recomputed persistence on the runner's
+default 256 test IDs scores **0.7276 macro-F1 / 0.7500 accuracy**; on all 2,230 test examples,
+**0.7350 / 0.7744**. The small subset contains only one phase-4 example. See
+[the readiness analysis](docs/HACKATHON-READINESS.md) for the comparison and limitations.
 
 ## Evaluation, plots and transfer
 
@@ -153,9 +214,10 @@ from inspected upstream versions; CUDA execution remains to be tested on that ma
 After training, pass `--predictions artifacts/gpu-run/fine_tuned.jsonl` to the demo command.
 Without predictions, the two plots explicitly show input case studies with GPU forecasts
 pending. They are selected by historical worsening, not prediction correctness.
-The transfer archive includes code, prepared data and available annotations; it excludes
-`.env`, virtual environments, raw download caches and obsolete pilots. Run packaging again
-after the full annotation job to include its training JSONL and manifest.
+The transfer archive includes code, documentation, prepared data and available annotations;
+it excludes `.env`, virtual environments and raw download caches. Checkpoints and remote run
+outputs need a separate explicit delivery path; see [the submission checklist](docs/SUBMISSION.md).
+The repository's ignored `artifacts/` directory is not transferred by a Git push.
 
 ## Material limitations
 

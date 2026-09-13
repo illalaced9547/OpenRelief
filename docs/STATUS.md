@@ -1,125 +1,70 @@
-# Open Relief status — 12 September 2026
+# Open Relief status — 13 September 2026
 
-**Local preparation is implemented. Full annotation is deliberately deferred until later
-on this machine; GPU training and the OpenTSLM before/after comparison remain pending.**
+The frontend is now in `frontend/`; data preparation and native TimeNet connectors are
+implemented; 2,781 training annotations are available. Nebius training/ablation results
+are reported in the repository, and the training owner is handling the final checkpoint
+and evaluation. The frontend still uses synthetic fixtures until model integration.
 
-## Dataset and added features
+| Area | Current evidence |
+|---|---|
+| Dataset | Version `8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3`; 9,065 train / 2,503 validation / 2,230 test; 21 channels |
+| Validation | Dataset integrity and temporal checks pass; all 2,781 supplied training annotations pass the current schema validator |
+| Annotation | 30.68% coverage, not complete; six-example current pilot also includes actions; prior pre-action artifacts are obsolete |
+| Connectors | Four native TimeNet connectors with tested TimeF round trips; not registered upstream |
+| Frontend | World map, methodology, country detail panels and demo chat; synthetic values and explanations; [setup](../frontend/README.md) |
+| Training | [Exploratory remote report](FINDING-portwatch-signal.md); exact artifacts and cohort still need reconciliation by training owner |
+| Presentation | [Annotation atlas](examples/annotation-atlas/README.md): three training cases, source graphs, unedited generated arguments and offline HTML |
+| Tests | 25 passing at the readiness check; rerun after changes using the README command |
 
-Final dataset version:
-`8142c89de89cb862117d6a814be515b9f00312bb960e33cf7e994a99ed124bd3`.
+## Measured local baseline
 
-- Primary target: district FEWS IPC phase at cutoff +3 months; secondary deterioration:
-  at least one phase increase over the latest available assessment, no older than six months.
-- Six monthly history points; month of year remains a single integer 1–12 series.
-- Training: 9,065 examples across 16 countries. Validation: 2,503 across 16. Test: 2,230
-  across 14. No eligible Yemen or Ethiopia test examples under the selected dates.
-- Added ten channels without additional downloads: monthly known IPC and assessment age;
-  price changes at one/three months; FCS/rCSI differences at one/three months; trailing
-  three-month conflict events; cargo imports versus their prior three-month mean.
-- Total: 21 channels plus observation masks. Changes retain their source prefix for ablations.
-- Rebuilt price selection excludes milling services and matches actual staple commodities.
-  Yemen's selected series is imported rice, with exact package unit retained.
+| Persistence cohort | Macro-F1 over present classes | Accuracy | Deterioration F1 |
+|---|---:|---:|---:|
+| Current runner's default 256 test IDs | 0.7276 | 0.7500 | 0.000 |
+| Full test, 2,230 examples | 0.7350 | 0.7744 | 0.000 |
 
-Checksums, temporal splits, input availability, channel shapes, calendar values and
-annotation alignment are checked by `open_relief.validate`. See
-[the current validation report](../reports/dataset-validation.json).
-Missing covariates and initial rolling-window entries remain null, not zero observations.
-Price coverage is 73%, shipping 79%, conflict 100%, rainfall 83% after assumed lag masking.
+The default subset has one phase-4 example; the full test has five. Neither has phase-5
+examples. Match sample IDs before comparing these metrics with remote model results.
+The remote all-sources report lists 0.7199 macro-F1 and 0.7344 accuracy; this is not evidence
+of improvement over persistence if its IDs match the default cohort. The no-shipping run
+reports lower macro-F1 but higher accuracy/deterioration F1, so interpretation is metric-dependent.
+See [audit evidence](../reports/hackathon-readiness-audit.json) and [analysis](HACKATHON-READINESS.md).
 
-## Annotation pipeline
+## Annotation and training semantics
 
-The final local suite passes 19 tests, including temporal leakage, derived-feature missingness,
-IPC assessment chronology, budget accounting and native TimeF serialization.
+Cached annotations use `gpt-5.6-terra`, objective labels and strict structured output.
+They include precursor patterns, cross-domain hypotheses, rationale, driver-cited proposed
+actions, uncertainty and annotation-quality confidence. They are retrospective teacher
+supervision; future outcomes are never forecasting inputs. Current training answers retain
+phase, rationale and action strings, while richer provenance stays in the annotation file.
 
-Six-example live pilots use `gpt-5.6-terra` and the official OpenAI API. The final selection
-covers six countries and includes improvement, deterioration and stable outcomes. JSON
-schema validation and exact objective-label preservation pass. Full training annotations
-have **not** been generated. The final pilot output and request usage are in
-`artifacts/annotations-final-pilot.jsonl` and its adjacent manifest.
+The full annotation run was interrupted: 2,781/9,065 records exist. Its reconstructed
+manifest reports approximately $89.85 accounted cache cost, not an API billing receipt.
+Keep the cache and ledger to resume; the configured full-run ceiling is $185. This
+submission work does not resume the paid job, and complete annotation is not mandatory.
 
-Manual review identified a confusion between the age of a rolling IPC record and the
-newer assessment available at the forecast cutoff. The request now explicitly includes
-both assessment timelines and the separately computed cutoff age. This is covered by a
-regression test. The rerun correctly identifies the June Hajr assessment as one month old
-at the July cutoff. Schema validity alone is not treated as factual correctness.
+Current code requires a nonempty matching annotation file and accepts partial coverage.
+Unannotated examples train with empty rationale/action targets. The remote report describes
+a 2,781-example slice; the training owner must reconcile that with the actual run.
 
-Cache replay is tested with an API stub that raises if any network request is attempted.
-Requests, raw responses and validated outputs are cached. A persistent spend ledger keeps
-conservative reservations for ambiguous failures, and a process lock prevents concurrent
-runs from sharing the budget. Keep the cache to resume later. Output manifests distinguish
-prior accounted spend from new-run estimates; these are estimates, not billing receipts.
-The final six-example pilot has a conservative usage estimate of $0.125. Its cache replay
-cost $0 in new API calls. The retained response/charge ledger accounts for about $0.447
-across saved pilot requests; older pre-ledger failed attempts are not represented.
+Passing validation does not establish factual correctness. A separate citation-linkage
+check found 44 actions across 41 annotations citing channels absent from earlier precursor
+or interaction citations; this is not currently rejected by the validator. The atlas
+preserves cached text, including limitations, rather than rewriting it into stronger claims.
+The historical pilot review report predates the current action schema and full-run attempt.
 
-Later, run:
+## Remaining responsibilities
 
-```sh
-bash scripts/annotate_local.sh full
-```
+Training owner: final checkpoint, inference contract, exact run provenance, matching-cohort
+metrics and generated explanation/action review. Frontend owner: replace synthetic fixtures
+with supported outputs; country risk percentages and alternate horizons are not research
+model outputs. Documentation workstream: consistent README, dataset card, charts, annotation
+gallery and submission checklist. Team: verify links, load the checkpoint, rehearse a live
+demo and retain a clearly labeled fallback.
 
-This requests all training examples, eight workers, with a conservative $185 accounting
-ceiling. If the guard stops early or any request fails, completed annotations remain
-cached and the manifest reports the incomplete result. Do not bypass the budget guard.
-GPU rationale training requires complete, version-matched annotations and rejects a pilot
-file. See the README for the completeness check and subsequent transfer commands.
+The dataset remains retrospective with assumed release lags; national covariates do not
+prove district exposure. FCS/rCSI normalization direction is undocumented. Source ablations
+are associative and may retain language references to removed inputs. Full details and
+source terms are in [the dataset card](DATASET_CARD.md) and [source inventory](SOURCES.md).
 
-## Reusable TimeNet connectors
-
-Native PortWatch, ACLED, WFP and CHIRPS connectors implement the official TimeNet
-BaseConnector contract, pinned to commit `c39ca32b64ad0c89ea54093dbcb285c1a93eb006`.
-All four have verified TimeF write/read round trips using a Yemen January–March 2020
-example. Calendar timestamps, null values, units and provenance survive the conversion.
-
-The acquisition project is independently installable and can be extracted as a repository.
-It is not yet published to an upstream registry. See
-[connector documentation](../open-relief-data/README.md).
-
-## Measured local baselines
-
-Test-set results (2,230 examples; macro-F1 across classes present):
-
-| Model | Macro-F1 | Accuracy |
-|---|---:|---:|
-| Training majority | 0.0752 | 0.1771 |
-| Latest available IPC, majority fallback when absent | 0.7350 | 0.7744 |
-
-Persistence issues no deterioration alerts on examples with a known baseline, so its
-secondary deterioration recall is zero despite its strong phase accuracy.
-
-Classical logistic-regression ablations use the **validation** partition (2,503 examples),
-with preprocessing fitted on training only:
-
-| Features | Macro-F1 | Accuracy |
-|---|---:|---:|
-| All sources | 0.5844 | 0.7000 |
-| Food history and calendar only | 0.6032 | 0.7339 |
-| Without shipping | 0.5927 | 0.7036 |
-| Without conflict | 0.5113 | 0.6304 |
-| Without rainfall | 0.5615 | 0.6772 |
-| Without prices | 0.6104 | 0.7315 |
-
-Food history includes IPC history and the derived FCS/rCSI channels. These results suggest
-some sources matter conditionally in this baseline, but do **not** demonstrate that adding
-all sources improves overall forecasting. They measure association, not causal effects.
-Test baselines and validation ablations have different cohorts and should not be directly
-compared. Detailed files are under `artifacts/evaluation` and `artifacts/ablations`.
-
-## GPU handoff and remaining work
-
-Official OpenTSLM input adapters and a CUDA runner are implemented, with source/dependency
-pins, resolved checkpoint hashes, LoRA, early stopping, raw predictions, country metrics
-and same-cohort before/after evaluation. GPU execution has not been performed or validated
-here. The default comparison uses 256 held-out examples; the CLI can evaluate all examples.
-
-Two dated input case-study plots are available in `artifacts/demo-final`; they explicitly
-mark model forecasts as pending. After GPU training, attach actual generated predictions
-and review explanations separately for numerical accuracy, scope and uncertainty.
-
-`bash scripts/setup_gpu.sh` and `bash scripts/train_gpu.sh` are the remote entry points.
-The package script creates `artifacts/open-relief-handoff.tar.gz`, excluding credentials,
-virtual environments and raw caches. Repackage after full annotation to include its output.
-
-Remaining: full local annotation and quality review; GPU setup/access validation;
-pretrained OpenTSLM evaluation; fine-tuning; held-out comparison and explanation evaluation.
-No training, deployment or publication is claimed complete.
+[Current plan](PLAN.md) · [Submission checklist](SUBMISSION.md)

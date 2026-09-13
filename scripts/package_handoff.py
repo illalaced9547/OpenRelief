@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'artifacts/open-relief-handoff.tar.gz'
 paths = [ROOT / name for name in (
     'README.md', '.gitignore', 'HANDOFF.md', 'task.md', '.env.example', 'pyproject.toml',
-    'requirements-local.lock.txt', 'requirements-gpu.txt', 'src', 'tests', 'scripts',
+    'requirements-local.lock.txt', 'requirements-gpu.txt', 'Dockerfile.gpu', 'frontend', 'src', 'tests', 'scripts',
     'configs', 'docs', 'reports', 'open-relief-data', 'refrences/hfid_hv1.csv',
     'artifacts/multimodal', 'artifacts/dataset', 'artifacts/demo-final',
     'artifacts/evaluation', 'artifacts/ablations', 'artifacts/timef',
@@ -23,7 +23,7 @@ for path in paths:
         if not candidate.is_file() or candidate.is_symlink():
             continue
         relative = candidate.relative_to(ROOT)
-        if any(part.startswith(('.venv', '.git', '.pytest_cache')) or part == '__pycache__'
+        if any(part.startswith(('.venv', '.git', '.pytest_cache')) or part in ('__pycache__', 'node_modules', 'dist', '.vercel')
                or part.endswith('.egg-info') for part in relative.parts):
             continue
         if candidate.suffix == '.pyc' or (candidate.name.startswith('.env') and candidate.name != '.env.example'):

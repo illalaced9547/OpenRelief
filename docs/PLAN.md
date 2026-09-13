@@ -1,35 +1,59 @@
-# Execution decisions and remaining sequence
+# Submission plan and workstream ownership
 
-User-confirmed scope: IPC phase at t+3 months primary, deterioration secondary; six monthly
-history points; plain month-of-year series; multinational chronological training; official
-TimeNet connectors; local annotation within $200; training on a separate GPU machine with
-$1,000 available. The full annotation run is explicitly deferred until later on this machine.
+Updated 13 September 2026 after the frontend arrived at remote commit `22d2546`.
+The team has approximately four hours in the submission window described during the review.
+The frontend is implemented and checked into `frontend/`. The training model/workstream
+owns training, checkpoint delivery and final evaluation. This workstream owns documentation,
+annotation examples and a consistent presentation of the work.
 
-Completed locally:
+| Workstream | State | Next action / completion criterion |
+|---|---|---|
+| Frontend | React world-map interface, methodology and local demo chat now in the repo | Frontend/training owners connect real outputs; synthetic country probabilities and horizon adjustments remain clearly labeled until then |
+| Training and evaluation | Nebius runs reported; final artifacts managed by the training owner | Deliver checkpoint/hash, actual run configuration, raw predictions, same-ID baseline comparison and explanation samples |
+| Repository documentation | README, status, dataset card and submission checklist updated | Final training owner fills in verified results and links without overwriting input/annotation provenance |
+| Annotation showcase | Three real training examples, charts, verbatim generated arguments, exact JSON and offline HTML | Review rendered examples and keep their distinction from fine-tuned forecasts visible |
+| Visual consistency | Atlas and pipeline diagram use frontend charcoal/gray cards, thin connectors, Manrope and DM Sans | Check desktop/mobile gallery rendering; fonts bundled with licenses for offline viewing |
+| Final submission | Checklist in SUBMISSION.md | Combine map demo, actual inference/results, checkpoint, code/configuration and dataset documentation; rehearse and verify links |
 
-1. Inspected HFID, HANDOFF.md, official source APIs, OpenTSLM SP/Flamingo and actual TimeNet.
-2. Acquired national PortWatch, ACLED, WFP and CHIRPS data and aligned them with HFID.
-3. Built six-month district examples, changed the training freeze to December 2022,
-   purged crossing labels, and added existing-data-only derived channels and monthly IPC history.
-4. Implemented independently reusable acquisition and native TimeNet connectors with raw
-   provenance, cache verification, TimeF writing and verified round trips.
-5. Implemented strict, cached, budget-controlled official OpenAI annotation and tested a pilot.
-6. Implemented native OpenTSLM input/training adapters, remote CUDA training and same-cohort
-   before/after evaluation; prepared compatibility pins and setup/run scripts.
-7. Ran local temporal/integrity checks, classical baselines and validation ablations; generated
-   two dated case-study plots and a portable handoff package.
+## Focus for this checkout
 
-Remaining, in order:
+1. Pull and preserve all frontend work; inspect its actual visual system.
+2. Explain the project and current evidence in the README, with quick links to frontend
+   setup, dataset documentation and reproducible annotation examples.
+3. Render existing cached LLM responses into compelling source-data charts and an argument
+   gallery. Use no new annotation API calls. Include deterioration, persistent crisis and
+   improvement; state that the future label was supplied to the training teacher.
+4. Match charts, gallery and the pipeline diagram to the frontend design. Preserve original
+   source values, missingness, channel references and uncertainty.
+5. Validate the local suite, frontend build, example integrity and visual output; commit
+   and push the documentation/showcase and preserved local changes.
 
-1. Later here: run `bash scripts/annotate_local.sh full`; review annotations and verify full
-   training coverage. The budget guard can stop early; its manifest reports incomplete coverage.
-2. Package again and transfer to the GPU machine. Configure Hugging Face backbone access.
-3. Run CUDA setup, pretrained evaluation, fine-tuning and held-out evaluation. These have not
-   run locally and no OpenTSLM performance improvement is claimed.
-4. Audit generated explanations independently against input values, provenance and uncertainty;
-   attach actual predictions to the case-study plots. Compare source ablations on validation
-   before choosing a final model, and reserve test data for the final comparison.
+## Training-owner handoff
 
-Optional future research: longer-window comparison, district weather/conflict aggregation,
-relaxing mandatory FCS/rCSI coverage with explicit masks, seasonal anomalies, geographic
-holdout, rolling-origin validation and uncertainty intervals accounting for country/time clusters.
+The current full-dataset runner loads 9,065 training examples and accepts 2,781 annotated
+records, using empty language targets for the remainder. The remote report instead refers
+to a 2,781-example training slice; record the actual code/dataset used. Check whether the
+submitted checkpoint includes the new recommended-action schema.
+
+Deliver `run.json`, raw predictions, metrics, losses, exact command/code version and a
+loadable checkpoint or adapter. Compare persistence on identical sample IDs. The default
+256 test examples have only one phase-4 example; show class support and secondary
+alert precision/recall/F1. Avoid broad causal claims from source ablations, particularly
+while their retained language targets may mention removed input channels.
+
+The frontend currently displays synthetic country-level risk percentages over 30/90/180
+calendar-day demo horizons; the research model predicts district IPC phase at three
+calendar months. Decide the actual geography/horizon contract and display format. Do not
+convert an IPC integer or annotation-quality confidence into an uncalibrated risk percentage.
+Do not silently replace model explanations with teacher annotations.
+
+## Defer
+
+Completing all annotations, new acquisitions, a larger model, extensive hyperparameter
+searches and a general data-discovery agent are not prerequisites for the submission.
+The training owner decides whether any corrective run fits the remaining time. The frontend
+already exists and does not need to be rebuilt by this workstream.
+
+[Submission checklist](SUBMISSION.md) · [Current status](STATUS.md) ·
+[Detailed readiness findings](HACKATHON-READINESS.md) ·
+[Annotation atlas](examples/annotation-atlas/README.md)
