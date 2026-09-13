@@ -21,13 +21,44 @@ class Claim(BaseModel):
     uncertainty: str
 
 
+class InteractionClaim(BaseModel):
+    """A hypothesis explicitly connecting >=2 different-domain signals, not a single-channel fact."""
+    model_config = ConfigDict(extra="forbid")
+    provenance: Literal["model_recalled", "inference"]
+    statement: str
+    mechanism: str
+    channels: list[str]
+    event_months: list[str]
+    source_url: str | None
+    uncertainty: str
+
+
 class Annotation(BaseModel):
     model_config = ConfigDict(extra="forbid")
     observed_future_phase: int = Field(ge=1, le=5)
     precursor_patterns: list[Claim]
+    interaction_hypotheses: list[InteractionClaim]
     rationale: str
     uncertainty: str
     confidence: float = Field(ge=0, le=1)
+
+
+# Channel name prefix -> broad real-world signal domain, for enforcing cross-domain interactions.
+SOURCE_DOMAINS = (
+    ("portwatch", "shipping_trade"),
+    ("acled", "conflict"),
+    ("chirps", "rainfall"),
+    ("wfp", "price"),
+    ("fcs_rt", "food_consumption"),
+    ("rcsi_rt", "coping_behavior"),
+    ("ipc", "food_security_assessment"),
+    ("last_available_phase", "food_security_assessment"),
+    ("month_of_year", "calendar"),
+)
+
+
+def channel_domain(name: str) -> str:
+    return next((domain for prefix, domain in SOURCE_DOMAINS if name.startswith(prefix)), "other")
 
 
 SYSTEM = """You annotate historical food-security episodes for research supervision.
@@ -55,7 +86,20 @@ last_available_phase.age_months_at_cutoff separately gives the latest assessment
 Explain uncertainty; correlation and plausible mechanisms do not establish causation.
 Give a short evidence summary, not a detailed hidden chain of thought. The rationale
 is retrospective supervision, not an input available to a forecaster. Confidence
-is annotation confidence, not a calibrated event probability."""
+is annotation confidence, not a calibrated event probability.
+
+precursor_patterns are single-domain facts (one channel or a tightly related group, e.g.
+one price series and its own percentage-change derivatives). interaction_hypotheses are
+different: each one must connect signals from at least two distinct real-world domains
+(shipping/trade, conflict, rainfall, price, food_consumption, coping_behavior,
+food_security_assessment) into one concrete, plausible compounding mechanism, e.g. a
+conflict rise coinciding with a rainfall deficit and a price increase jointly reducing
+market supply and purchasing power. State the mechanism explicitly in `mechanism`, keep
+`statement` to the concrete numeric pattern being connected, and mark provenance
+model_recalled only for genuine recalled historical context, otherwise inference. Never
+mark an interaction hypothesis observed: combining channels is analysis, not direct
+observation. Provide at least one interaction_hypotheses entry for every annotation, and
+still explicitly flag it as a plausible hypothesis, not a proven causal chain."""
 
 
 def request_payload(example: dict, model: str) -> dict:
@@ -76,8 +120,10 @@ def request_payload(example: dict, model: str) -> dict:
         if "description" in original:
             channel["description"] = original["description"]
     schema = Annotation.model_json_schema()
-    schema["$defs"]["Claim"]["properties"]["channels"]["items"]["enum"] = [c["name"] for c in example["input"]["channels"]] + ["last_available_phase"]
+    channel_names = [c["name"] for c in example["input"]["channels"]] + ["last_available_phase"]
+    schema["$defs"]["Claim"]["properties"]["channels"]["items"]["enum"] = channel_names
     schema["$defs"]["Claim"]["properties"]["provenance"]["enum"] = ["observed", "model_recalled", "inference"]
+    schema["$defs"]["InteractionClaim"]["properties"]["channels"]["items"]["enum"] = channel_names
     return {"model": model, "messages": [{"role": "system", "content": SYSTEM},
         {"role": "user", "content": json.dumps(context, sort_keys=True)}],
         "reasoning_effort": "medium", "max_completion_tokens": 4096,
@@ -108,6 +154,15 @@ def validate_annotation(value: dict, example: dict) -> Annotation:
             raise ValueError("Observed claim references a month outside the input window")
         if claim.source_url is not None:
             raise ValueError("Source URLs require a separate retrieval-enabled workflow")
+    if not annotation.interaction_hypotheses:
+        raise ValueError("At least one cross-domain interaction hypothesis is required")
+    for claim in annotation.interaction_hypotheses:
+        if not set(claim.channels) <= channels:
+            raise ValueError("Annotation references unavailable channel")
+        if claim.source_url is not None:
+            raise ValueError("Source URLs require a separate retrieval-enabled workflow")
+        if len({channel_domain(name) for name in claim.channels}) < 2:
+            raise ValueError("Interaction hypothesis must span at least two distinct signal domains")
     return annotation
 
 
@@ -194,8 +249,9 @@ def annotate(example: dict, model: str, cache: Path, client) -> dict:
     if choice.finish_reason != "stop" or choice.message.refusal or not choice.message.content:
         raise ValueError("Annotation refused, empty or truncated; no valid artifact cached")
     annotation = validate_annotation(json.loads(choice.message.content), example)
+    purpose = "training_supervision_only" if example["input"]["split"] == "train" else "explanation_eval_only_never_train_input"
     result = {"sample_id": example["input"]["sample_id"], "dataset_version": example["input"]["dataset_version"],
-        "purpose": "training_supervision_only", "request_sha256": key, "model": response.model,
+        "purpose": purpose, "request_sha256": key, "model": response.model,
         "request_id": response.id, "usage": response.usage.model_dump() if response.usage else {},
         "annotation": annotation.model_dump()}
     temporary = path.with_suffix(".tmp")
@@ -211,6 +267,8 @@ def main():
     parser.add_argument("dataset", type=Path)
     parser.add_argument("--limit", type=int, default=3)
     parser.add_argument("--all", action="store_true", help="Annotate every training example, subject to budget")
+    parser.add_argument("--split", choices=("train", "validation", "test"), default="train",
+        help="Validation/test annotations are explanation-eval-only supervision, never training input")
     parser.add_argument("--output", type=Path, default=Path("artifacts/annotations-pilot.jsonl"))
     parser.add_argument("--cache", type=Path, default=Path("artifacts/annotation-cache"))
     parser.add_argument("--workers", type=int, default=1)
@@ -235,7 +293,9 @@ def main():
     model = os.getenv("OPENAI_ANNOTATION_MODEL", "gpt-5.6-terra")
     if not os.getenv("OPENAI_API_KEY"):
         parser.error("OPENAI_API_KEY is missing; configure .env")
-    examples = load_examples(args.dataset, "train")
+    if args.all and args.split != "train":
+        parser.error("--all is only supported for --split train (full training supervision)")
+    examples = load_examples(args.dataset, args.split)
     # Deterministic diverse ordering instead of taking adjacent overlapping windows.
     examples.sort(key=lambda e: e["input"]["sample_id"])
     if not 1 <= args.workers <= 16:

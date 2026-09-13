@@ -12,4 +12,5 @@ data/raw/
 data/processed/
 checkpoints/
 .venv-gpu/
+.hf-cache/
 refrences/
