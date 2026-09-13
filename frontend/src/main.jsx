@@ -50,8 +50,9 @@ function App(){
  useLayoutEffect(()=>{if(!mapRef.current)return;const update=()=>setMapTop(mapRef.current.parentElement.getBoundingClientRect().top);update();window.addEventListener('resize',update);return()=>window.removeEventListener('resize',update)},[started,view]);
  useEffect(()=>{setCenter(c=>clampMapCenter(c,zoom));drag.current=null;setDragging(false)},[zoom]);
  const [detailTab,setDetailTab] = useState('outlook');
+ const [mobileDetailOpen,setMobileDetailOpen] = useState(false);
  const [chatOpen,setChatOpen] = useState(false);
- useEffect(()=>{if(view!=='map')setChatOpen(false)},[view]);
+ useEffect(()=>{if(view!=='map'){setChatOpen(false);setMobileDetailOpen(false)}},[view]);
  useEffect(()=>{
   const map=mapRef.current;
   if(!map)return;
@@ -83,6 +84,7 @@ function App(){
  const selectCountry = id => {
   if(drag.current?.moved)return;
   setSelected(id);setQuery('');setHovered(null);
+  setMobileDetailOpen(true);
 
  };
  const showHover=(e,c)=>{if(drag.current)return;const d=forecasts[c.id];setHovered({name:c.properties.name,phase:d?.phase ?? null,x:Math.min(e.clientX+20,window.innerWidth-210),y:Math.min(e.clientY+20,window.innerHeight-100)})};
@@ -105,7 +107,7 @@ function App(){
   <div className="map-body"><div className="map-area"><div className="map-top"><CountrySearch countries={visible} query={query} setQuery={setQuery} onSelect={selectCountry} selected={selected} riskFor={riskFor} color={color}/><ForecastControls filter={filter} setFilter={setFilter}/></div>
   <svg className={`world-map ${dragging?'is-dragging':''}`} ref={mapRef} style={{'--map-offset-top':`${mapTop}px`}} onPointerDown={e=>{if(e.button!==0)return;drag.current={x:e.clientX,y:e.clientY,center:[...center],moved:false};setDragging(true)}} onPointerMove={e=>{if(!drag.current)return;const dx=e.clientX-drag.current.x,dy=e.clientY-drag.current.y;if(Math.abs(dx)+Math.abs(dy)>5){drag.current.moved=true;e.currentTarget.setPointerCapture(e.pointerId);setHovered(null);const rect=e.currentTarget.getBoundingClientRect();const scale=Math.min(rect.width/1040,rect.height/540)*zoom;setCenter(clampMapCenter([drag.current.center[0]-dx/scale,drag.current.center[1]-dy/scale],zoom))}}} onPointerUp={()=>{setDragging(false);setTimeout(()=>{drag.current=null},0)}} onPointerCancel={()=>{drag.current=null;setDragging(false)}} onPointerLeave={()=>{setHovered(null);if(!drag.current?.moved){drag.current=null;setDragging(false)}}} viewBox="0 0 1040 540" role="group" aria-label="Historical model predictions by country; one district sample per country"><defs><pattern id="dots" width="13" height="13" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.65" fill="#888888" opacity=".18"/></pattern></defs><rect width="1040" height="540" fill="url(#dots)"/><g className="map-geography" style={{transition:'none'}} transform={`translate(${520-center[0]*zoom},${270-center[1]*zoom}) scale(${zoom})`}>{[-1,0,1].map(copy=><g key={copy} transform={`translate(${copy*1040},0)`}>{countries.map(c=>{const d=forecasts[c.id];const matches=d&&(filter==='All IPC phases'||category(riskFor(d))===filter)&&(!query||d.name.toLowerCase().includes(query.trim().toLowerCase()));return <path key={c.id} d={path(c)} fill={matches?color(riskFor(d)):'#777777'} fillOpacity={matches?.72:.33} stroke={selected===c.id?'#cccccc':'#999999'} strokeOpacity={selected===c.id?.8:.26} strokeWidth={selected===c.id?1.4:.6} vectorEffect="non-scaling-stroke" className="country" role="button" tabIndex={copy===0?0:-1} onPointerEnter={e=>showHover(e,c)} onPointerMove={e=>showHover(e,c)} onPointerLeave={()=>setHovered(null)} aria-label={`${c.properties.name}: ${d?.phase?'Predicted IPC phase '+d.phase+', historical district sample':'no model data'}`} onClick={()=>selectCountry(c.id)} onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectCountry(c.id)}}}/>})}</g>)}</g></svg>
   <div className="map-bottom"><div className="legend"><span>IPC PHASE</span>{Object.entries(PHASE_LABEL).map(([phase,label])=><button key={phase} onClick={()=>setFilter(filter===label?'All IPC phases':label)} className={filter===label?'legend-active':''}><i style={{background:color(Number(phase))}}/>{phase} {label}</button>)}<span className="legend-no-data"><i style={{background:'#777'}}/>No model data</span></div><div className="zoom-controls"><button aria-label="Zoom in" onClick={()=>setZoom(Math.min(zoom*1.5,10))}><Plus size={15}/></button><button aria-label="Zoom out" onClick={()=>setZoom(Math.max(zoom/1.5,1))}><Minus size={15}/></button><button aria-label="Reset map" onClick={resetMap}><RotateCcw size={13}/></button></div></div></div>
-  <CountryDetails country={active} name={selectedName} tab={detailTab} setTab={setDetailTab} hidden={chatOpen}/></div>
+  <CountryDetails country={active} name={selectedName} tab={detailTab} setTab={setDetailTab} mobileOpen={mobileDetailOpen} onClose={()=>setMobileDetailOpen(false)} hidden={chatOpen}/></div>
   <div className="map-footer"><span><Info size={12}/> Scroll to zoom · Drag sideways to explore</span><span>{Object.keys(forecasts).length} historical district samples · Snapshot {snapshotDate} · Country shading is not a national forecast</span></div></div>:view==='roadmap'?<Roadmap/>:view==='methodology'?<Methodology onExplore={id=>{setSelected(id);setDetailTab('outlook');setView('map')}}/>:view==='annotation-atlas'?<AnnotationAtlas onExplore={id=>{setSelected(id);setDetailTab('sources');setView('map')}}/>:<GlobalInsights onExplore={id=>{setSelected(id);setDetailTab('explanation');setView('map')}}/>}
 
 

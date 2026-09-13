@@ -11,15 +11,19 @@
  .dark-dashboard .map-main{height:calc(100dvh - 72px);padding:0;max-width:none}
  .dark-dashboard .map-main .workspace{height:100%;margin:0}
  .map-stage{height:100%;display:flex;flex-direction:column}
- .map-body{flex:1;min-height:0;display:flex;flex-direction:column}
- .map-area{order:1;bottom:auto;flex:0 0 48%;min-height:265px}
+ .map-body{flex:1;min-height:0;display:block;position:relative}
+ .map-area{position:absolute;inset:0;bottom:auto;min-height:0}
  .map-top{top:12px;left:12px;right:12px;align-items:flex-start;gap:8px;flex-wrap:wrap}
  .map-top .forecast-controls{margin-left:auto}
  .world-map{min-height:0;height:100%;padding-top:30px}
  .map-bottom{position:absolute;left:12px;right:12px;bottom:12px;margin:0;z-index:3}
  .legend{max-width:calc(100% - 47px);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
  .legend::-webkit-scrollbar{display:none}
- .country-panel{order:2;position:relative;left:auto;right:auto;top:auto;bottom:auto;width:100%;height:auto;max-height:none;flex:1;min-height:0;border-left:0;border-top:1px solid #dce2d3;padding:16px 18px}
+ .country-panel{position:absolute;left:12px;right:12px;bottom:12px;width:auto;height:min(70dvh,520px);max-height:calc(100dvh - 125px);z-index:20;border:1px solid #ffffff24;border-radius:18px;background:#171b15f5;box-shadow:0 20px 70px #0009;backdrop-filter:blur(25px);padding:16px 18px;transform:translateY(calc(100% + 24px));opacity:0;visibility:hidden;pointer-events:none;transition:transform .3s cubic-bezier(.22,.7,.25,1),opacity .24s ease,visibility 0s linear .3s}
+ .country-panel.mobile-detail-open{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto;transition:transform .3s cubic-bezier(.22,.7,.25,1),opacity .24s ease,visibility 0s linear 0s}
+ .country-panel .panel-eyebrow{display:flex}
+ .mobile-detail-close{display:flex;align-items:center;justify-content:center;color:#9aa792;padding:5px;margin:-5px -5px -5px auto}
+ .country-heading{margin-top:8px}
  .country-panel .detail-content{overflow:auto}
- .map-footer{order:3;flex-shrink:0;padding:9px 12px;min-height:39px}
+ .map-footer{flex-shrink:0;padding:9px 12px;min-height:39px}
 }
