@@ -43,3 +43,12 @@
  .country-panel.mobile-detail-open{transform:translateY(0)}
  .country-panel .detail-content{min-height:0;overflow:auto;padding-right:3px}
 }
+
+/* Preserve the original side-by-side laptop map layout. */
+@media(min-width:701px){
+ .map-body{display:grid;grid-template-columns:minmax(0,1fr) 280px;position:static;height:auto;flex:1;min-height:0}
+ .map-area{position:relative;inset:auto;width:auto;height:auto;min-height:0}
+ .details-backdrop{display:none}
+ .country-panel{position:relative;top:auto;right:auto;bottom:auto;width:auto;height:auto;max-height:700px;transform:none;opacity:1;visibility:visible;pointer-events:auto;border:0;border-left:1px solid #ffffff12;border-radius:0;background:#ffffff03;box-shadow:none;backdrop-filter:none}
+ .mobile-detail-close{display:none}
+}
