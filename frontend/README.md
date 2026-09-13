@@ -23,19 +23,28 @@ checkpoint hasn't evaluated. Country keys are zero-padded ISO 3166-1 numeric cod
 the world map; the 14 countries the fine-tuned checkpoint was evaluated on also carry an
 `iso3` field.
 
-**The map and chat show real model output for those 14 countries — from a static snapshot,
-not a live call.** `frontend/src/data/live-predictions.json` is a batch-generated file (one
-real forward pass per country through `src/open_relief/serve.py`'s checkpoint), read
-synchronously by `frontend/src/lib/liveModel.js`. The map's risk number for those countries
-is a direct linear mapping of the real predicted IPC phase (1 Minimal - 5 Famine -> 0-100),
-not a calibrated probability; the price/confidence cards are replaced with the real
+**The map uses a static snapshot; the chat panel calls the model live.**
+`frontend/src/data/live-predictions.json` is a batch-generated file (one real forward pass
+per country through `src/open_relief/serve.py`'s checkpoint), read synchronously by
+`frontend/src/lib/liveModel.js`. The map's risk number for those 14 countries is a direct
+linear mapping of the real predicted IPC phase (1 Minimal - 5 Famine -> 0-100), not a
+calibrated probability; the price/confidence cards are replaced with the real
 cutoff/rationale/recommended actions. Every other country keeps the original synthetic
-fixtures. Everything is labeled MODEL FORECAST vs DEMO throughout — no network call happens
-at runtime, so nothing depends on the Nebius endpoint staying up.
+fixtures. The map never makes a network call, so it always renders instantly regardless of
+endpoint uptime.
 
-To refresh the snapshot (intended cadence: daily/weekly against a live cutoff, not
+`ModelChat.jsx` (the "Ask OpenRelief" chat panel, both the per-country reasoning view and
+the persistent bottom-right launcher — there's only one chat component) calls
+`GET {VITE_INFERENCE_URL}/predict?iso3=XXX` for a real, freshly-generated answer on every
+question. If that call fails or times out it falls back to the cached snapshot entry for
+that country, and if there's no snapshot entry either (a country the checkpoint never saw)
+it falls back to the synthetic `demoAnswer`. Every message is labeled MODEL FORECAST or
+DEMO RESPONSE accordingly. Set `VITE_INFERENCE_URL` (copy `.env.example` to `.env.local`)
+to the endpoint's managed URL to enable live chat; unset, it just uses the snapshot/demo path.
+
+To refresh the map's snapshot (intended cadence: daily/weekly against a live cutoff, not
 per-request): `python scripts/generate_live_predictions.py <endpoint-url>` from the repo
-root, then rebuild the frontend. The endpoint itself never needs to run continuously.
+root, then rebuild the frontend.
 
 No OpenAI key is needed for this frontend. Future credentials belong on the backend, never in browser code. `.env` files are ignored by Git.
 
@@ -51,7 +60,7 @@ The Ask OpenRelief chat icon smoothly swaps the country intelligence panel for a
 
 ## Vercel deployment
 
-This directory is a standalone Vite app. For a Git-connected Vercel project, set Root Directory to `frontend`; install with `npm ci`, build with `npm run build`, and use output directory `dist`. No environment variables are required — the real model output is a static file committed to the repo (see Model integration above). The Python model pipeline is not deployed with this frontend at all.
+This directory is a standalone Vite app. For a Git-connected Vercel project, set Root Directory to `frontend`; install with `npm ci`, build with `npm run build`, and use output directory `dist`. Set `VITE_INFERENCE_URL` in the Vercel project's environment variables to enable live chat answers (see Model integration above); without it, the map still shows real (snapshot) data and chat falls back to it too. The Python model pipeline itself is not deployed with this frontend — only the small `serve.py` inference endpoint on Nebius is called over HTTP, and only by the chat panel.
 
 The overview map wraps horizontally using repeated world copies, with bounded vertical movement and a small overscroll allowance. Horizontal trackpad gestures pan; vertical wheel gestures zoom. Landing, Global insights, Roadmap and the Methodology page use a decorative blurred flat world map with colored country regions and no percentage markers. The interactive risk overview remains a flat map.
 

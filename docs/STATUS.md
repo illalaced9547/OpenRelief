@@ -3,10 +3,11 @@
 The frontend is now in `frontend/`; data preparation and native TimeNet connectors are
 implemented; 2,781 training annotations are available. **The fine-tuned checkpoint and its
 evaluation artifacts have been retrieved and verified** (see [training loss curve](examples/training-loss-curve.png)
-and [artifacts/nebius/](../artifacts/nebius/)). The checkpoint is deployed as a Nebius AI
-endpoint and used to batch-generate a static prediction snapshot
-(`frontend/src/data/live-predictions.json`) that the map and chat read directly, with no
-runtime network dependency — see [SUBMISSION.md](SUBMISSION.md) for the regeneration command.
+and [artifacts/nebius/](../artifacts/nebius/)). The checkpoint is deployed as a Nebius AI endpoint, kept running: the map reads a static
+prediction snapshot (`frontend/src/data/live-predictions.json`) with no runtime network
+dependency, while the chat panel calls the endpoint live per question and falls back to
+that same snapshot, then to demo answers, if it's unreachable — see
+[SUBMISSION.md](SUBMISSION.md) for the regeneration command.
 
 | Area | Current evidence |
 |---|---|

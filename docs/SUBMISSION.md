@@ -7,7 +7,7 @@ Training, checkpoint delivery and final evaluation are owned by the training mod
 
 | Deliverable | Owner / remaining action | Acceptance check |
 |---|---|---|
-| World-map demo | **Done**: the map and chat show the fine-tuned checkpoint's real batch-generated forecast for the 14 test-set countries (`frontend/src/data/live-predictions.json`), synthetic fixtures for the rest | Works after a fresh start, no network dependency; model vs demo answers are labeled per-message and per-country |
+| World-map demo | **Done**: map shows the checkpoint's real batch-generated forecast for the 14 test-set countries (static snapshot, no network call), synthetic fixtures for the rest; chat calls the checkpoint live per question, falling back to the snapshot then to demo answers | Works after a fresh start; map has no network dependency; model vs demo answers are labeled per-message and per-country |
 | Annotation demonstration | Documentation workstream: charted training examples and cached generated arguments | [Atlas](examples/annotation-atlas/README.md) and offline HTML load; exact examples and request hashes included |
 | Code and configuration | All owners: record submitted commit and checkpoint's actual code version | README command matches the delivered configuration; no conflict markers or credentials |
 | Checkpoint / adapter | **Done**: `best_model.pt` retrieved to `artifacts/nebius/all-sources/`, SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`; loaded and proven to run via a Nebius AI endpoint | Loads in a fresh process (proven by generating the committed prediction snapshot) and produces valid examples |
@@ -33,21 +33,26 @@ checkpoint supports `recommended_actions`: see the predictions in
 do not exist for any run (all launched with `--skip-pretrain-eval`); no
 before/after-fine-tuning table is claimed.
 
-## Inference endpoint and the static prediction snapshot
+## Inference endpoint, the static snapshot, and live chat
 
 `src/open_relief/serve.py` loads the checkpoint and reuses `adapter.format_input` +
 `evaluate.parse_prediction` (the exact code path used for the reported benchmark numbers),
 deployed as a Nebius **AI endpoint** (`open-relief-endpoint`, `gpu-rtx6000-a`,
-`project-e05dv2fbln000444nt4bbz`) exposing `GET /countries` and `GET /predict?iso3=XXX`.
+`project-e05dv2fbln000444nt4bbz`) exposing `GET /countries` and `GET /predict?iso3=XXX`,
+kept running so the chat panel can call it live.
 
-The frontend does **not** call this endpoint at runtime. Instead
-`scripts/generate_live_predictions.py <endpoint-url>` batch-generates one real
-forward pass per test-set country and writes
-`frontend/src/data/live-predictions.json`, which the map and chat read directly and
-synchronously (`frontend/src/lib/liveModel.js`) — no network call, no loading state,
-no dependency on the endpoint staying up during judging. Intended production cadence
-is a daily/weekly re-run against a live cutoff, not per-request generation. The
-committed snapshot records its own `generated_at` timestamp and checkpoint hash.
+The **map** does not call this endpoint at runtime — `scripts/generate_live_predictions.py
+<endpoint-url>` batch-generates one real forward pass per test-set country and writes
+`frontend/src/data/live-predictions.json`, which the map reads directly and synchronously
+(`frontend/src/lib/liveModel.js`), so it always renders instantly regardless of endpoint
+uptime. Intended production cadence for this snapshot is a daily/weekly re-run against a
+live cutoff, not per-request generation. The committed snapshot records its own
+`generated_at` timestamp and checkpoint hash.
+
+The **chat panel** (`ModelChat.jsx`) does call the endpoint live, once per question, for a
+freshly-generated answer — falling back to the cached snapshot entry, then to the synthetic
+demo answers, if the endpoint is unreachable. `frontend/.env.local`'s `VITE_INFERENCE_URL`
+points at the endpoint's managed URL.
 
 The default 256 test IDs have only one phase-4 example. Recomputed persistence scores
 0.7276 macro-F1 and 0.7500 accuracy on those IDs. Match IDs before comparing with the
