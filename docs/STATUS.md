@@ -26,6 +26,7 @@ that same snapshot, then to demo answers, if it's unreachable — see
 |---|---:|---:|---:|
 | Current runner's default 256 test IDs | 0.7276 | 0.7500 | 0.000 |
 | Full test, 2,230 examples | 0.7350 | 0.7744 | 0.000 |
+| **Pretrained OpenTSLM-SP, no fine-tuning, full 2,230 examples** | **0.0** | **0.0** | 0.0 (invalid output rate 100%) |
 
 The default subset has one phase-4 example; the full test has five. Neither has phase-5
 examples. Match sample IDs before comparing these metrics with remote model results.

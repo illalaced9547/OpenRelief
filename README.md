@@ -21,7 +21,7 @@ TimeNet connectors and a focus on transparent, reproducible temporal reasoning.
 | 2,781 cached training annotations | 30.68% coverage; validated against the current schema |
 | Four reusable TimeNet connectors | PortWatch, ACLED, WFP prices and CHIRPS; tested TimeF round trips |
 | World-map frontend | Implemented in `frontend/`; map/chat show the fine-tuned checkpoint's real batch-generated forecast for 14 test-set countries, synthetic fixtures otherwise |
-| Fine-tuned checkpoint | Retrieved, hashed, and serving live inference on Nebius; [PortWatch shipping signal](docs/FINDING-portwatch-signal.md) is the standout ablation result |
+| Fine-tuned checkpoint | Retrieved, hashed, serving live inference on Nebius; [beats the untouched pretrained checkpoint outright](docs/FINDING-pretrained-baseline.md) (0% -> 100% valid output); [PortWatch shipping signal](docs/FINDING-portwatch-signal.md) is the standout ablation result |
 | Local tests | 25 passing at the documented readiness check |
 
 ## See the annotation pipeline
@@ -196,12 +196,19 @@ include pretrained/fine-tuned raw predictions, country metrics, losses, checkpoi
 before/after table. Generation validity is scored separately. GPU dependencies are pinned;
 the training workstream owns remote runtime validation and delivery of its checkpoint.
 
-**Headline finding:** ablating one input source at a time, [dropping IMF PortWatch shipping
-data collapses macro-F1 from 0.72 to 0.58](docs/FINDING-portwatch-signal.md) — by far the
-largest effect of any source tested, and the only ablation that hurts performance at all.
-The model also starts flagging far more deterioration events once shipping is removed
-(secondary-deterioration F1 jumps from 0.075 to 0.60), a sharp behavioral shift consistent
-with shipping carrying a distinct, high-value signal none of the other sources provide.
+**Fine-tuning is not optional:** [evaluated on the full 2,230-example test set with no
+fine-tuning at all](docs/FINDING-pretrained-baseline.md), the official checkpoint produces
+**zero valid predictions** — every output fails to parse as the required JSON, because it
+was never exposed to this task's format. Fine-tuning takes that to a 100% valid-output rate
+competitive with the persistence baseline.
+
+**Headline ablation finding:** ablating one input source at a time, [dropping IMF PortWatch
+shipping data collapses macro-F1 from 0.72 to 0.58](docs/FINDING-portwatch-signal.md) — by
+far the largest effect of any source tested, and the only ablation that hurts performance
+at all. The model also starts flagging far more deterioration events once shipping is
+removed (secondary-deterioration F1 jumps from 0.075 to 0.60), a sharp behavioral shift
+consistent with shipping carrying a distinct, high-value signal none of the other sources
+provide.
 
 ![Training and validation loss, all-sources run](docs/examples/training-loss-curve.png)
 

@@ -11,19 +11,22 @@ Training, checkpoint delivery and final evaluation are owned by the training mod
 | Annotation demonstration | Documentation workstream: charted training examples and cached generated arguments | [Atlas](examples/annotation-atlas/README.md) and offline HTML load; exact examples and request hashes included |
 | Code and configuration | All owners: record submitted commit and checkpoint's actual code version | README command matches the delivered configuration; no conflict markers or credentials |
 | Checkpoint / adapter | **Done**: `best_model.pt` retrieved to `artifacts/nebius/all-sources/`, SHA-256 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`; loaded and proven to run via a Nebius AI endpoint | Loads in a fresh process (proven by generating the committed prediction snapshot) and produces valid examples |
-| Evaluation | **Done for the 256-example cohort** (see [FINDING-portwatch-signal.md](FINDING-portwatch-signal.md)); full-2,230 reruns were in flight at submission time, folded in only if they landed | Identical sample IDs for compared models, explicit split/class support and no unsupported causal claims |
+| Evaluation | **Done**: pretrained-vs-fine-tuned on the full 2,230-example test set ([FINDING-pretrained-baseline.md](FINDING-pretrained-baseline.md)); ablations on a 256-example cohort ([FINDING-portwatch-signal.md](FINDING-portwatch-signal.md)); fine-tuned full-2,230 reruns were in flight at submission time, folded in only if they landed | Identical sample IDs for compared models, explicit split/class support and no unsupported causal claims |
 | Dataset documentation | Documentation/data owners: dataset card, provenance, coverage; resolve HFID upstream terms | [Dataset card](DATASET_CARD.md) matches manifests; source access and reuse claims are accurate |
 | Presentation / fallback | Team: rehearse the combined map, evidence and model-output flow | One success and one limitation; a clearly labeled replay/recording if live inference fails |
 
 ## Training-owner handoff contract — done
 
 Every run is under its own folder in `artifacts/nebius/` (`all-sources`,
-`ablation-{acled,chirps,wfp,portwatch}`), pulled from the HF mirror's `gpu-results/` tree:
-`run.json`, `losses.json`, `fine_tuned.jsonl`, `fine_tuned-metrics.json`, `benchmark.md`,
-and `best_model.pt` (all-sources only; SHA-256
+`ablation-{acled,chirps,wfp,portwatch}`, `pretrained-fulltest`), pulled from the HF mirror's
+`gpu-results/` tree: `run.json`, `losses.json`, `fine_tuned.jsonl`, `fine_tuned-metrics.json`,
+`benchmark.md`, and `best_model.pt` (all-sources only; SHA-256
 `a10343caa152d1c3aa55b6dc9b40e11603067babeac44909001d1597a3e84e10`, not in the original
-manifest so recorded fresh here). These files are gitignored; re-fetch with
-`huggingface_hub.hf_hub_download('Alaeddinnn/OpenRelief', ..., repo_type='dataset')`.
+manifest so recorded fresh here). `pretrained-fulltest/` is the untouched-checkpoint
+baseline on the full 2,230-example test set — `pretrained.jsonl` + `pretrained-metrics.json`,
+merged from 8 parallel sharded jobs (`src/open_relief/pretrained_eval.py`); see
+[FINDING-pretrained-baseline.md](FINDING-pretrained-baseline.md). These files are gitignored;
+re-fetch with `huggingface_hub.hf_hub_download('Alaeddinnn/OpenRelief', ..., repo_type='dataset')`.
 
 **The submitted checkpoint is the 2,781-example all-sources run** (`gpu-run-2781` /
 `open-relief-train-2781`), not the two separate 9,065-example runs that were still
