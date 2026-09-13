@@ -84,7 +84,7 @@ function App(){
  const selectCountry = id => {
   if(drag.current?.moved)return;
   setSelected(id);setQuery('');setHovered(null);
-  setMobileDetailOpen(true);
+  if(window.matchMedia('(max-width:700px) and (pointer:coarse)').matches)setMobileDetailOpen(true);
 
  };
  const showHover=(e,c)=>{if(drag.current)return;const d=forecasts[c.id];setHovered({name:c.properties.name,phase:d?.phase ?? null,x:Math.min(e.clientX+20,window.innerWidth-210),y:Math.min(e.clientY+20,window.innerHeight-100)})};
