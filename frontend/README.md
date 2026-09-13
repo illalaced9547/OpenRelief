@@ -26,7 +26,7 @@ The current model supports a three-month horizon from six months of inputs. Synt
 
 Copy `.env.example` to an ignored `.env.local` and set `VITE_INFERENCE_URL` to the running HTTPS model server, without credentials. Restart Vite after changing it.
 
-Chat calls `GET /predict?iso3=XXX`. The endpoint runs inference on a prepared historical sample; it does not accept the typed question. Answers are selected/formatted locally from returned prediction fields. If the endpoint fails, the saved model output is used and labeled. With no saved output, chat reports that no model data is available. Repeated requests run inference again; concurrent requests for the same country share one request.
+Chat calls the Vercel `POST /api/chat` function, which sends the question and selected model prediction to OpenAI using the server-only `OPENAI_API_KEY`. The OpenAI answer is grounded in the prediction rationale and provenance. Nebius `GET /predict?iso3=XXX` is called first when configured to refresh the historical sample; the saved output is used if it fails. With no saved output, chat reports that no model data is available. The prediction endpoint still accepts a country code rather than a question; the Vercel function is the question-answering layer.
 
 `src/open_relief/serve.py` at the repository root requires CUDA and the checkpoint/dataset on the GPU host. It runs separately from the frontend.
 

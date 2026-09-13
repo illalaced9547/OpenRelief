@@ -1,6 +1,6 @@
 import snapshot from './live-predictions.json';
 export const PHASE_LABEL = {1:'Minimal',2:'Stressed',3:'Crisis',4:'Emergency',5:'Famine'};
-export const PHASE_COLOR = {1:'#b8c1c5',2:'#e8d985',3:'#efb775',4:'#ee8277',5:'#d95565'};
+export const PHASE_COLOR = {1:'#dce6a0',2:'#e8d985',3:'#efb775',4:'#ee8277',5:'#d95565'};
 const codes={BFA:'854',CMR:'120',COD:'180',GTM:'320',HTI:'332',KEN:'404',MDG:'450',MLI:'466',MOZ:'508',MWI:'454',NER:'562',NGA:'566',SOM:'706',ZWE:'716'};
 export const validPhase = phase => Number.isInteger(phase) && phase >= 1 && phase <= 5;
 export const phaseColor = phase => PHASE_COLOR[phase] || '#777777';

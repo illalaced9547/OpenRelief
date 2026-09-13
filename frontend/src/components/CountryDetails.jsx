@@ -1,7 +1,9 @@
 import {ArrowRight,Globe2,Info} from 'lucide-react';
 import {PHASE_LABEL,phaseColor,snapshotMeta,formatDate} from '../data/modelData';
+import {modelInfluences} from '../lib/modelInfluences';
 
 export default function CountryDetails({country,name,tab,setTab,hidden}){
+ const influences=modelInfluences(country);
  return <aside className={`country-panel explanation-panel ${hidden?'panel-away':''}`} inert={hidden} aria-hidden={hidden}>
   <div className="panel-eyebrow">MODEL OUTLOOK <span className="demo-pill">{country?'SAVED PREDICTION':'NO MODEL DATA'}</span></div>
   <div className="country-heading"><h3>{name}</h3></div>
@@ -13,7 +15,7 @@ export default function CountryDetails({country,name,tab,setTab,hidden}){
      <div className="probability"><span>{country.phase??'—'}<small>/5</small></span><span className="risk-badge" style={{color:phaseColor(country.phase),background:phaseColor(country.phase)+'26'}}>{PHASE_LABEL[country.phase]||'Unavailable'}</span></div>
      <p className="probability-label">Predicted FEWS NET IPC severity phase<br/>Target {country.target_month} · Three months after cutoff</p>
      <div className="phase-scale" aria-label={`Predicted IPC phase ${country.phase??'unavailable'}`}>{[1,2,3,4,5].map(n=><span key={n} style={{background:phaseColor(n),opacity:country.phase===n?1:.25}}>{n}</span>)}</div>
-     <div className="confidence-card"><div><span>Prediction confidence</span><strong>Not provided</strong></div><p>The model returns a severity class, not a calibrated probability or confidence percentage.</p></div>
+     {!!influences.length&&<section className="outlook-influences" aria-label="Possible influences"><h4>Possible influences</h4><p className="influence-caption">From the model’s rationale · Not verified causes</p><div className="influence-cards">{influences.map(card=><details className="influence-card" key={card.id}><summary>{card.title}<span className="influence-preview">{card.text}</span></summary><p>{card.text}</p></details>)}</div></section>}
      <div className="source-row"><span>Input cutoff</span><small>{formatDate(country.cutoff)}</small></div>
      <div className="source-row"><span>Last known IPC phase</span><small>{country.baseline_phase??'Unavailable'}</small></div>
      <button className="explanation-preview" onClick={()=>setTab('explanation')}><span>Why this prediction?</span><strong>Read the model’s generated rationale</strong><ArrowRight size={16}/></button>
