@@ -5,7 +5,7 @@ Read `HANDOFF.md` for the original measurements. Unknown publication lags stay u
 
 | Source | Event range / cadence | Geography | Access and implementation role |
 |---|---|---|---|
-| HFID `refrences/hfid_hv1.csv` | Measured 2007-06–2024-05; monthly panel; IPC 3–4 monthly, FCS/rCSI monthly | Named ADMIN0/1/2, 80 countries | Local authoritative target/history; no publication timestamps or license documentation in CSV |
+| HFID `refrences/hfid_hv1.csv` | Measured 2007-06–2024-05; monthly panel; IPC 3–4 monthly, FCS/rCSI monthly | Named ADMIN0/1/2, 80 countries | Local authoritative target/history; no publication timestamps or license documentation in CSV; audited in [`reports/hfid-audit.json`](../reports/hfid-audit.json) (initial 12-month input-window exploration) and [`reports/hfid-audit-6months.json`](../reports/hfid-audit-6months.json) (six-month input window actually shipped, see the dataset card's coverage section) |
 | FEWS ALL_HFIC | Handoff: 2009-07–2022-10, Central Asia ends 2021-06; periodic current assessments | Dissolved phase polygons, not admin boundaries | Located in sibling `food_data/ALL_HFIC`; not a reproducible required local dependency; needs boundary overlay and pre-2011 scale exclusion |
 | IMF PortWatch daily ports | Handoff downloaded 2019-01-01–2026-07-24, daily observations; weekly Tuesday updates | Ports, aggregate to country | Verified item and layer on 2026-09-12; connector implemented |
 | IMF PortWatch chokepoints | Daily; exact available range must be queried | 28 global chokepoints per handoff | Item `3da2b9ca97684916b75c4013f95d18ab`; optional global context, no district variation |

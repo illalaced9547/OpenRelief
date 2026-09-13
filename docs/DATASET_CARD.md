@@ -62,7 +62,10 @@ Its machine-readable examples include all input channels, targets and unedited t
 ## Coverage and intended interpretation
 
 Six complete FCS/rCSI observations are required. This excludes districts and periods with
-missing core histories and produces country-imbalanced samples. Test has no eligible Yemen
+missing core histories and produces country-imbalanced samples. Raw per-country window
+counts for this six-month requirement are in
+[`reports/hfid-audit-6months.json`](../reports/hfid-audit-6months.json); an earlier
+twelve-month-window exploration is in [`reports/hfid-audit.json`](../reports/hfid-audit.json). Test has no eligible Yemen
 or Ethiopia examples. After lag masking, approximate external coverage is 73% for prices,
 79% shipping, 100% conflict and 83% rainfall. There are no phase-5 test examples and only
 five phase-4 examples; do not describe this as demonstrated famine prediction.
