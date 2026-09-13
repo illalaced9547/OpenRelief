@@ -56,6 +56,11 @@ def main():
         p.error("Annotations file is empty. Fine-tuning requires at least some annotated examples.")
     if not set(annotations)<=ids:
         p.error("Annotations file contains sample IDs outside the training partition; check dataset/annotation match.")
+    annotation_coverage = len(annotations)/len(ids)
+    if annotation_coverage < 1.0:
+        print(json.dumps({"warning":"partial annotation coverage","annotated":len(annotations),
+            "train_total":len(ids),"coverage":round(annotation_coverage,4),
+            "effect":"examples without an annotation train on phase only, empty rationale"}),flush=True)
     for e in train:
         annotation=annotations.get(e["input"]["sample_id"])
         if annotation is not None:
@@ -88,6 +93,7 @@ def main():
         "epochs":a.epochs,"patience":a.patience,"effective_batch_size":a.accumulate,"patch_size":patch_size,
         "drop_sources":a.drop_source,"annotation_sha256":digest_file(a.annotations),
         "skip_pretrain_eval":a.skip_pretrain_eval,
+        "annotation_coverage":annotation_coverage,"annotated_train_examples":len(annotations),
         "test_ids":[e["input"]["sample_id"] for e in test],"validation_ids":[e["input"]["sample_id"] for e in val],
         "validation_criterion":"Phase-only JSON prefix loss; rationale generation evaluated separately",
         "torch":torch.__version__,"gpu":torch.cuda.get_device_name(),"normalization":"input-window minmax, masks"}

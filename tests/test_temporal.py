@@ -60,16 +60,21 @@ def interaction_claim(channels):
             "event_months":[],"source_url":None,"uncertainty":"u"}
 
 
+def recommended_action(channels, urgency="prepare_now"):
+    return {"action":"a","urgency":urgency,"driver_channels":channels,"justification":"j"}
+
+
 def test_annotations_cannot_relabel():
     a={"observed_future_phase":3,"precursor_patterns":[],
        "interaction_hypotheses":[interaction_claim(["rainfall","last_available_phase"])],
-       "rationale":"Unknown","uncertainty":"High","confidence":0.1}
+       "rationale":"Unknown","recommended_actions":[recommended_action(["rainfall"])],
+       "uncertainty":"High","confidence":0.1}
     with pytest.raises(ValueError,match="label"):validate_annotation(a,{"input":sample(),"target":{"phase":4}})
 
 
 def test_interaction_hypothesis_required():
     a={"observed_future_phase":3,"precursor_patterns":[],"interaction_hypotheses":[],
-       "rationale":"r","uncertainty":"u","confidence":0.5}
+       "rationale":"r","recommended_actions":[recommended_action(["rainfall"])],"uncertainty":"u","confidence":0.5}
     with pytest.raises(ValueError,match="interaction hypothesis"):
         validate_annotation(a,{"input":sample(),"target":{"phase":3}})
 
@@ -77,7 +82,7 @@ def test_interaction_hypothesis_required():
 def test_interaction_hypothesis_must_span_two_domains():
     a={"observed_future_phase":3,"precursor_patterns":[],
        "interaction_hypotheses":[interaction_claim(["rainfall"])],
-       "rationale":"r","uncertainty":"u","confidence":0.5}
+       "rationale":"r","recommended_actions":[recommended_action(["rainfall"])],"uncertainty":"u","confidence":0.5}
     with pytest.raises(ValueError,match="two distinct signal domains"):
         validate_annotation(a,{"input":sample(),"target":{"phase":3}})
 
@@ -85,8 +90,34 @@ def test_interaction_hypothesis_must_span_two_domains():
 def test_interaction_hypothesis_across_domains_accepted():
     a={"observed_future_phase":3,"precursor_patterns":[],
        "interaction_hypotheses":[interaction_claim(["rainfall","last_available_phase"])],
-       "rationale":"r","uncertainty":"u","confidence":0.5}
+       "rationale":"r","recommended_actions":[recommended_action(["rainfall"])],"uncertainty":"u","confidence":0.5}
     validate_annotation(a,{"input":sample(),"target":{"phase":3}})
+
+
+def test_recommended_action_required():
+    a={"observed_future_phase":3,"precursor_patterns":[],
+       "interaction_hypotheses":[interaction_claim(["rainfall","last_available_phase"])],
+       "rationale":"r","recommended_actions":[],"uncertainty":"u","confidence":0.5}
+    with pytest.raises(ValueError,match="recommended action"):
+        validate_annotation(a,{"input":sample(),"target":{"phase":3}})
+
+
+def test_recommended_action_urgency_must_match_phase():
+    a={"observed_future_phase":1,"precursor_patterns":[],
+       "interaction_hypotheses":[interaction_claim(["rainfall","last_available_phase"])],
+       "rationale":"r","recommended_actions":[recommended_action(["rainfall"],urgency="respond_now")],
+       "uncertainty":"u","confidence":0.5}
+    with pytest.raises(ValueError,match="urgency"):
+        validate_annotation(a,{"input":sample(),"target":{"phase":1}})
+
+
+def test_recommended_action_needs_available_driver_channel():
+    a={"observed_future_phase":3,"precursor_patterns":[],
+       "interaction_hypotheses":[interaction_claim(["rainfall","last_available_phase"])],
+       "rationale":"r","recommended_actions":[recommended_action(["not_a_channel"])],
+       "uncertainty":"u","confidence":0.5}
+    with pytest.raises(ValueError,match="unavailable channel"):
+        validate_annotation(a,{"input":sample(),"target":{"phase":3}})
 
 
 def test_invalid_output_is_not_dropped():

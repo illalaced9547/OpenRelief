@@ -1,10 +1,13 @@
 """Future-aware historical supervision, kept outside forecasting inputs."""
 import argparse
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 import hashlib
+from itertools import zip_longest
 import json
 import os
 from pathlib import Path
+import random
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 from .dataset import load_examples
@@ -33,14 +36,30 @@ class InteractionClaim(BaseModel):
     uncertainty: str
 
 
+class RecommendedAction(BaseModel):
+    """A concrete response recommendation grounded in the identified drivers, not the phase alone."""
+    model_config = ConfigDict(extra="forbid")
+    action: str
+    urgency: Literal["monitor", "prepare_now", "respond_now"]
+    driver_channels: list[str]
+    justification: str
+
+
 class Annotation(BaseModel):
     model_config = ConfigDict(extra="forbid")
     observed_future_phase: int = Field(ge=1, le=5)
     precursor_patterns: list[Claim]
     interaction_hypotheses: list[InteractionClaim]
     rationale: str
+    recommended_actions: list[RecommendedAction]
     uncertainty: str
     confidence: float = Field(ge=0, le=1)
+
+
+# IPC phase -> humanitarian response objectives (FEWS NET/IPC framework), used to keep
+# recommended urgency consistent with the objective (ground-truth) future phase.
+PHASE_URGENCY = {1: {"monitor"}, 2: {"monitor", "prepare_now"},
+                 3: {"prepare_now", "respond_now"}, 4: {"respond_now"}, 5: {"respond_now"}}
 
 
 # Channel name prefix -> broad real-world signal domain, for enforcing cross-domain interactions.
@@ -99,7 +118,20 @@ market supply and purchasing power. State the mechanism explicitly in `mechanism
 model_recalled only for genuine recalled historical context, otherwise inference. Never
 mark an interaction hypothesis observed: combining channels is analysis, not direct
 observation. Provide at least one interaction_hypotheses entry for every annotation, and
-still explicitly flag it as a plausible hypothesis, not a proven causal chain."""
+still explicitly flag it as a plausible hypothesis, not a proven causal chain.
+
+recommended_actions translate the analysis into concrete humanitarian/food-security
+response recommendations, e.g. market price monitoring and staple subsidies for a
+price-driven pattern, conflict-displacement coordination and safe-corridor access for a
+conflict-driven pattern, or irrigation/water-point support for a rainfall-driven pattern.
+Each action must set driver_channels to the specific channels behind it (from
+precursor_patterns or interaction_hypotheses already identified, not a new claim) and a
+short justification tying the action to that evidence. Never recommend an action with no
+identified driver. Set urgency from the standard IPC response framework applied to the
+supplied observed_future_phase: phase 1 is monitor; phase 2 is monitor or prepare_now;
+phase 3 is prepare_now or respond_now; phase 4-5 is respond_now. Provide at least one
+recommended_actions entry for every annotation. Recommendations are retrospective research
+supervision, not real-time operational guidance; do not claim they were actually deployed."""
 
 
 def request_payload(example: dict, model: str) -> dict:
@@ -124,6 +156,7 @@ def request_payload(example: dict, model: str) -> dict:
     schema["$defs"]["Claim"]["properties"]["channels"]["items"]["enum"] = channel_names
     schema["$defs"]["Claim"]["properties"]["provenance"]["enum"] = ["observed", "model_recalled", "inference"]
     schema["$defs"]["InteractionClaim"]["properties"]["channels"]["items"]["enum"] = channel_names
+    schema["$defs"]["RecommendedAction"]["properties"]["driver_channels"]["items"]["enum"] = channel_names
     return {"model": model, "messages": [{"role": "system", "content": SYSTEM},
         {"role": "user", "content": json.dumps(context, sort_keys=True)}],
         "reasoning_effort": "medium", "max_completion_tokens": 4096,
@@ -163,6 +196,15 @@ def validate_annotation(value: dict, example: dict) -> Annotation:
             raise ValueError("Source URLs require a separate retrieval-enabled workflow")
         if len({channel_domain(name) for name in claim.channels}) < 2:
             raise ValueError("Interaction hypothesis must span at least two distinct signal domains")
+    if not annotation.recommended_actions:
+        raise ValueError("At least one recommended action is required")
+    for action in annotation.recommended_actions:
+        if not action.driver_channels:
+            raise ValueError("Recommended action has no identified driver")
+        if not set(action.driver_channels) <= channels:
+            raise ValueError("Recommended action references unavailable channel")
+        if action.urgency not in PHASE_URGENCY[annotation.observed_future_phase]:
+            raise ValueError("Recommended action urgency inconsistent with the observed future phase")
     return annotation
 
 
@@ -193,6 +235,21 @@ def select_pilot(examples, limit):
             countries.add(country)
             selected_ids.add(e["input"]["sample_id"])
     return chosen
+
+
+def stratified_order(examples, seed=0):
+    """Round-robin across countries, each bucket shuffled, so any prefix of a full run stays
+    country-diverse. Safe to kill at any point (e.g. if the API budget runs out) and still
+    have a representative partial set, instead of finishing whatever the country order gave first."""
+    by_country = defaultdict(list)
+    for e in sorted(examples, key=lambda e: e["input"]["sample_id"]):
+        by_country[e["input"]["geography"]["iso3"]].append(e)
+    rng = random.Random(seed)
+    buckets = list(by_country.values())
+    for bucket in buckets:
+        rng.shuffle(bucket)
+    rng.shuffle(buckets)
+    return [e for round_ in zip_longest(*buckets) for e in round_ if e is not None]
 
 
 def usage_cost(usage):
@@ -273,6 +330,7 @@ def main():
     parser.add_argument("--cache", type=Path, default=Path("artifacts/annotation-cache"))
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--budget-usd", type=float, default=190.0)
+    parser.add_argument("--seed", type=int, default=0, help="Country-stratified shuffle seed for --all")
     args = parser.parse_args()
     if args.limit < 1:
         parser.error("--limit must be positive")
@@ -296,13 +354,13 @@ def main():
     if args.all and args.split != "train":
         parser.error("--all is only supported for --split train (full training supervision)")
     examples = load_examples(args.dataset, args.split)
-    # Deterministic diverse ordering instead of taking adjacent overlapping windows.
-    examples.sort(key=lambda e: e["input"]["sample_id"])
     if not 1 <= args.workers <= 16:
         parser.error("--workers must be between 1 and 16")
     if model != "gpt-5.6-terra":
         parser.error("Cost guard is verified for gpt-5.6-terra; update pricing before changing model")
-    selected = examples if args.all else select_pilot(examples, args.limit)
+    # Country-stratified shuffle for --all: any prefix stays diverse, so killing the run
+    # early (e.g. budget/credit runs out) still leaves a representative partial set.
+    selected = stratified_order(examples, args.seed) if args.all else select_pilot(examples, args.limit)
     # UTF-8 bytes bound ordinary text token count; include schema and protocol overhead.
     # No automatic retries: ambiguous network failures must not multiply reserved spend.
     bound = sum(((len(json.dumps(request_payload(e,model)).encode()) + 1000) * 2.5 + 4096 * 12) / 1_000_000 for e in selected)

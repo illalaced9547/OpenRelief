@@ -39,7 +39,9 @@ def format_input(sample: dict, drop_sources: tuple[str, ...] = ()) -> dict:
               "Only use available input evidence. IPC phases: 1 Minimal, 2 Stressed, 3 Crisis, 4 Emergency, 5 Famine. "
               "National channels are shared context, not district measurements. "
               "FCS/rCSI are normalized by an undocumented method; do not assume raw thresholds. "
-              "Return JSON with integer phase and a concise rationale string. Do not invent absent signals. "
+              "Return JSON with integer phase, a concise rationale string, and recommended_actions: a list of "
+              "concrete response recommendations grounded only in the given evidence, most urgent first. "
+              "Do not invent absent signals. "
               f"Last available IPC assessment: {json.dumps(sample['last_available_phase'])}.")
     return {"pre_prompt": prompt, "post_prompt": "Prediction JSON:", "time_series": series,
             "time_series_text": descriptions}
@@ -47,12 +49,13 @@ def format_input(sample: dict, drop_sources: tuple[str, ...] = ()) -> dict:
 
 def format_training(example: dict, eos: str, annotation: dict | None = None, drop_sources=()) -> dict:
     sample = format_input(example["input"], drop_sources)
-    answer = {"phase": example["target"]["phase"], "rationale": ""}
+    answer = {"phase": example["target"]["phase"], "rationale": "", "recommended_actions": []}
     if annotation is not None:
         if annotation["sample_id"] != example["input"]["sample_id"] or annotation["dataset_version"] != example["input"]["dataset_version"]:
             raise ValueError("Annotation belongs to a different sample/dataset")
         if annotation["annotation"]["observed_future_phase"] != answer["phase"]:
             raise ValueError("Annotation label mismatch")
         answer["rationale"] = annotation["annotation"]["rationale"]
+        answer["recommended_actions"] = [a["action"] for a in annotation["annotation"]["recommended_actions"]]
     sample["answer"] = json.dumps(answer) + eos
     return sample
