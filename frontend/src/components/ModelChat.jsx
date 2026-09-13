@@ -13,6 +13,13 @@ function modelAnswer(question,prediction){
  if(/why|reason|explain|predict|outlook|rationale/.test(q))return `Target ${prediction.target_month}: predicted IPC phase ${label}. ${prediction.rationale}`;
  return 'The connected endpoint accepts a country code, not a free-form question. I can show its saved or freshly generated historical prediction, rationale, provenance, and uncertainty limits. Try “Why this prediction?” or “What are the sources?”';
 }
+async function askOpenAI(question,prediction,country,history){
+ const response=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({question,prediction,country,history})});
+ if(!response.ok)throw new Error(`chat service returned ${response.status}`);
+ const data=await response.json();
+ if(!data.answer)throw new Error('chat service returned no answer');
+ return data.answer;
+}
 export default function ModelChat({context,open,onOpen,onClose,hidden=false}){
  const [draft,setDraft]=useState(''),[messages,setMessages]=useState([]),[pending,setPending]=useState(false);
  const end=useRef(null),input=useRef(null),launcher=useRef(null);
@@ -30,8 +37,9 @@ export default function ModelChat({context,open,onOpen,onClose,hidden=false}){
   try{
    const live=ENDPOINT?await fetchLive(selected.iso3):null;
    const prediction=live||saved;
-   const answer=modelAnswer(text,prediction);
-   setMessages(m=>[...m,{role:'assistant',text:answer,context:label,source:live?'LIVE MODEL':'SAVED MODEL'}]);
+   let answer,source;
+   try{answer=await askOpenAI(text,{...prediction,phase_label:PHASE_LABEL[prediction.predicted_phase]},selected.country,messages.map(m=>({role:m.role,content:m.text})));source='OPENAI · GROUNDED IN MODEL'}catch(error){console.warn('OpenAI chat unavailable',error);answer=modelAnswer(text,prediction);source=live?'LIVE MODEL · LOCAL FALLBACK':'SAVED MODEL · LOCAL FALLBACK'}
+   setMessages(m=>[...m,{role:'assistant',text:answer,context:label,source}]);
   }finally{setPending(false)}
  };
  return <><button ref={launcher} className="chat-launcher chat-icon" hidden={hidden} aria-label={open?'Close Ask OpenRelief':'Ask OpenRelief'} aria-controls="openrelief-chat" aria-expanded={open} onClick={()=>open?close():onOpen()}>{open?<X size={22}/>:<MessageCircle size={22}/>}</button>
@@ -39,7 +47,7 @@ export default function ModelChat({context,open,onOpen,onClose,hidden=false}){
   <div className="chat-heading"><div><MessageCircle size={18}/><strong>Ask OpenRelief</strong></div><div><button aria-label="New conversation" disabled={pending} onClick={()=>{setMessages([]);setDraft('');input.current?.focus()}}><Plus size={18}/></button><button aria-label="Close chat" onClick={close}><X size={18}/></button></div></div>
   <div className="chat-context"><i/>{context.country}<span>{stored?` · Historical target ${stored.target_month}`:' · No model data'}</span></div>
   <div className="chat-messages" role="log" aria-live="polite">{!messages.length&&<div className="chat-welcome"><h3>Understand the prediction.</h3><p>{stored?'Explore the model’s phase, rationale and source limitations for this historical sample.':'Choose a country with model data to explore its prediction.'}</p>{stored&&<div className="chat-prompts">{['Why this prediction?','How confident is it?','What are the sources?'].map(q=><button disabled={pending} key={q} onClick={()=>send(q)}>{q}<ArrowUp size={13}/></button>)}</div>}</div>}{messages.map((m,i)=><div className={`chat-message ${m.role}`} key={i}><small>{m.role==='user'?'YOU':m.source} · {m.context}</small><p>{m.text}</p></div>)}{pending&&<div className="chat-message assistant chat-loading" role="status"><div className="chat-loading-label"><span className="chat-loading-dots" aria-hidden="true"><i/><i/><i/></span><span>Loading model response…</span></div><div className="chat-loading-lines" aria-hidden="true"><span/><span/><span/></div></div>}<div ref={end}/></div>
-  <div className="chat-disclaimer">{canGoLive?'Answers from the trained model · Nebius inference · Saved output if unavailable':stored?`Saved trained-model output · ${formatDate(snapshotMeta.generatedAt)}`:'No model output for this country'}</div>
+  <div className="chat-disclaimer">{stored?'OpenAI answer grounded in this model output · No data is added':'No model output for this country'}</div>
   <form className="chat-input" onSubmit={e=>{e.preventDefault();send()}}><input ref={input} value={draft} onChange={e=>setDraft(e.target.value)} maxLength={2000} aria-label="Question about the data" placeholder="Ask about this prediction…"/><button type="submit" disabled={!draft.trim()||pending} aria-label="Send question"><ArrowUp size={18}/></button></form>
  </section></>;
 }
