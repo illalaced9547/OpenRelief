@@ -1,11 +1,12 @@
-# OpenRelief
+# OpenRelief frontend
 
 Local React frontend for exploring illustrative food insecurity forecasts.
 
 ## Run locally
 
 ```sh
-npm install
+cd frontend
+npm ci
 npm run dev
 ```
 
@@ -21,7 +22,7 @@ The `forecasts` object in `src/main.jsx` is the placeholder boundary for the fut
 
 No OpenAI key is needed for this frontend. Future credentials belong on the backend, never in browser code. `.env` files are ignored by Git.
 
-Map geometry: Natural Earth via `world-atlas`. Title: React Bits True Focus installed using the shadcn registry. This project has not been published or deployed.
+Map geometry: Natural Earth via `world-atlas`. Title: React Bits True Focus installed using the shadcn registry. The production frontend is deployed at https://openrelief.vercel.app.
 
 ## Explanations, confidence and chat
 
@@ -37,8 +38,21 @@ This directory is a standalone Vite app. For a Git-connected Vercel project, set
 
 The overview map wraps horizontally using repeated world copies, with bounded vertical movement and a small overscroll allowance. Horizontal trackpad gestures pan; vertical wheel gestures zoom. Landing, Global insights, Roadmap and the Methodology page use a decorative blurred flat world map with colored country regions and no percentage markers. The interactive risk overview remains a flat map.
 
-Methodology is a full navigation page using the shared flat map background. Five selectable example input categories connect visually to a model card and three fictional country outputs. Country output buttons open their 90-day demo outlook; input cards reveal explanatory context. The diagram describes the intended system, not a completed model integration.
+Methodology is a full navigation page using the shared flat map background. Five example input categories connect visually to a model card and three fictional country outputs. Country output buttons open their 90-day demo outlook; input cards are static, with equally styled connections and no selection highlights or popups. The diagram describes the intended system, not a completed model integration.
 
 Methodology connector dots run in a synchronized four-second loop: all five inputs travel to the model over the first two seconds, followed by all three output dots over the next two. Reduced-motion preferences hide these animations.
 
 The methodology diagram uses a fixed-height compact layout with its explanatory paragraphs removed. Search and forecast controls share the map header row. Decorative and interactive maps use shared viewport-relative dimensions so the default view matches the landing background; panning and zoom still work from that baseline.
+
+## Team handoff
+
+This folder is independent of the Python pipeline in `../src/open_relief/`. Frontend work does not require installing Python, downloading model weights, or running training. Use Node.js 22 and the committed npm lockfile; run `npm ci` and `npm run build` inside this folder to validate changes.
+
+- `src/main.jsx`: application navigation, interactive map and demo country forecasts.
+- `src/components/`: shared UI, methodology diagram, country search and chat.
+- `src/data/explanations.js`: demo explanations, source placeholders and local chat responses.
+- `vercel.json`: Vite build configuration for this folder.
+
+The current research pipeline predicts district-level IPC phase three months ahead. The UI's country risk percentages and 30/90/180-day choices are illustrative, not a direct representation of those outputs. Before connecting the model, agree on geographic aggregation, supported horizons, probability calibration and provenance. Unsupported countries should remain unavailable rather than receive synthetic live values.
+
+Vercel has been deployed through the CLI. A GitHub push does not imply automatic deployment unless the Vercel project is connected to this repository. When connecting it, use `frontend` as Root Directory. Local `.vercel/` account/project metadata, environment files, dependencies and build output are excluded from Git. Never put secrets in `VITE_*` variables, which are exposed to the browser.
