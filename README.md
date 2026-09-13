@@ -119,8 +119,8 @@ The training script requires complete annotations. It first evaluates pretrained
 then fine-tunes and evaluates the same 256 deterministically selected test IDs. Use a fresh
 output directory per run. The direct CLI accepts `--eval-limit 100000` for the full held-out
 partitions and `--checkpoint OpenTSLM/llama-3.2-1b-tsqa-flamingo` for the alternative.
-For a phase-only comparison, invoke `python -m open_relief.gpu artifacts/multimodal` without
-`--annotations`; the rationale target is then empty and explanation learning is not tested.
+`--annotations` is required; the runner refuses to fine-tune without complete rationale
+supervision for the full training partition.
 
 Training uses official architecture, collator, loss, LoRA and checkpoint methods, with
 batch size one and gradient accumulation eight, maximum ten epochs, and patience three.

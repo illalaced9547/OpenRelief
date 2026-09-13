@@ -1,0 +1,14 @@
+# GPU training image for scripts/train_gpu.sh / open_relief.gpu, built for Nebius Serverless AI Jobs.
+# Build and push before creating a job: Nebius does not build from this file itself.
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+COPY pyproject.toml requirements-gpu.txt ./
+COPY src ./src
+
+RUN pip install --no-cache-dir --upgrade pip \
+ && pip install --no-cache-dir -r requirements-gpu.txt
+
+ENTRYPOINT ["python", "-m", "open_relief.gpu"]
