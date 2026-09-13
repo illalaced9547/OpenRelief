@@ -82,3 +82,13 @@ This folder is independent of the Python pipeline in `../src/open_relief/`. Fron
 The current research pipeline predicts district-level IPC phase three months ahead. The UI's country risk percentages and 30/90/180-day choices are illustrative, not a direct representation of those outputs. Before connecting the model, agree on geographic aggregation, supported horizons, probability calibration and provenance. Unsupported countries should remain unavailable rather than receive synthetic live values.
 
 Vercel has been deployed through the CLI. A GitHub push does not imply automatic deployment unless the Vercel project is connected to this repository. When connecting it, use `frontend` as Root Directory. Local `.vercel/` account/project metadata, environment files, dependencies and build output are excluded from Git. Never put secrets in `VITE_*` variables, which are exposed to the browser.
+
+## Running the current model connection on Vercel
+
+The committed historical prediction snapshot is already connected to the map and country detail panels. It runs entirely as static frontend assets on Vercel, with no inference server or API key required. These are held-out district examples, not current national forecasts or calibrated hunger probabilities.
+
+For live inference, keep the CUDA service in `src/open_relief/serve.py` running on the GPU host with its checkpoint and prepared dataset. Check `/healthz` and `/countries`, then set the public HTTPS base URL as `VITE_INFERENCE_URL` in Vercel's OpenRelief project settings for the appropriate environments and redeploy. Vite embeds this URL at build time. It must not contain credentials. For local development, add the same variable to an ignored `.env.local` and restart Vite.
+
+The current endpoint accepts only `iso3` and an optional sample index. It does not accept a question or conversation: chat selects/formats answers locally using the returned model prediction. Repeated questions make new prediction requests (simultaneous requests for the same country share a request). On timeout or failure, chat uses the saved snapshot, then explicitly labeled demo responses.
+
+The current Python server explicitly requires CUDA and cannot run unchanged as a standard Vercel Function. A deployment entirely on Vercel supports browsing saved predictions and locally formatted answers; generating fresh predictions still needs the external GPU service. Training and periodic snapshot generation remain separate jobs.

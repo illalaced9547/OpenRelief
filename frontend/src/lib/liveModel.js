@@ -7,7 +7,7 @@
 //   the synthetic demo answers, if the endpoint is unreachable - see ModelChat.jsx.
 import snapshot from '../data/live-predictions.json';
 
-export const ENDPOINT = import.meta.env.VITE_INFERENCE_URL;
+export const ENDPOINT = import.meta.env.VITE_INFERENCE_URL?.trim().replace(/\/+$/, '');
 export const PHASE_LABEL = {1:'Minimal',2:'Stressed',3:'Crisis',4:'Emergency',5:'Famine'};
 export const SNAPSHOT_META = {
  generatedAt: snapshot.generated_at,
@@ -21,9 +21,7 @@ export function liveFor(iso3){
 
 const cache = {};
 
-// One real forward pass through the fine-tuned checkpoint per iso3 per session,
-// cached so re-asking a question doesn't re-run generation. Concurrent callers
-// for the same iso3 share one in-flight request.
+// Share concurrent requests for a country; later requests run inference again.
 export function fetchLive(iso3){
  if(!ENDPOINT||!iso3)return Promise.resolve(null);
  if(cache[iso3])return cache[iso3];
@@ -32,7 +30,7 @@ export function fetchLive(iso3){
  const promise=fetch(`${ENDPOINT}/predict?iso3=${iso3}`,{signal:controller.signal})
   .then(res=>{if(!res.ok)throw new Error(`inference endpoint returned ${res.status}`);return res.json()})
   .catch(err=>{console.warn('Live model call failed for',iso3,err);delete cache[iso3];return null})
-  .finally(()=>clearTimeout(timeout));
+  .finally(()=>{clearTimeout(timeout);delete cache[iso3]});
  cache[iso3]=promise;
  return promise;
 }
