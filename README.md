@@ -112,6 +112,11 @@ country coverage, channel missingness and temporal checks.
 
 ## Annotation: evidence, hypotheses and proposed actions
 
+An LLM-driven assessment pass over the dataset: `gpt-5.6-terra` analyzes each historical
+record's channels at scale (2,781 examples, cached responses, a budget ledger and bounded
+retries) and produces structured, per-example evidence and hypotheses below — an
+automated dataset-assessment pipeline, not a manual labeling pass.
+
 Keep the official OpenAI API key in `.env`, following `.env.example`; never include it in
 a handoff. The selected model is `gpt-5.6-terra`. It receives training records and their
 objective future phase, using strict JSON output. Recalled context and inference are
